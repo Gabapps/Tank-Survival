@@ -51,6 +51,7 @@ int main(void)
     if (!GLEW_VERSION_2_1)  // check that the machine supports the 2.1 API.
     	exit(EXIT_FAILURE);
 
+    float t = 0;
     Shader shader = {"Shaders/vertex.vert", "Shaders/fragment.frag",0,0,0};
     shader_load(&shader);
 
@@ -59,10 +60,14 @@ int main(void)
     float *vertices = mesh_get_vertices(&mesh);
     float *normals = mesh_get_normals(&mesh);
 
-    mat4x4 M, V, P, MVP;
-    vec3 pos = {-2,1.25,-3};
-    vec3 dir = {0,0,0};
-    vec3 up = {0,1,0};
+    // M : ModelView : Position du model dans l'espace
+    // V : View : Position de la camera
+    // P : Perspective : Perspective de la camera
+
+    mat4x4 M, V, P, MVP, tempM;
+    vec3 pos = {0,30,-20}; // Position de la camera dans l'espace
+    vec3 dir = {0,0,0}; // Cible de la camera dans l'espace
+    vec3 up = {0,1,0}; // Axe de la camera
     vec3 target;
 
     vec3_sub(target, dir, pos);
@@ -73,17 +78,24 @@ int main(void)
 
     mat4x4_perspective(P, 70.f, 640.f/480.f, 0.1f, 100.f);
 
-    mat4x4_mul(MVP, V, M);
-    mat4x4_mul(MVP, P, MVP);
-
     glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window))
     {
+    	if(glfwGetKey(window, GLFW_KEY_LEFT)==GLFW_PRESS)
+    		mat4x4_rotate_Y(M, M, -0.001f);
+    	if(glfwGetKey(window, GLFW_KEY_RIGHT)==GLFW_PRESS)
+    	    mat4x4_rotate_Y(M, M, 0.001f);
+    	if(glfwGetKey(window, GLFW_KEY_UP)==GLFW_PRESS)
+    		mat4x4_translate_in_place(M, 0,0,-0.001);
+    	//t = glfwGetTime();
 
-    	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        mat4x4_mul(MVP, V, M); // MVP = P * V * M
+        mat4x4_mul(MVP, P, MVP);
 
-    	glUseProgram(shader.program);
+    	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // On vide les tampons couleurs et profondeur
+
+    	glUseProgram(shader.program); // On verouille le shader
 
     	    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, vertices);
     	    glEnableVertexAttribArray(0);
@@ -94,7 +106,7 @@ int main(void)
     	    glUniformMatrix4fv(glGetUniformLocation(shader.program, "M"), 1, GL_FALSE, &M[0][0]);
     	    glUniformMatrix4fv(glGetUniformLocation(shader.program, "V"), 1, GL_FALSE, &V[0][0]);
     	    glUniformMatrix4fv(glGetUniformLocation(shader.program, "P"), 1, GL_FALSE, &P[0][0]);
-    	    glUniform3fv(glGetUniformLocation(shader.program, "target"), 1,target);
+    	    glUniform3fv(glGetUniformLocation(shader.program, "target"), 1,pos);
 
     	    glDrawArrays(GL_TRIANGLES, 0, mesh.f*3);
 

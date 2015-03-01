@@ -13,8 +13,8 @@
 #include <string.h>
 
 typedef struct {
-	float* vertices;
-	float* normals;
+	float* vertices; // x0 y0 z0 x1 y1 z1
+	float* normals; //
 	int* triangles;
 	int* normals_id;
 	int v,vn,f;
