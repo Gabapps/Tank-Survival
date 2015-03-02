@@ -16,6 +16,7 @@ Transform transform;
 float fov, near, far;
 mat4x4 view_matrix;
 }Camera;
+//Camera structure
 
 void camera_refresh_matrices();
 
