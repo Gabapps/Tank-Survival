@@ -14,10 +14,17 @@
 typedef struct Camera{
 Transform transform;
 float fov, near, far;
-mat4x4 view_matrix;
+mat4x4 perspective_matrix;
 }Camera;
-//Camera structure
 
-void camera_refresh_matrices();
+
+/**
+ * \fn void camera_refresh_matrices(Camera* cam)
+ * \brief Refresh the perspective and the view (in the transform) matrices.
+ *
+ * \param cam Camera to refresh
+ */
+
+void camera_refresh_matrices(Camera* cam);
 
 #endif /* CAMERA_H_ */
