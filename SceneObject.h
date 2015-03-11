@@ -8,6 +8,14 @@
 #ifndef SCENEOBJECT_H_
 #define SCENEOBJECT_H_
 
+#include <stdlib.h>
+
+#include "Shader.h"
+#include "Script.h"
+#include "Mesh.h"
+#include "Transform.h"
+#include "Scene.h"
+
 typedef struct SceneObject {
 	Transform transform;
 	char* name;
@@ -32,7 +40,6 @@ SceneObject* so_create(char* name, Transform t);
  * \brief Destroy a SceneObject.
  *
  * \param so SceneObject to destroy.
- * \return The new instantiated sceneObject.
  */
 void so_detroy(SceneObject* so);
 

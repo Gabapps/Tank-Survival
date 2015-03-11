@@ -181,6 +181,10 @@ static inline void vec4_reflect(vec4 r, vec4 v, vec4 n)
 
 typedef vec4 mat4x4[4];
 
+static inline float* mat4x4_ptr(mat4x4 M) {
+	return &M[0][0];
+}
+
 static inline void mat4x4_identity(mat4x4 M)
 {
 	int i, j;

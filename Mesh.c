@@ -38,7 +38,7 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 	mesh->f=f;
 	mesh->vertices = calloc(3*v, sizeof(float));
 	mesh->normals = calloc(3*vn, sizeof(float));
-	mesh->triangles = calloc(3*f, sizeof(int));
+	mesh->triangles_id = calloc(3*f, sizeof(int));
 	mesh->normals_id = calloc(3*f, sizeof(int));
 
 	rewind(file);
@@ -63,9 +63,9 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 			}
 			if(strcmp("f", buf)==0) {
 				fscanf(file, "%d//%d %d//%d %d//%d\n",
-								&(mesh->triangles[i*3]),&(mesh->normals_id[i*3]),
-								&(mesh->triangles[i*3+1]),&(mesh->normals_id[i*3+1]),
-								&(mesh->triangles[i*3+2]),&(mesh->normals_id[i*3+2]));
+								&(mesh->triangles_id[i*3]),&(mesh->normals_id[i*3]),
+								&(mesh->triangles_id[i*3+1]),&(mesh->normals_id[i*3+1]),
+								&(mesh->triangles_id[i*3+2]),&(mesh->normals_id[i*3+2]));
 				i++;
 				if(i==f) i=0;
 			}
@@ -81,7 +81,7 @@ float* mesh_get_vertices(Mesh* mesh) {
 
 	for(i=0; i<n; i++) {
 		for(j=0; j<3; j++) {
-			vertices[i*3+j]=mesh->vertices[(mesh->triangles[i]-1)*3+j];
+			vertices[i*3+j]=mesh->vertices[(mesh->triangles_id[i]-1)*3+j];
 		}
 	}
 
@@ -104,5 +104,5 @@ float* mesh_get_normals(Mesh* mesh) {
 void mesh_free(Mesh* mesh) {
 	free(mesh->vertices);
 	free(mesh->normals);
-	free(mesh->triangles);
+	free(mesh->triangles_id);
 }
