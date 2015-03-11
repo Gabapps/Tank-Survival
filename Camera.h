@@ -9,22 +9,33 @@
 #define CAMERA_H_
 
 #include "Transform.h"
+#include "Window.h"
 #include "Math.h"
 
 typedef struct Camera{
-Transform transform;
-float fov, near, far;
-mat4x4 perspective_matrix;
-}Camera;
+	//Transform transform;
+	float fov, near, far;
+	//The Clipping-Planes provide two parameters,
+	//Near and Far, to define the render-able range of a camera.
+	// c'est quoi fov?
+	mat4x4 perspective_matrix;
+} Camera;
 
+/*void camera_init(Camera* cam)
+ *
+ * \brief initialize the perspective and the view at the origin of the world
+ * \param cam Camera to initialize
+ *
+ */
+
+void camera_init(Camera* cam);
 
 /**
  * \fn void camera_refresh_matrices(Camera* cam)
  * \brief Refresh the perspective and the view (in the transform) matrices.
  *
- * \param cam Camera to refresh
+ * \param cam Camera to refresh.
  */
-
 void camera_refresh_matrices(Camera* cam);
 
 #endif /* CAMERA_H_ */
