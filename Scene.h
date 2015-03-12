@@ -8,16 +8,16 @@
 #ifndef SCENE_H_
 #define SCENE_H_
 
-#include "SceneObject.h"
+#include "GameEngine.h"
 #include "Camera.h"
 
-typedef struct Scene {
+struct Scene {
 	char* name;
 	SceneObject* sceneObjects;
 	int count;
 	Script* script;
 	Camera camera;
-} Scene;
+};
 
 Scene* scene_create();
 void scene_destroy(Scene* scene);

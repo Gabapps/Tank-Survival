@@ -8,16 +8,15 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
-#include "Scene.h"
-#include "SceneObject.h"
+#include "GameEngine.h"
 
 typedef void (*fct_script) (struct Script*, SceneObject*, Scene*);
 
-typedef struct Script {
+struct Script {
 	char* name;
 	fct_script setup;
-	fct_script run;;
-} Script;
+	fct_script run;
+};
 
 /**
  * \fn Script* script_create(char* name, fct_script setup_fct, fct_script run_fct)

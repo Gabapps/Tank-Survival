@@ -13,7 +13,7 @@
 #include "Math.h"
 
 typedef struct Camera{
-	//Transform transform;
+	Transform transform;
 	float fov, near, far;
 	//The Clipping-Planes provide two parameters,
 	//Near and Far, to define the render-able range of a camera.

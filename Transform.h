@@ -8,8 +8,8 @@
 #ifndef TRANSFORM_H_
 #define TRANSFORM_H_
 
+#include "GameEngine.h"
 #include "Math.h"
-#include "SceneObject.h"
 
 typedef struct Transform{
 	vec3 position;

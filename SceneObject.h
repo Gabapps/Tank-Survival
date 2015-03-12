@@ -10,20 +10,22 @@
 
 #include <stdlib.h>
 
+#include "GameEngine.h"
 #include "Shader.h"
 #include "Script.h"
 #include "Mesh.h"
 #include "Transform.h"
-#include "Scene.h"
+#include "Camera.h"
 
-typedef struct SceneObject {
+
+struct SceneObject {
 	Transform transform;
 	char* name;
 	Mesh* mesh;
 	Shader* shader;
 	Script* scripts;
 	int count_script;
-} SceneObject;
+};
 
 /**
  * \fn SceneObject* so_create(char* name, Transform t)
@@ -40,6 +42,7 @@ SceneObject* so_create(char* name, Transform t);
  * \brief Destroy a SceneObject.
  *
  * \param so SceneObject to destroy.
+ * \return The new instantiated sceneObject.
  */
 void so_detroy(SceneObject* so);
 
@@ -77,8 +80,8 @@ void so_run(SceneObject* so, Scene* sc);
  * \brief Render a sceneObject in the current scene.
  *
  * \param so The SceneObject to initiate.
- * \param sc The current Scene
+ * \param cam The current scene's camera.
  */
-void so_draw(SceneObject* so, Scene* sc);
+void so_draw(SceneObject* so, Camera* cam);
 
 #endif /* SCENEOBJECT_H_ */
