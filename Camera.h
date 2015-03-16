@@ -15,9 +15,6 @@
 typedef struct Camera{
 	Transform transform;
 	float fov, near, far;
-	//The Clipping-Planes provide two parameters,
-	//Near and Far, to define the render-able range of a camera.
-	// c'est quoi fov?
 	mat4x4 perspective_matrix;
 } Camera;
 
