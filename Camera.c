@@ -6,7 +6,6 @@
  */
 
 #include "Camera.h"
-#include "Transform.h"
 
 void camera_init(Camera* cam){
 	cam->fov = 70.f;
@@ -17,6 +16,6 @@ void camera_init(Camera* cam){
 
 void camera_refresh_matrices(Camera* cam){
 
-	transform_refresh_matrix(cam->transform);
+	transform_refresh_matrix(&(cam->transform));
 }
 

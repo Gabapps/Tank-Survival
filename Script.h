@@ -8,9 +8,9 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
-#include "GameEngine.h"
-
-typedef void (*fct_script) (struct Script*, SceneObject*, Scene*);
+typedef struct Script Script;
+typedef struct SceneObject SceneObject;
+typedef void (*fct_script) (Script*, SceneObject*);
 
 struct Script {
 	char* name;

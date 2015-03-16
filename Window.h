@@ -25,5 +25,6 @@ Window_s Window;
 
 int window_open();
 float window_get_ratio();
+GLFWwindow* window_get();
 
 #endif /* WINDOW_H_ */

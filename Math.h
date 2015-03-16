@@ -23,6 +23,12 @@ typedef float vec2[2];
 typedef float vec3[3];
 typedef float vec4[4];
 
+static inline void vec2_zero(vec2 r) {
+	int i;
+	for(i=0; i<2; ++i)
+		r[i] = 0;
+}
+
 static inline void vec2_add(vec2 r, vec2 const a, vec2 const b)
 {
 	int i;
@@ -62,6 +68,12 @@ static inline void vec2_norm(vec2 r, vec2 const v)
 {
 	float k = 1.0 / vec2_len(v);
 	vec2_scale(r, v, k);
+}
+
+static inline void vec3_zero(vec3 r) {
+	int i;
+	for(i=0; i<3; ++i)
+		r[i] = 0;
 }
 
 static inline void vec3_add(vec3 r, vec3 const a, vec3 const b)
@@ -104,6 +116,12 @@ static inline void vec3_norm(vec3 r, vec3 const v)
 {
 	float k = 1.0 / vec3_len(v);
 	vec3_scale(r, v, k);
+}
+
+static inline void vec4_zero(vec4 r) {
+	int i;
+	for(i=0; i<4; ++i)
+		r[i] = 0;
 }
 
 static inline void vec4_add(vec4 r, vec4 const a, vec4 const b)

@@ -10,7 +10,6 @@
 
 #include <stdlib.h>
 
-#include "GameEngine.h"
 #include "Shader.h"
 #include "Script.h"
 #include "Mesh.h"
@@ -18,14 +17,14 @@
 #include "Camera.h"
 
 
-struct SceneObject {
+typedef struct SceneObject {
 	Transform transform;
 	char* name;
 	Mesh* mesh;
 	Shader* shader;
 	Script* scripts;
 	int count_script;
-};
+} SceneObject;
 
 /**
  * \fn SceneObject* so_create(char* name, Transform t)
@@ -58,22 +57,20 @@ void so_detroy(SceneObject* so);
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t);
 
 /**
- * \fn so_init(SceneObject* so, Scene* sc)
+ * \fn so_init(SceneObject* so)
  * \brief Initiate all the script of a sceneObject.
  *
  * \param so The sceneObject to initiate.
- * \param sc The current Scene
  */
-void so_init(SceneObject* so, Scene* sc);
+void so_init(SceneObject* so);
 
 /**
- * \fn so_run(SceneObject* so, Scene* sc)
+ * \fn so_run(SceneObject* so)
  * \brief Run all the script of a sceneObject.
  *
  * \param so The sceneObject to run.
- * \param sc The current Scene
  */
-void so_run(SceneObject* so, Scene* sc);
+void so_run(SceneObject* so);
 
 /**
  * \fn so_draw(SceneObject* so, Camera* cam)
@@ -84,4 +81,14 @@ void so_run(SceneObject* so, Scene* sc);
  */
 void so_draw(SceneObject* so, Camera* cam);
 
+/**
+ * \fn SceneObject* so_from_transform(Transform*);
+ *
+ * \brief get a sceneObject associated to a transform.
+ * \param t The transform of a sceneObject.
+ * \return The sceneObject associated.
+ *
+ */
+
+SceneObject* so_from_transform(Transform* t);
 #endif /* SCENEOBJECT_H_ */

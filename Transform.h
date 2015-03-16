@@ -8,7 +8,6 @@
 #ifndef TRANSFORM_H_
 #define TRANSFORM_H_
 
-#include "GameEngine.h"
 #include "Math.h"
 
 typedef struct Transform{
@@ -18,18 +17,10 @@ typedef struct Transform{
 	mat4x4 matrix;
 } Transform;
 
-
-/* SceneObject* transform_get_so(Transform*);
- *
- * \brief get a sceneObject associated to a transform.
- * \param t The transform of a sceneObject.
- * \return The sceneObject associated.
- *
- */
-
-SceneObject* transform_get_so(Transform* t);
-
 void transform_refresh_matrix(Transform* t);
 
+Transform transform_origin();
+
+void transform_look_at(Transform* t, vec3 eye, vec3 center, vec3 up);
 
 #endif /* TRANSFORM_H_ */

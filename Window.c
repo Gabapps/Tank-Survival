@@ -32,3 +32,7 @@ float window_get_ratio()
 {
 	return (Window.width / Window.height);
 }
+
+GLFWwindow* window_get() {
+	return Window.window;
+}

@@ -18,7 +18,7 @@ typedef struct Camera{
 	mat4x4 perspective_matrix;
 } Camera;
 
-/*void camera_init(Camera* cam)
+/* \fn void camera_init(Camera* cam)
  *
  * \brief initialize the perspective and the view at the origin of the world
  * \param cam Camera to initialize

@@ -30,20 +30,20 @@ SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	return new_so;
 }
 
-void so_init(SceneObject* so, Scene* sc) {
+void so_init(SceneObject* so) {
 	int i;
 	for(i=0; i<so->count_script; i++)
-		so->scripts[i].setup(&(so->scripts[i]), so, sc);
+		so->scripts[i].setup(&(so->scripts[i]), so);
 }
 
-void so_run(SceneObject* so, Scene* sc) {
+void so_run(SceneObject* so) {
 	int i;
 	for(i=0; i<so->count_script; i++)
-		so->scripts[i].run(&(so->scripts[i]), so, sc);
+		so->scripts[i].run(&(so->scripts[i]), so);
 }
 
 void so_draw(SceneObject* so, Camera* cam) {
-	//transform_refresh_matrix(so->transform);
+	transform_refresh_matrix(&(so->transform));
 
 	glUseProgram(so->shader->program); // On verouille le shader
 
@@ -53,8 +53,8 @@ void so_draw(SceneObject* so, Camera* cam) {
 	glEnableVertexAttribArray(1);
 
 	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "M"), 1, GL_FALSE, mat4x4_ptr(so->transform.matrix));
-	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->perspective_matrix));
-	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "P"), 1, GL_FALSE, mat4x4_ptr(cam->transform.matrix));
+	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->transform.matrix));
+	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "P"), 1, GL_FALSE, mat4x4_ptr(cam->perspective_matrix));
 	//glUniform3fv(glGetUniformLocation(so->shader->program, "target"), 1,pos);
 
 	glDrawArrays(GL_TRIANGLES, 0, so->mesh->f*3);
@@ -63,4 +63,8 @@ void so_draw(SceneObject* so, Camera* cam) {
 	glDisableVertexAttribArray(0);
 
 	glUseProgram(0);
+}
+
+SceneObject* so_from_transform(Transform* t){
+	return (SceneObject*)t;
 }

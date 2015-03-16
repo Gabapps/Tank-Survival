@@ -15,5 +15,5 @@ void main()
 	normal = in_Normal;
     // Output position of the vertex, in clip space : MVP * position
     position = M * vec4(in_Vertex,1);
-	gl_Position =  M*V*P * vec4(in_Vertex,1);
+	gl_Position =  P*V*M * vec4(in_Vertex,1);
 }
