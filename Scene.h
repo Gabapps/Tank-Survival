@@ -8,23 +8,23 @@
 #ifndef SCENE_H_
 #define SCENE_H_
 
-#include "GameEngine.h"
 #include "Camera.h"
+#include "SceneObject.h"
 
-struct Scene {
-	char* name;
-	SceneObject* sceneObjects;
-	int count;
-	Script* script;
-	Camera camera;
-};
+typedef struct Scene {
+	char* name;					//Nom de la scene
+	SceneObject* sceneObjects;	//Tableau contenant les différents objets de la scene
+	int count;					//Nombre d'objets dans la scene
+	Script* script;				//Pour associer des fonctions à la scene
+	Camera camera;				//Camera liée à la scene
+} Scene;
 
-Scene* scene_create();
+Scene* scene_create(char* name);
 void scene_destroy(Scene* scene);
 void scene_setup(Scene* scene);
 void scene_run(Scene* scene);
-void scene_add_so(SceneObject* so);
-int scene_delete_so(SceneObject* so);
-SceneObject* scene_find_so(SceneObject* so);
+void scene_add_so(Scene* scene, SceneObject* so);
+int scene_delete_so(Scene* scene, SceneObject* so);
+int scene_find_so(Scene* scene, SceneObject* so);
 
 #endif /* SCENE_H_ */
