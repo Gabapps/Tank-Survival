@@ -32,7 +32,7 @@ Scene* scene_create(char* name)
 		}
 		new_scene->count = 0;
 		new_scene->script = NULL;
-		camera_init(new_scene->camera);
+		camera_init(&(new_scene->camera));
 	}
 	return new_scene;
 }
@@ -93,7 +93,7 @@ void scene_add_so(Scene* scene, SceneObject* so)
 		scene->sceneObjects = (SceneObject*)realloc((SceneObject*)scene->sceneObjects, 200 * sizeof(SceneObject*));
 	}
 
-	scene->sceneObjects[scene->count] = so;
+	//scene->sceneObjects[scene->count] = so;
 	scene->count++;
 }
 
@@ -127,9 +127,10 @@ int scene_delete_so(Scene* scene, SceneObject* so)
 			scene->sceneObjects = (SceneObject*)realloc((SceneObject*)scene->sceneObjects, 50 * sizeof(SceneObject*));
 		}
 
-		free(scene->sceneObjects[temp]);
+		so_detroy(&(scene->sceneObjects[temp]));
 		scene->sceneObjects[temp] = scene->sceneObjects[scene->count];
 		scene->count--;
+		return 1;
 	}
 }
 

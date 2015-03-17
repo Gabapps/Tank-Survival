@@ -8,14 +8,16 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
+#define define_script(type) char* name; void (*setup) (struct type*, SceneObject*); void (*run) (struct type*, SceneObject*);
+#define setup_script(type) void (*setup) (struct type*, SceneObject*)
+#define run_script(type) void (*run) (struct type*, SceneObject*)
+
 typedef struct Script Script;
 typedef struct SceneObject SceneObject;
 typedef void (*fct_script) (Script*, SceneObject*);
 
 struct Script {
-	char* name;
-	fct_script setup;
-	fct_script run;
+	define_script(Script);
 };
 
 /**
@@ -27,7 +29,7 @@ struct Script {
  * \param run_fct The run function of the script.
  * \return The new instantiated script.
  */
-Script* script_create(char* name, fct_script setup_fct, fct_script run_fct);
+Script* script_create(char* name, setup_script(Script), run_script(Script));
 
 /* \fn void script_destroy(Script* script)
  * \brief Destroy a script.

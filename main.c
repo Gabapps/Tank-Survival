@@ -8,6 +8,8 @@
 #include "Shader.h"
 #include "Mesh.h"
 #include "Math.h"
+#include "Input.h"
+#include "Scripts/Tank.h"
 
 static void error_callback(int error, const char* description)
 {
@@ -49,8 +51,14 @@ int main(void)
     Mesh mesh;
     mesh_load_from_obj(&mesh, "Models/Tank.obj");
 
+    Tank script;
+    script.name = "Tank";
+    script.setup = tank_setup;
+    script.run = tank_run;
+
     SceneObject *tank = so_create("Tank", transform_origin());
-    //tank->scripts;
+    tank->scripts=(Script*)&script;
+    tank->count_script=1;
     tank->mesh = &mesh;
     tank->shader = &shader;
 
@@ -61,12 +69,26 @@ int main(void)
 		up = {0,1,0};
     vec3_add(cam.transform.position, cam.transform.position, pos);
 
+    init_controlsTable();
+
+    controls_create("P1_up", GLFW_KEY_UP);
+    controls_create("P1_down", GLFW_KEY_DOWN);
+    controls_create("P1_left", GLFW_KEY_LEFT);
+    controls_create("P1_right", GLFW_KEY_RIGHT);
+
     // Scene script stop
+    time_init();
+
+    so_init(tank);
 
     glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window_get()))
     {
+    	input_update();
+    	time_update();
+    	so_run(tank);
+
     	camera_refresh_matrices(&cam);
     	transform_look_at(&(cam.transform),pos, center,up);
     	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // On vide les tampons couleurs et profondeur

@@ -70,6 +70,11 @@ static inline void vec2_norm(vec2 r, vec2 const v)
 	vec2_scale(r, v, k);
 }
 
+/*static inline float* vec3_create(float x, float y, float z) {
+	vec3 v = {x,y,z};
+	return v;
+}*/
+
 static inline void vec3_zero(vec3 r) {
 	int i;
 	for(i=0; i<3; ++i)
@@ -708,4 +713,17 @@ static inline void quat_from_mat4x4(quat q, mat4x4 M)
 	q[2] = (M[p[2]][p[0]] - M[p[0]][p[2]])/(2.f*r);
 	q[3] = (M[p[2]][p[1]] - M[p[1]][p[2]])/(2.f*r);
 }
+
+static inline void quat_from_euler_angles(quat q, vec3 euler_angles) {
+	/*
+	 * tvec3<T, P> c = glm::cos(eulerAngle * T(0.5));
+		tvec3<T, P> s = glm::sin(eulerAngle * T(0.5));
+
+		this->w = c.x * c.y * c.z + s.x * s.y * s.z;
+		this->x = s.x * c.y * c.z - c.x * s.y * s.z;
+		this->y = c.x * s.y * c.z + s.x * c.y * s.z;
+		this->z = c.x * c.y * s.z - s.x * s.y * c.z;
+	 */
+}
+
 #endif
