@@ -10,11 +10,13 @@
 
 #include "Camera.h"
 #include "SceneObject.h"
+#include "List.h"
+
+typelist(so, SceneObject*)
 
 typedef struct Scene {
 	char* name;					//Nom de la scene
-	SceneObject* sceneObjects;	//Tableau contenant les différents objets de la scene
-	int count;					//Nombre d'objets dans la scene
+	list_so* sceneObjects;	//Tableau contenant les différents objets de la scene
 	Script* script;				//Pour associer des fonctions à la scene
 	Camera camera;				//Camera liée à la scene
 } Scene;

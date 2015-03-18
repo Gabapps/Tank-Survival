@@ -12,12 +12,11 @@
 
 
 typedef struct Game_s{
-char* name;
-Scene* scenes;
-int count_scenes;
+	char* name;
+	Scene* scene;
 }Game_s;
 
-extern Game_s Game;
+Game_s Game;
 
 void game_launch();
 //int game_load_scenes();

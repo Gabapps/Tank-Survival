@@ -24,13 +24,7 @@ Scene* scene_create(char* name)
 	else
 	{
 		new_scene->name = name;
-		new_scene->sceneObjects = (SceneObject*)malloc(50*sizeof(SceneObject*));
-		if(new_scene->sceneObjects == NULL)
-		{
-			fprintf(stderr, "Error during the allocation of sceneObjects in the function scene_create");
-			return NULL;
-		}
-		new_scene->count = 0;
+		new_scene->sceneObjects = list_so_create();
 		new_scene->script = NULL;
 		camera_init(&(new_scene->camera));
 	}
@@ -46,6 +40,8 @@ Scene* scene_create(char* name)
  */
 void scene_destroy(Scene* scene)
 {
+	free(scene->name);
+	// TODO : add destroy list
 	free(scene);
 }
 
@@ -56,12 +52,12 @@ void scene_destroy(Scene* scene)
  *
  * \param scene The scene to setup
  */
-/*
+
 void scene_setup(Scene* scene)
 {
-	scene->script->setup;
+	scene->script->setup(scene->script, NULL);
 }
-*/
+
 
 
 /**
@@ -70,12 +66,12 @@ void scene_setup(Scene* scene)
  *
  * \param scene The scene to run
  */
-/*
+
 void scene_run(Scene* scene)
 {
-
+	scene->script->run(scene->script, NULL);
 }
-*/
+
 
 /**
  * \fn void scene_add_so(Scene* scene, SceneObject* so)
@@ -88,13 +84,7 @@ void scene_add_so(Scene* scene, SceneObject* so)
 {
 	//Ajoute so dans le tableau sceneObject de la structure scene
 
-	if(scene->count >= 49)
-	{
-		scene->sceneObjects = (SceneObject*)realloc((SceneObject*)scene->sceneObjects, 200 * sizeof(SceneObject*));
-	}
-
-	//scene->sceneObjects[scene->count] = so;
-	scene->count++;
+	list_so_put(scene->sceneObjects, so);
 }
 
 
@@ -109,29 +99,7 @@ void scene_add_so(Scene* scene, SceneObject* so)
  */
 int scene_delete_so(Scene* scene, SceneObject* so)
 {
-	//Retire so dans le tableau sceneObject de la structure scene
-
-	int temp = -1;
-
-	temp = scene_find_so(scene, so);
-
-	if(temp == -1)
-	{
-		fprintf(stderr, "Error during the research of sceneObjects in the function scene_delete_so");
-		return 0;
-	}
-	else
-	{
-		if(scene->count <= 49)
-		{
-			scene->sceneObjects = (SceneObject*)realloc((SceneObject*)scene->sceneObjects, 50 * sizeof(SceneObject*));
-		}
-
-		so_detroy(&(scene->sceneObjects[temp]));
-		scene->sceneObjects[temp] = scene->sceneObjects[scene->count];
-		scene->count--;
-		return 1;
-	}
+	return list_so_delete(scene->sceneObjects, so, 1);;
 }
 
 
@@ -142,18 +110,11 @@ int scene_delete_so(Scene* scene, SceneObject* so)
  * \param scene The scene
  * \param so The sceneObject to find in the scene
  */
-int scene_find_so(Scene* scene, SceneObject* so)
+/*int scene_find_so(Scene* scene, SceneObject* so)
 {
 	//Recherche so dans le tableau sceneobject de la structure scene
-	int i;
 
-	for(i=0; i<scene->count; i++)
-	{
-		if(scene->sceneObjects == so)
-		{
-			return i;
-		}
-	}
+	node_so* iterator = scene->sceneObjects->root;
 
 	return -1;
-}
+}*/
