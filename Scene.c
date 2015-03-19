@@ -41,7 +41,7 @@ Scene* scene_create(char* name)
 void scene_destroy(Scene* scene)
 {
 	free(scene->name);
-	// TODO : add destroy list
+	// TODO : add destroy list.
 	free(scene);
 }
 
@@ -55,7 +55,14 @@ void scene_destroy(Scene* scene)
 
 void scene_setup(Scene* scene)
 {
-	scene->script->setup(scene->script, NULL);
+	if(scene->script!=NULL)
+		scene->script->setup(scene->script, NULL);
+
+	node_so *iterator = scene->sceneObjects->root;
+	while(iterator != NULL) {
+		so_setup(iterator->value);
+		iterator = iterator->next;
+	}
 }
 
 
@@ -69,7 +76,24 @@ void scene_setup(Scene* scene)
 
 void scene_run(Scene* scene)
 {
-	scene->script->run(scene->script, NULL);
+	if(scene->script!=NULL)
+		scene->script->run(scene->script, NULL);
+
+	node_so *iterator = scene->sceneObjects->root;
+	while(iterator != NULL) {
+		so_run(iterator->value);
+		iterator = iterator->next;
+	}
+}
+
+void scene_draw(Scene* scene) {
+	//camera_refresh_matrices(&(scene->camera)); //TODO : uncomment when ready.
+
+	node_so *iterator = scene->sceneObjects->root;
+	while(iterator != NULL) {
+		so_draw(iterator->value, &(scene->camera));
+		iterator = iterator->next;
+	}
 }
 
 

@@ -20,6 +20,8 @@ typedef struct {
 	int v,vn,f;
 } Mesh;
 
+Mesh* mesh_create();
+
 int mesh_load_from_obj(Mesh* mesh, char* filename);
 
 void mesh_send_to_shader(Mesh* mesh);

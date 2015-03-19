@@ -35,7 +35,7 @@ typedef struct
     GLuint fragment;
 } Shader;
 
-Shader shader_create(char* vertex, char* fragment);
+Shader* shader_create(char* vertex, char* fragment);
 
 void shader_free(Shader* shader);
 

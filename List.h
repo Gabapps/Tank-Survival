@@ -21,27 +21,27 @@ typedef struct list_##name { \
 	node_##name* root; \
 } list_##name; \
 \
-list_##name* list_##name##_create(); \
-node_##name* node_##name##_create(type value); \
-void list_##name##_put(list_##name* list, type value); \
-int list_##name##_delete(list_##name* list, type value, int freevalue); \
-void node_##name##_delete(node_##name* node, int freevalue); \
+static inline list_##name* list_##name##_create(); \
+static inline node_##name* node_##name##_create(type value); \
+static inline void list_##name##_put(list_##name* list, type value); \
+static inline int list_##name##_delete(list_##name* list, type value, int freevalue); \
+static inline void node_##name##_delete(node_##name* node, int freevalue); \
 \
-list_##name* list_##name##_create() { \
+static inline list_##name* list_##name##_create() { \
 	list_##name* list = (list_##name*) malloc(sizeof(list_##name)); \
 	list->count = 0; \
 	list->root = NULL; \
 	return list; \
 } \
 \
-node_##name* node_##name##_create(type value) { \
+static inline node_##name* node_##name##_create(type value) { \
 	node_##name* node = (node_##name*) malloc(sizeof(node_##name)); \
 	node->value = value; \
 	node->next = NULL; \
 	return node; \
 } \
 \
-void list_##name##_put(list_##name* list, type value) { \
+static inline void list_##name##_put(list_##name* list, type value) { \
 	node_##name* iterator = list->root; \
 	if(iterator==NULL) { \
 		list->root = node_##name##_create(value); \
@@ -53,7 +53,7 @@ void list_##name##_put(list_##name* list, type value) { \
 	list->count++; \
 } \
 \
-int list_##name##_delete(list_##name* list, type value, int freevalue) { \
+static inline int list_##name##_delete(list_##name* list, type value, int freevalue) { \
 	if(list->count==0) return 0; \
 	else { \
 		node_##name *iterator = list->root, *temp; \
@@ -75,7 +75,7 @@ int list_##name##_delete(list_##name* list, type value, int freevalue) { \
 	} \
 } \
 \
-void node_##name##_delete(node_##name* node, int freevalue) { \
+static inline void node_##name##_delete(node_##name* node, int freevalue) { \
 	if(freevalue) free(node->value); \
 	free(node); \
 }

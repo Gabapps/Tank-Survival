@@ -8,9 +8,6 @@
 #ifndef SCRIPTS_TANK_H_
 #define SCRIPTS_TANK_H_
 
-#include "../Script.h"
-#include "../Time.h"
-
 typedef struct Tank {
 	define_script(Tank);
 	float speed;

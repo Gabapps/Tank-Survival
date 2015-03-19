@@ -7,6 +7,17 @@
 
 #include "Mesh.h"
 
+Mesh* mesh_create() {
+	Mesh *mesh = (Mesh*)malloc(sizeof(Mesh));
+	mesh->f = 0;
+	mesh->v = 0;
+	mesh->vn = 0;
+	mesh->normals = NULL;
+	mesh->vertices = NULL;
+	mesh->triangles_id = NULL;
+	mesh->normals_id = NULL;
+	return mesh;
+}
 
 int mesh_load_from_obj(Mesh* mesh, char* filename) {
 

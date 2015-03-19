@@ -1,7 +1,12 @@
 #include "Shader.h"
 
-Shader shader_create(char* vertex, char* fragment) {
-	Shader shader = {vertex, fragment, 0,0,0};
+Shader* shader_create(char* vertex, char* fragment) {
+	Shader *shader = (Shader*) malloc(sizeof(Shader));
+	shader->vertex_shader = vertex;
+	shader->fragment_shader = fragment;
+	shader->program = 0;
+	shader->vertex = 0;
+	shader->fragment = 0;
 	return shader;
 }
 

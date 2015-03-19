@@ -12,7 +12,7 @@
 #include "SceneObject.h"
 #include "List.h"
 
-typelist(so, SceneObject*)
+typelist(so, SceneObject*);
 
 typedef struct Scene {
 	char* name;					//Nom de la scene
@@ -25,6 +25,7 @@ Scene* scene_create(char* name);
 void scene_destroy(Scene* scene);
 void scene_setup(Scene* scene);
 void scene_run(Scene* scene);
+void scene_draw(Scene* scene);
 void scene_add_so(Scene* scene, SceneObject* so);
 int scene_delete_so(Scene* scene, SceneObject* so);
 int scene_find_so(Scene* scene, SceneObject* so);

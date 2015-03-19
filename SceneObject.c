@@ -13,8 +13,7 @@ SceneObject* so_create(char* name, Transform t) {
 	so->name=name;
 	so->mesh=NULL;
 	so->shader=NULL;
-	so->scripts=NULL;
-	so->count_script=0;
+	so->scripts=list_script_create();
 	return so;
 }
 
@@ -25,21 +24,26 @@ void so_detroy(SceneObject* so) {
 
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	SceneObject* new_so = (SceneObject*)malloc(sizeof(SceneObject));
-	*new_so=*so;
-	new_so->transform=t;
+	*new_so = *so;
+	new_so->transform = t;
+	new_so->scripts = list_script_create();
 	return new_so;
 }
 
-void so_init(SceneObject* so) {
-	int i;
-	for(i=0; i<so->count_script; i++)
-		so->scripts[i].setup(&(so->scripts[i]), so);
+void so_setup(SceneObject* so) {
+	node_script *iterator = so->scripts->root;
+	while(iterator != NULL) {
+		iterator->value->setup(iterator->value, so);
+		iterator = iterator->next;
+	}
 }
 
 void so_run(SceneObject* so) {
-	int i;
-	for(i=0; i<so->count_script; i++)
-		so->scripts[i].run(&(so->scripts[i]), so);
+	node_script *iterator = so->scripts->root;
+	while(iterator != NULL) {
+		iterator->value->run(iterator->value, so);
+		iterator = iterator->next;
+	}
 }
 
 void so_draw(SceneObject* so, Camera* cam) {
@@ -67,4 +71,8 @@ void so_draw(SceneObject* so, Camera* cam) {
 
 SceneObject* so_from_transform(Transform* t){
 	return (SceneObject*)t;
+}
+
+void so_add_script(SceneObject* so, Script* script) {
+	list_script_put(so->scripts, script);
 }

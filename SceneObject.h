@@ -15,15 +15,16 @@
 #include "Mesh.h"
 #include "Transform.h"
 #include "Camera.h"
+#include "List.h"
 
+typelist(script, Script*);
 
 typedef struct SceneObject {
 	Transform transform;
 	char* name;
 	Mesh* mesh;
 	Shader* shader;
-	Script* scripts;
-	int count_script;
+	list_script* scripts;
 } SceneObject;
 
 /**
@@ -57,12 +58,12 @@ void so_detroy(SceneObject* so);
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t);
 
 /**
- * \fn so_init(SceneObject* so)
+ * \fn so_setup(SceneObject* so)
  * \brief Initiate all the script of a sceneObject.
  *
  * \param so The sceneObject to initiate.
  */
-void so_init(SceneObject* so);
+void so_setup(SceneObject* so);
 
 /**
  * \fn so_run(SceneObject* so)
@@ -89,6 +90,9 @@ void so_draw(SceneObject* so, Camera* cam);
  * \return The sceneObject associated.
  *
  */
-
 SceneObject* so_from_transform(Transform* t);
+
+
+void so_add_script(SceneObject* so, Script* script);
+
 #endif /* SCENEOBJECT_H_ */
