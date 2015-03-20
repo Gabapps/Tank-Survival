@@ -24,8 +24,11 @@ void tank_run(Tank* tank, SceneObject* so) {
 	vec3 v = {0,0,-tank->speed};
 	vec3_scale(v,v,Time.deltaTime);
 
-	if(input_keypressed("P1_up")) {
+	/*if(input_keypressed("P1_up")) {
 		transform_translate(&(so->transform), v);
+	}*/
+	if(input_keypressed("P1_up")) {
+		transform_rotateY(&(so->transform), 100*Time.deltaTime);
 	}
 }
 

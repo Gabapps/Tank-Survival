@@ -31,3 +31,23 @@ void transform_look_at(Transform* t, vec3 eye, vec3 center, vec3 up) {
 void transform_translate(Transform* t, vec3 vec) {
 	vec3_add(t->position, t->position, vec);
 }
+
+void transform_quatY(Transform* t, float angle){
+	vec3 axisY = {0,1,0};
+	quat_create(t->rotation, axisY,angle);
+}
+void transform_quatX(Transform* t, float angle){
+	vec3 axisX = {1,0,0};
+	quat_create(t->rotation,axisX,angle);
+}
+void transform_quatZ(Transform* t, float angle){
+	vec3 axisZ = {0,0,1};
+	quat_create(t->rotation,axisZ,angle);
+}
+
+void transform_rotateY(Transform* t, float angle) {
+	vec3 axisY = {0,1,0};
+	quat delta;
+	quat_create(delta, axisY,angle);
+	quat_mul(t->rotation,t->rotation,delta);
+	}

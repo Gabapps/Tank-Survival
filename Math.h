@@ -574,6 +574,37 @@ static inline void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 up)
 
 typedef float quat[4];
 
+static inline void quat_scale(quat r, quat v, float s)
+{
+	int i;
+	for(i=0; i<4; ++i)
+		r[i] = v[i] * s;
+}
+
+static inline float quat_magnitude(quat q)
+{
+    return sqrtf(q[3] * q[3] + q[0] * q[0] + q[1] * q[1] + q[2] * q[2]);
+}
+
+static inline void quat_normalize(quat q){
+	quat_scale(q,q,1/quat_magnitude(q));
+}
+
+static inline void quat_create(quat q, vec3 vec, float angle)
+{
+	/*
+	 * x = RotationAxis.x * sin(RotationAngle / 2)
+	   y = RotationAxis.y * sin(RotationAngle / 2)
+       z = RotationAxis.z * sin(RotationAngle / 2)
+       w = cos(RotationAngle / 2)
+	 */
+	q[0]=vec[0]*sinf(angle/2);
+	q[1]=vec[1]*sinf(angle/2);
+	q[2]=vec[2]*sinf(angle/2);
+	q[3]=cosf(angle/2);
+	quat_normalize(q);
+}
+
 static inline void quat_identity(quat q)
 {
 	q[0] = q[1] = q[2] = 0.f;
@@ -603,14 +634,9 @@ static inline void quat_mul(quat r, quat p, quat q)
 	vec3_scale(w, q, p[3]);
 	vec3_add(r, r, w);
 	r[3] = p[3]*q[3] - vec3_mul_inner(p, q);
+	quat_normalize(r);
 }
 
-static inline void quat_scale(quat r, quat v, float s)
-{
-	int i;
-	for(i=0; i<4; ++i)
-		r[i] = v[i] * s;
-}
 
 static inline float quat_inner_product(quat a, quat b)
 {

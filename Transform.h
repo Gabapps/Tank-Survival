@@ -25,4 +25,10 @@ void transform_look_at(Transform* t, vec3 eye, vec3 center, vec3 up); //not impl
 
 void transform_translate(Transform* t, vec3 vec);
 
+void transform_quatY(Transform* t, float angle);
+void transform_quatX(Transform* t, float angle);
+void transform_quatZ(Transform* t, float angle);
+
+void transform_rotateY(Transform* t, float angle);
+
 #endif /* TRANSFORM_H_ */
