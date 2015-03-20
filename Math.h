@@ -627,13 +627,18 @@ static inline void quat_sub(quat r, quat a, quat b)
 
 static inline void quat_mul(quat r, quat p, quat q)
 {
-	vec3 w;
+	/*vec3 w;
 	vec3_mul_cross(r, p, q);
 	vec3_scale(w, p, q[3]);
 	vec3_add(r, r, w);
 	vec3_scale(w, q, p[3]);
 	vec3_add(r, r, w);
 	r[3] = p[3]*q[3] - vec3_mul_inner(p, q);
+	quat_normalize(r);*/
+	r[3] = p[3] * q[3] - p[0] * q[0] - p[1] * q[1] - p[2] * q[2];
+	r[0] = p[3] * q[0] + p[0] * q[3] + p[1] * q[2] - p[2] * q[1];
+	r[1] = p[3] * q[1] + p[1] * q[3] + p[2] * q[0] - p[0] * q[2];
+	r[2] = p[3] * q[2] + p[2] * q[3] + p[0] * q[1] - p[1] * q[0];
 	quat_normalize(r);
 }
 
@@ -745,7 +750,7 @@ static inline void quat_from_euler_angles(quat q, vec3 euler_angles) {
 	 * tvec3<T, P> c = glm::cos(eulerAngle * T(0.5));
 		tvec3<T, P> s = glm::sin(eulerAngle * T(0.5));
 
-		this->w = c.x * c.y * c.z + s.x * s.y * s.z;
+		this->w = c.x * c[2] * c.z + s.x * s.y * s.z;
 		this->x = s.x * c.y * c.z - c.x * s.y * s.z;
 		this->y = c.x * s.y * c.z + s.x * c.y * s.z;
 		this->z = c.x * c.y * s.z - s.x * s.y * c.z;

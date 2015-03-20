@@ -28,7 +28,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 		transform_translate(&(so->transform), v);
 	}*/
 	if(input_keypressed("P1_up")) {
-		transform_rotateY(&(so->transform), 100*Time.deltaTime);
+		transform_rotateY(&(so->transform), Time.deltaTime);
 	}
 }
 
