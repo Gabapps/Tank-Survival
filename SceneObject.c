@@ -24,7 +24,9 @@ void so_detroy(SceneObject* so) {
 
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	SceneObject* new_so = (SceneObject*)malloc(sizeof(SceneObject));
-	*new_so = *so;
+	new_so->name = name;
+	new_so->mesh = so->mesh;
+	new_so->shader = so->shader;
 	new_so->transform = t;
 	new_so->scripts = list_script_create();
 	return new_so;
@@ -47,26 +49,28 @@ void so_run(SceneObject* so) {
 }
 
 void so_draw(SceneObject* so, Camera* cam) {
-	transform_refresh_matrix(&(so->transform));
+	if(so->mesh != NULL && so->shader != NULL) {
+		transform_refresh_matrix(&(so->transform));
 
-	glUseProgram(so->shader->program); // On verouille le shader
+		glUseProgram(so->shader->program); // On verouille le shader
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, mesh_get_vertices(so->mesh));
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, mesh_get_normals(so->mesh));
-	glEnableVertexAttribArray(1);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, so->mesh->vertices);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, so->mesh->normals);
+		glEnableVertexAttribArray(1);
 
-	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "M"), 1, GL_FALSE, mat4x4_ptr(so->transform.matrix));
-	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->transform.matrix));
-	glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "P"), 1, GL_FALSE, mat4x4_ptr(cam->perspective_matrix));
-	//glUniform3fv(glGetUniformLocation(so->shader->program, "target"), 1,pos);
+		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "M"), 1, GL_FALSE, mat4x4_ptr(so->transform.matrix));
+		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->transform.matrix));
+		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "P"), 1, GL_FALSE, mat4x4_ptr(cam->perspective_matrix));
+		//glUniform3fv(glGetUniformLocation(so->shader->program, "target"), 1,pos);
 
-	glDrawArrays(GL_TRIANGLES, 0, so->mesh->f*3);
+		glDrawArrays(GL_TRIANGLES, 0, so->mesh->f*3);
 
-	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(0);
 
-	glUseProgram(0);
+		glUseProgram(0);
+	}
 }
 
 SceneObject* so_from_transform(Transform* t){

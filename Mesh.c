@@ -83,6 +83,12 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 		}
 
 	fclose(file);
+
+	float *temp_vertices = mesh->vertices, *temp_normals = mesh->normals;
+	mesh->vertices = mesh_get_vertices(mesh);
+	mesh->normals = mesh_get_normals(mesh);
+	free(temp_vertices);
+	free(temp_normals);
 	return 1;
 }
 

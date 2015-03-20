@@ -14,6 +14,8 @@ typedef struct SceneScript {
 	define_script(SceneScript);
 } SceneScript;
 
+void sc_duplicate_so(SceneObject *tank);
+
 void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	Shader *shader = shader_create("Shaders/vertex.vert", "Shaders/fragment.frag");
 	shader_load(shader);
@@ -39,6 +41,8 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	//vec3_add(cam.transform.position, cam.transform.position, pos);
 	transform_look_at(&(cam.transform),pos, center,up);
 
+	sc_duplicate_so(tank);
+
 	Game.scene->camera = cam;
 
 	init_controlsTable();
@@ -53,6 +57,17 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 void sc_run(SceneScript* tank, SceneObject* so) {
 
+}
+
+void sc_duplicate_so(SceneObject *tank) {
+	int i;
+
+	for(i=0; i<10; i++) {
+		vec3 delta = {i*3,0,0};
+		SceneObject* new_tank = so_duplicate(tank, "Tank", tank->transform);
+		transform_translate(&(new_tank->transform), delta);
+		scene_add_so(Game.scene, new_tank);
+	}
 }
 
 #endif /* SCRIPTS_SCENESCRIPT_H_ */
