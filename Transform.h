@@ -21,6 +21,8 @@ void transform_refresh_matrix(Transform* t);
 
 Transform transform_origin();
 
+Transform transform_xyz(float x, float y, float z);
+
 void transform_look_at(Transform* t, vec3 eye, vec3 center, vec3 up); //not implemented
 
 void transform_translate(Transform* t, vec3 vec);

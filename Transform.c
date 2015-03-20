@@ -24,6 +24,18 @@ Transform transform_origin() {
 	return t;
 }
 
+Transform transform_xyz(float x, float y, float z)
+{
+	Transform t;
+	t.position[0] = x;
+	t.position[1] = y;
+	t.position[2] = z;
+	vec3_zero(t.scale);
+	quat_identity(t.rotation);
+	mat4x4_identity(t.matrix);
+	return t;
+}
+
 void transform_look_at(Transform* t, vec3 eye, vec3 center, vec3 up) {
 	mat4x4_look_at(t->matrix, eye, center, up);
 }
