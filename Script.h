@@ -8,9 +8,9 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
-#define define_script(type) \
-	char* name; \
-	void (*setup) (struct type*, SceneObject*); \
+#define define_script(type)\
+	char* name;\
+	void (*setup) (struct type*, SceneObject*);\
 	void (*run) (struct type*, SceneObject*);
 #define setup_script(type) void (*setup) (struct type*, SceneObject*)
 #define run_script(type) void (*run) (struct type*, SceneObject*)
