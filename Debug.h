@@ -8,8 +8,12 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
-typedef struct Debug_s {
+#include "List.h"
 
+typelist(vec, float*);
+
+typedef struct Debug_s {
+	list_vec vec;
 } Debug_s;
 
 Debug_s Debug;
