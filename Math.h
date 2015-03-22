@@ -160,6 +160,26 @@ static inline float vec4_mul_inner(vec4 const a, vec4 const b)
 	return p;
 }
 
+static inline void vec4_mul(vec4 r, vec4 const a, vec4 const b, vec4 const c)
+{
+	r[0] = a[0]*b[0]*-c[0] +
+			a[0]*b[1]*-c[1] +
+			a[0]*b[2]*-c[2] +
+			a[0]*b[3]*c[3];
+	r[1] = a[1]*b[0]*-c[0] +
+			a[1]*b[1]*-c[1] +
+			a[1]*b[2]*-c[2] +
+			a[1]*b[3]*c[3];
+	r[2] = a[2]*b[0]*-c[0] +
+			a[2]*b[1]*-c[1] +
+			a[2]*b[2]*-c[2] +
+			a[2]*b[3]*c[3];
+	r[3] = a[3]*b[0]*-c[0] +
+			a[3]*b[1]*-c[1] +
+			a[3]*b[2]*-c[2] +
+			a[3]*b[3]*c[3];
+}
+
 static inline float vec4_len(vec4 const v)
 {
 	return sqrtf(vec4_mul_inner(v,v));
@@ -574,20 +594,13 @@ static inline void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 up)
 
 typedef float quat[4];
 
+#define quat_norm vec4_norm
+
 static inline void quat_scale(quat r, quat v, float s)
 {
 	int i;
 	for(i=0; i<4; ++i)
 		r[i] = v[i] * s;
-}
-
-static inline float quat_magnitude(quat q)
-{
-    return sqrtf(q[3] * q[3] + q[0] * q[0] + q[1] * q[1] + q[2] * q[2]);
-}
-
-static inline void quat_normalize(quat q){
-	quat_scale(q,q,1/quat_magnitude(q));
 }
 
 static inline void quat_create(quat q, vec3 vec, float angle)
@@ -602,7 +615,7 @@ static inline void quat_create(quat q, vec3 vec, float angle)
 	q[1]=vec[1]*sinf(angle/2);
 	q[2]=vec[2]*sinf(angle/2);
 	q[3]=cosf(angle/2);
-	quat_normalize(q);
+	quat_norm(q,q);
 }
 
 static inline void quat_identity(quat q)
@@ -639,7 +652,9 @@ static inline void quat_mul(quat r, quat p, quat q)
 	r[0] = p[3] * q[0] + p[0] * q[3] + p[1] * q[2] - p[2] * q[1];
 	r[1] = p[3] * q[1] + p[1] * q[3] + p[2] * q[0] - p[0] * q[2];
 	r[2] = p[3] * q[2] + p[2] * q[3] + p[0] * q[1] - p[1] * q[0];
-	quat_normalize(r);
+
+	if(vec4_len(q)!=0)
+		quat_norm(r,r);
 }
 
 
@@ -662,15 +677,14 @@ static inline void quat_conj(quat r, quat q)
 	r[3] = q[3];
 }
 
-#define quat_norm vec4_norm
-
 static inline void quat_mul_vec3(vec3 r, quat q, vec3 v)
 {
 	quat v_ = {v[0], v[1], v[2], 0.f};
 	quat_conj(r, q);
-	quat_norm(r, r);
-	quat_mul(r, v_, r);
-	quat_mul(r, q, r);
+	//quat_norm(r, r);
+	//quat_mul(r, v_, r);
+	//quat_mul(r, q, r);
+	vec4_mul(r, q, v_, q);
 }
 
 static inline void mat4x4_from_quat(mat4x4 M, quat q)

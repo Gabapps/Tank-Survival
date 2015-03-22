@@ -32,7 +32,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	script->setup = tank_setup;
 	script->run = tank_run;
 
-	SceneObject *tank = so_create("Tank", transform_xyz(27,0,27));
+	SceneObject *tank = so_create("Tank", transform_xyz(3,0,3));
 	so_add_script(tank, (Script*)script);
 	tank->mesh = mesh;
 	tank->shader = shader;
@@ -84,7 +84,7 @@ void sc_map(Shader* shader)
 		{
 			transform_map = transform_origin();
 			vec3 vec = {i,0,MAPWIDTH-j-1};
-			transform_translate(&transform_map, vec);
+			transform_translate_world(&transform_map, vec);
 			fscanf(map, "%d ", &test);
 			if(test == 1)
 			{
