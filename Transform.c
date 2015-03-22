@@ -42,7 +42,9 @@ void transform_translate_world(Transform* t, vec3 vec) {
 }
 
 void transform_translate(Transform* t, vec3 vec) {
-	quat_mul_vec3(vec, t->rotation, vec);
+	mat4x4 rotation;
+	mat4x4_from_quat(rotation, t->rotation);
+	mat4x4_mul_vec3(vec, rotation, vec);
 	vec3_add(t->position, t->position, vec);
 }
 
