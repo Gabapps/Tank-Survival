@@ -123,6 +123,13 @@ static inline void vec3_norm(vec3 r, vec3 const v)
 	vec3_scale(r, v, k);
 }
 
+static inline void vec3_duplicate(vec3 r, vec3 v){
+	int i;
+	for(i=0; i<3; ++i){
+		r[i]=v[i];
+	}
+}
+
 static inline void vec4_zero(vec4 r) {
 	int i;
 	for(i=0; i<4; ++i)
@@ -220,6 +227,13 @@ static inline void vec4_reflect(vec4 r, vec4 v, vec4 n)
 	int i;
 	for(i=0;i<4;++i)
 		r[i] = v[i] - p*n[i];
+}
+
+static inline void vec4_duplicate(vec4 r, vec4 v){
+	int i;
+	for(i=0; i<4; ++i){
+		r[i]=v[i];
+	}
 }
 
 typedef vec4 mat4x4[4];
