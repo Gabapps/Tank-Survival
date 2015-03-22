@@ -68,6 +68,7 @@ int main(void)
 
     	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // On vide les tampons couleurs et profondeur
 
+    	debug_draw();
     	scene_draw(Game.scene);
 
         glfwSwapBuffers(window_get());
