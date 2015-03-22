@@ -31,7 +31,7 @@ void debug_draw() {
 	while(iterator != NULL) {
 		glUseProgram(Debug.shader.program); // On verouille le shader
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, iterator.value);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, iterator->value);
 		glEnableVertexAttribArray(0);
 
 		glDrawArrays(GL_LINE, 0, 6);
@@ -39,7 +39,7 @@ void debug_draw() {
 		glDisableVertexAttribArray(0);
 
 		glUseProgram(0);
-		list_vec_delete(Debug.vec, iterator.value, 1);
+		list_vec_delete(&(Debug.vec), iterator->value, 1);
 		iterator = iterator->next;
 	}
 }
