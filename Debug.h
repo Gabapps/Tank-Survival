@@ -8,20 +8,22 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
+#include "Shader.h"
 #include "List.h"
 
 typelist(vec, float*);
 
 typedef struct Debug_s {
 	list_vec vec;
+	Shader shader;
 } Debug_s;
 
 Debug_s Debug;
 
-debug_init();
+void debug_init();
 
-debug_show_vec(vec3 pos, vec3 vec, float scale);
+void debug_show_vec(vec3 pos, vec3 vec, float scale);
 
-debug_draw();
+void debug_draw();
 
 #endif /* DEBUG_H_ */

@@ -7,11 +7,11 @@
 
 #include "Debug.h"
 
-debug_init(){
+void debug_init(){
 	Debug.vec = *(list_vec_create()) ;
 }
 
-debug_show_vec(vec3 pos, vec3 vec, float scale){
+void debug_show_vec(vec3 pos, vec3 vec, float scale){
 	float* tab_pos = malloc(6*sizeof(float));
 	vec3 vec_copy;
 	vec3_duplicate(vec_copy, vec);
@@ -23,4 +23,23 @@ debug_show_vec(vec3 pos, vec3 vec, float scale){
 	tab_pos[3]=pos[0];
 	tab_pos[4]=pos[1];
 	tab_pos[5]=pos[2];
+}
+
+void debug_draw() {
+	node_vec* iterator = Debug.vec.root;
+
+	while(iterator != NULL) {
+		glUseProgram(Debug.shader.program); // On verouille le shader
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, iterator.value);
+		glEnableVertexAttribArray(0);
+
+		glDrawArrays(GL_LINE, 0, 6);
+
+		glDisableVertexAttribArray(0);
+
+		glUseProgram(0);
+		list_vec_delete(Debug.vec, iterator.value, 1);
+		iterator = iterator->next;
+	}
 }
