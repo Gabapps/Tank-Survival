@@ -8,9 +8,6 @@
 #ifndef DEBUG_H_
 #define DEBUG_H_
 
-
-#include <GL/glew.h>
-
 #include "Shader.h"
 #include "Math.h"
 #include "List.h"
