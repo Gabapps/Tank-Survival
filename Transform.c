@@ -7,6 +7,7 @@
 
 #include "Transform.h"
 
+
 void transform_refresh_matrix(Transform* t){
 	mat4x4 translation;
 	mat4x4_from_quat(t->matrix, t->rotation);
@@ -42,10 +43,24 @@ void transform_translate_world(Transform* t, vec3 vec) {
 }
 
 void transform_translate(Transform* t, vec3 vec) {
+	vec4 vec2;
+	quat conj;
+	vec2[0]=vec[0];
+	vec2[0]=vec[1];
+	vec2[0]=vec[2];
+	vec2[0]=vec[3];
 	mat4x4 rotation;
+	//mat4x4 translation;
+	//vec3 position;
 	mat4x4_from_quat(rotation, t->rotation);
-	mat4x4_mul_vec3(vec, rotation, vec);
-	vec3_add(t->position, t->position, vec);
+	//mat4x4_mul(rotation, translation, rotation);
+	/*mat4x4_mul_vec4(vec2, rotation, vec2);
+	vec3_add(t->position, vec_copy, t->position);*/
+	vec4_mul(vec2, t->rotation, vec2);
+	quat_conj(conj, t->rotation, conj);
+	vec4_mul(vec2,conj,vec2);
+	mat4x4_mul_vec4(vec2, rotation, vec2);
+	vec3_add(t->position, vec2, t->position);
 }
 
 void transform_quatY(Transform* t, float angle){
