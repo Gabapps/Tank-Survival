@@ -18,9 +18,15 @@ void tank_setup(Tank* tank, SceneObject* so) {
 }
 
 void tank_run(Tank* tank, SceneObject* so) {
-	vec3 v = {0,0,-tank->speed};
+	vec3 v = {tank->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
 
+	if(input_keypressed("P1_right")) {
+		transform_rotateY(&(so->transform), -Time.deltaTime);
+	}
+	if(input_keypressed("P1_left")) {
+			transform_rotateY(&(so->transform), Time.deltaTime);
+	}
 	if(input_keypressed("P1_up")) {
 		transform_translate(&(so->transform), v);
 	}
@@ -28,12 +34,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 		vec3_scale(v,v,-0.7f);
 		transform_translate(&(so->transform), v);
 	}
-	if(input_keypressed("P1_right")) {
-		transform_rotateY(&(so->transform), -Time.deltaTime);
-	}
-	if(input_keypressed("P1_left")) {
-			transform_rotateY(&(so->transform), Time.deltaTime);
-	}
+
 }
 
 #endif /* SCRIPTS_TANK_H_ */

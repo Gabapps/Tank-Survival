@@ -117,10 +117,22 @@ static inline float vec3_len(vec3 const v)
 	return sqrtf(vec3_mul_inner(v,v));
 }
 
+static inline float vec3_angleY(vec3 const v)
+{
+	float a=atan(v[2]/v[0]);
+	if(v[0]<0) a+=M_PI;
+	return a;
+}
+
 static inline void vec3_norm(vec3 r, vec3 const v)
 {
 	float k = 1.0 / vec3_len(v);
 	vec3_scale(r, v, k);
+}
+
+static inline void vec3_rot(vec3 r, float const s){
+	r[0]=r[0]*cosf(s)+sinf(s)*r[2];
+	r[2]=-r[0]*sinf(s)+cosf(s)*r[2];
 }
 
 static inline void vec4_zero(vec4 r) {
