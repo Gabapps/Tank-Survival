@@ -25,7 +25,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	shader_load(shader);
 
 	Mesh *mesh = mesh_create();
-	mesh_load_from_obj(mesh, "Models/Tank.obj");
+	mesh_load_from_obj(mesh, "Models/Tanktex.obj");
 
 	Tank *script = malloc(sizeof(Tank));
 	script->name = "Tank";

@@ -37,6 +37,7 @@ int shader_load(Shader* shader) {
 
 	glBindAttribLocation(shader->program, 0, "in_Vertex");
 	glBindAttribLocation(shader->program, 1, "in_Normal");
+	glBindAttribLocation(shader->program, 1, "in_UV");
 
 	glAttachShader(shader->program, shader->vertex);
 	glAttachShader(shader->program, shader->fragment);

@@ -15,9 +15,11 @@
 typedef struct {
 	float* vertices; // x0 y0 z0 x1 y1 z1
 	float* normals; //
+	float* uvs;
 	int* triangles_id;
 	int* normals_id;
-	int v,vn,f;
+	int* uvs_id;
+	int v,vn,f,vt;
 } Mesh;
 
 Mesh* mesh_create();
@@ -29,6 +31,8 @@ void mesh_send_to_shader(Mesh* mesh);
 float* mesh_get_vertices(Mesh* mesh);
 
 float* mesh_get_normals(Mesh* mesh);
+
+float* mesh_get_uvs(Mesh* mesh);
 
 void mesh_free(Mesh* mesh);
 
