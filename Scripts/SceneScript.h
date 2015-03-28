@@ -32,16 +32,16 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	script->setup = tank_setup;
 	script->run = tank_run;
 
-	SceneObject *tank = so_create("Tank", transform_xyz(3,0,3));
+	SceneObject *tank = so_create("Tank", transform_origin());
 	so_add_script(tank, (Script*)script);
 	tank->mesh = mesh;
 	tank->shader = shader;
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {30,45,30},
-			center = {15,0,15},
-			up = {0,1,0};
+	vec3 pos = {0,45,0},
+			center = {0,0,0},
+			up = {1,0,0};
 	//vec3_add(cam.transform.position, cam.transform.position, pos);
 	transform_look_at(&(cam.transform),pos, center,up);
 
@@ -55,7 +55,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	controls_create("P1_right", GLFW_KEY_RIGHT);
 
 	scene_add_so(Game.scene, tank);
-	sc_map(shader);
+	//sc_map(shader);
 }
 
 void sc_run(SceneScript* tank, SceneObject* so) {

@@ -12,7 +12,7 @@
 
 typedef struct Transform{
 	vec3 position;
-	quat rotation;
+	float rotation;
 	vec3 scale;
 	mat4x4 matrix;
 } Transform;

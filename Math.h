@@ -16,7 +16,7 @@
 
 #ifndef LINMATH_H
 #define LINMATH_H
-
+#include <stdio.h>
 #include <math.h>
 
 typedef float vec2[2];
@@ -117,10 +117,23 @@ static inline float vec3_len(vec3 const v)
 	return sqrtf(vec3_mul_inner(v,v));
 }
 
+static inline float vec3_angleY(vec3 const v)
+{
+	float a=atan(v[2]/v[0]);
+	if(v[0]<0) a+=M_PI;
+	return a;
+}
+
 static inline void vec3_norm(vec3 r, vec3 const v)
 {
 	float k = 1.0 / vec3_len(v);
 	vec3_scale(r, v, k);
+}
+
+static inline void vec3_rot(vec3 r, float s){
+	vec3 v = {r[0], r[1], r[2]};
+	r[0]=v[0]*cosf(s)-sinf(s)*v[2];
+	r[2]=v[0]*sinf(s)+cosf(s)*v[2];
 }
 
 static inline void vec4_zero(vec4 r) {
@@ -411,9 +424,9 @@ static inline void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle)
 	float c = cosf(angle);
 
 	mat4x4 R = {
-		{ c, 0.f, s, 0.f},
+		{ c, 0.f, -s, 0.f},
 		{ 0.f, 1.f, 0.f, 0.f},
-		{ -s, 0.f, c, 0.f},
+		{ s, 0.f, c, 0.f},
 		{ 0.f, 0.f, 0.f, 1.f}
 		};
 	mat4x4_mul(Q, M, R);
