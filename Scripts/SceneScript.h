@@ -18,10 +18,10 @@ typedef struct SceneScript {
 	define_script(SceneScript);
 } SceneScript;
 
-void sc_map(Shader* shader);
+void sc_map();
 
 void sc_setup(SceneScript* scenescript, SceneObject* so) {
-	Shader *shader = shader_create("Shaders/vertex.vert", "Shaders/fragment.frag");
+	Shader *shader = shader_create("Shaders/texture.vert", "Shaders/texture.frag");
 	shader_load(shader);
 
 	Mesh *mesh = mesh_create();
@@ -32,15 +32,20 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	script->setup = tank_setup;
 	script->run = tank_run;
 
+	Texture *texture = texture_create("Models/Textures/Tank.bmp");
+	texture_from_BMP(texture);
+	texture_load(texture);
+
 	SceneObject *tank = so_create("Tank", transform_xyz(3,0,3));
 	so_add_script(tank, (Script*)script);
 	tank->mesh = mesh;
 	tank->shader = shader;
+	tank->texture = texture;
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {30,45,30},
-			center = {15,0,15},
+	vec3 pos = {10,3,10},
+			center = {3,0,3},
 			up = {0,1,0};
 	//vec3_add(cam.transform.position, cam.transform.position, pos);
 	transform_look_at(&(cam.transform),pos, center,up);
@@ -62,10 +67,11 @@ void sc_run(SceneScript* tank, SceneObject* so) {
 
 }
 
-void sc_map(Shader* shader)
+void sc_map()
 {
 	int i, j, test;
-
+	Shader* shader = shader_create("Shaders/notexture.vert", "Shaders/notexture.frag");
+	shader_load(shader);
 	Transform transform_map = transform_origin();
 	Mesh *mesh_map_wall = mesh_create();
 	mesh_load_from_obj(mesh_map_wall, "Models/Wall.obj");

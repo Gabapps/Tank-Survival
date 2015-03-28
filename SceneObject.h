@@ -16,6 +16,7 @@
 #include "Transform.h"
 #include "Camera.h"
 #include "List.h"
+#include "Texture.h"
 
 typelist(script, Script*);
 
@@ -24,6 +25,7 @@ typedef struct SceneObject {
 	char* name;
 	Mesh* mesh;
 	Shader* shader;
+	Texture* texture;
 	list_script* scripts;
 } SceneObject;
 

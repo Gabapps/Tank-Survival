@@ -13,6 +13,7 @@ SceneObject* so_create(char* name, Transform t) {
 	so->name=name;
 	so->mesh=NULL;
 	so->shader=NULL;
+	so->texture=NULL;
 	so->scripts=list_script_create();
 	return so;
 }
@@ -27,6 +28,7 @@ SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	new_so->name = name;
 	new_so->mesh = so->mesh;
 	new_so->shader = so->shader;
+	new_so->texture = so->texture;
 	new_so->transform = t;
 	new_so->scripts = list_script_create();
 	return new_so;
@@ -58,14 +60,24 @@ void so_draw(SceneObject* so, Camera* cam) {
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, so->mesh->normals);
 		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, so->mesh->uvs);
+		glEnableVertexAttribArray(2);
 
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "M"), 1, GL_FALSE, mat4x4_ptr(so->transform.matrix));
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->transform.matrix));
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "P"), 1, GL_FALSE, mat4x4_ptr(cam->perspective_matrix));
 		//glUniform3fv(glGetUniformLocation(so->shader->program, "target"), 1,pos);
 
+		if(so->texture != NULL) {
+			glBindTexture(GL_TEXTURE_2D, so->texture->texID);
+			//glUniform1i(glGetUniformLocation(so->shader->program, "Mytexture"), so->texture->texID);
+		}
+
 		glDrawArrays(GL_TRIANGLES, 0, so->mesh->f*3);
 
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		glDisableVertexAttribArray(2);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(0);
 
