@@ -41,7 +41,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	camera_init(&cam);
 	vec3 pos = {0,45,0},
 			center = {0,0,0},
-			up = {0,0,1};
+			up = {1,0,0};
 	//vec3_add(cam.transform.position, cam.transform.position, pos);
 	transform_look_at(&(cam.transform),pos, center,up);
 

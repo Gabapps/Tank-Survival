@@ -14,8 +14,12 @@ void transform_refresh_matrix(Transform* t){
 	mat4x4_identity(t->matrix);
 	mat4x4_rotate_Y(t->matrix, t->matrix, t->rotation);
 	mat4x4_translate(translation, t->position[0], t->position[1], t->position[2]);
-	mat4x4_mul(t->matrix,translation, t->matrix);
+	mat4x4_mul(t->matrix, translation, t->matrix);
 	//mat4x4_scale_aniso(t->matrix, t->matrix, t->scale[0], t->scale[1], t->scale[2]);
+	/*mat4 result = glm::translate(-pivot) *
+	              glm::scale(..) *
+	              glm::rotate(..) *
+	              glm::translate(pivot);*/
 }
 
 Transform transform_origin() {
@@ -46,13 +50,14 @@ void transform_translate_world(Transform* t, vec3 vec) {
 }
 
 void transform_translate(Transform* t, vec3 vec) {
+	//printf("%f %f %f\n", vec[0], vec[1], vec[2]);
 
-vec3_rot(vec, -t->rotation);// j'ai essayé de rotationner le vecteur
+	vec3_rot(vec, -t->rotation);// j'ai essayé de rotationner le vecteur
 
-vec3_add(t->position,t->position, vec);
-vec3_norm(vec, vec);
+	vec3_add(t->position,t->position, vec);
+	vec3_norm(vec, vec);
 
-printf("%f %f\n", t->rotation*180/M_PI, vec3_angleY(vec)*180/M_PI);
+	printf("%f %f\n", t->rotation*180/M_PI, vec3_angleY(vec)*180/M_PI);
 }
 
 /*
@@ -68,7 +73,7 @@ void transform_quatZ(Transform* t, float angle){
 	vec3 axisZ = {0,0,1};
 	quat_create(t->rotation,axisZ,angle);
 }
-*/
+ */
 void transform_rotateY(Transform* t, float angle) {
 	//vec3 axisY = {0,1,0};
 	//quat delta;

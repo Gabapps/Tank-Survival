@@ -30,7 +30,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 	if(input_keypressed("P1_up")) {
 		transform_translate(&(so->transform), v);
 	}
-	if(input_keypressed("P1_down")) {
+	else if(input_keypressed("P1_down")) {
 		vec3_scale(v,v,-0.7f);
 		transform_translate(&(so->transform), v);
 	}
