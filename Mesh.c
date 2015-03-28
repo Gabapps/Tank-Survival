@@ -86,10 +86,18 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 			if(i==vt) i=0;
 		}
 		if(strcmp("f", buf)==0) {
-			fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n",
-					&(mesh->triangles_id[i*3]), &(mesh->uvs_id[i*3]),&(mesh->normals_id[i*3]),
-					&(mesh->triangles_id[i*3+1]), &(mesh->uvs_id[i*3+1]),&(mesh->normals_id[i*3+1]),
-					&(mesh->triangles_id[i*3+2]), &(mesh->uvs_id[i*3+2]),&(mesh->normals_id[i*3+2]));
+			if(vt) {
+				fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n",
+						&(mesh->triangles_id[i*3]), &(mesh->uvs_id[i*3]),&(mesh->normals_id[i*3]),
+						&(mesh->triangles_id[i*3+1]), &(mesh->uvs_id[i*3+1]),&(mesh->normals_id[i*3+1]),
+						&(mesh->triangles_id[i*3+2]), &(mesh->uvs_id[i*3+2]),&(mesh->normals_id[i*3+2]));
+			}
+			else {
+				fscanf(file, "%d//%d %d//%d %d//%d\n",
+						&(mesh->triangles_id[i*3]), &(mesh->normals_id[i*3]),
+						&(mesh->triangles_id[i*3+1]), &(mesh->normals_id[i*3+1]),
+						&(mesh->triangles_id[i*3+2]), &(mesh->normals_id[i*3+2]));
+			}
 			i++;
 			if(i==f) i=0;
 		}
