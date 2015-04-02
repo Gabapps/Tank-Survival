@@ -58,7 +58,7 @@ int main(void)
     time_init();
     scene_setup(Game.scene);
 
-    glEnable(GL_DEPTH_TEST | GL_TEXTURE_2D | GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window_get()))
     {
@@ -66,10 +66,7 @@ int main(void)
     	time_update();
     	scene_run(Game.scene);
 
-    	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // On vide les tampons couleurs et profondeur
-
-    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    	glBlendEquation(GL_ADD);
+    	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // On vide les tampons couleurs et profondeur
 
     	scene_draw(Game.scene);
 

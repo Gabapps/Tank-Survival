@@ -27,6 +27,9 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	Mesh *mesh = mesh_create();
 	mesh_load_from_obj(mesh, "Models/Tanktex.obj");
 
+	/*Mesh *cube_mesh = mesh_create();
+	mesh_load_from_obj(cube_mesh, "Models/Cube.obj");*/
+
 	Tank *script = malloc(sizeof(Tank));
 	script->name = "Tank";
 	script->setup = tank_setup;
@@ -38,13 +41,17 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	SceneObject *tank = so_create("Tank", transform_xyz(3,0,3));
 	so_add_script(tank, (Script*)script);
+	/*tank->mesh = mesh;
+	tank->shader = shader;
+	tank->texture = texture;*/
+
 	tank->mesh = mesh;
 	tank->shader = shader;
 	tank->texture = texture;
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {10,3,10},
+	vec3 pos = {4,2,4},
 			center = {3,0,3},
 			up = {0,1,0};
 	//vec3_add(cam.transform.position, cam.transform.position, pos);
