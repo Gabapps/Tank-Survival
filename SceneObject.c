@@ -53,7 +53,6 @@ void so_run(SceneObject* so) {
 void so_draw(SceneObject* so, Camera* cam) {
 	if(so->mesh != NULL && so->shader != NULL) {
 		transform_refresh_matrix(&(so->transform));
-
 		glUseProgram(so->shader->program); // On verouille le shader
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, so->mesh->vertices);
