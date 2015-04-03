@@ -25,7 +25,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	shader_load(shader);
 
 	Mesh *mesh = mesh_create();
-	mesh_load_from_obj(mesh, "Models/Tanktex.obj");
+	mesh_load_from_obj(mesh, "Models/Tank/Tank.obj");
 
 	/*Mesh *cube_mesh = mesh_create();
 	mesh_load_from_obj(cube_mesh, "Models/Cube.obj");*/
@@ -35,7 +35,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	script->setup = tank_setup;
 	script->run = tank_run;
 
-	Texture *texture = texture_create("Models/Textures/Tank.bmp");
+	Texture *texture = texture_create("Models/Tank/Tank.bmp");
 	texture_from_BMP(texture);
 	texture_load(texture);
 
@@ -51,7 +51,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {4,2,4},
+	vec3 pos = {5,0.7,5},
 			center = {3,0,3},
 			up = {0,1,0};
 	//vec3_add(cam.transform.position, cam.transform.position, pos);
@@ -77,15 +77,23 @@ void sc_run(SceneScript* tank, SceneObject* so) {
 void sc_map()
 {
 	int i, j, test;
-	Shader* shader = shader_create("Shaders/notexture.vert", "Shaders/notexture.frag");
+	Shader* shader = shader_create("Shaders/texture.vert", "Shaders/texture.frag");
 	shader_load(shader);
 	Transform transform_map = transform_origin();
+
 	Mesh *mesh_map_wall = mesh_create();
-	mesh_load_from_obj(mesh_map_wall, "Models/Wall.obj");
+	mesh_load_from_obj(mesh_map_wall, "Models/Wall/Wall.obj");
+
 	SceneObject *map_wall = so_create("map_wall", transform_origin());
+
+	Texture *texture = texture_create("Models/Wall/Wall.bmp");
+	texture_from_BMP(texture);
+	texture_load(texture);
+
 	map_wall->mesh = mesh_map_wall;
 	map_wall->name = "wall";
 	map_wall->shader = shader;
+	map_wall->texture = texture;
 
 	FILE* map = fopen("Map/map.txt", "r");
 	if (map == NULL)
