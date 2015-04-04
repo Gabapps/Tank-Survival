@@ -29,8 +29,8 @@ Ressources Ressource;
 
 void ressources_init();
 void ressources_load();
-Shader* ressources_get_Shader(int a);
-Mesh* ressources_get_Mesh(int a);
-Texture* ressources_get_Texture(int a);
+Shader* ressources_get_shader(int a);
+Mesh* ressources_get_mesh(int a);
+Texture* ressources_get_texture(int a);
 
 #endif /* RESSOURCES_H_ */

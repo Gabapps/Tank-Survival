@@ -25,77 +25,81 @@ void ressources_load(){
 		printf("Impossible d'ouvrir le fichier test.txt");
 	}else{
 		int i;
+		char path[40];
 		fscanf(f, "%d %d %d\n", &count_1, &count_2, &count_3);
-		if(count_1 != 0){
-			//importation des shaders du fichier dans la liste Ressource.shaders
 
-			for(i=0;i<=count_1;i++){
-				char* path_shaders;
-				fgets(path_shaders, 40, f);
-				Shader *shader = shader_create(strcat(path_shaders,".vert"),strcat(path_shaders,".frag"));
-				shader_load(shader);
-				list_shader_put(Ressource.shaders, shader);
-			}
+		//importation des shaders du fichier dans la liste Ressource.shaders
+
+		for(i=0;i<count_1;i++){
+			char path_shaders_vert[40];
+			char path_shaders_fragment[40];
+
+			fgets(path, 40, f);
+			path[strlen(path)-1]=0;
+			strcpy(path_shaders_vert,path);
+			strcat(path_shaders_vert,".vert");
+			strcpy(path_shaders_fragment,path);
+			strcat(path_shaders_fragment,".frag");
+			Shader *shader = shader_create(path_shaders_vert,path_shaders_fragment);
+			shader_load(shader);
+			list_shader_put(Ressource.shaders, shader);
 		}
-		if(count_2 != 0){
-			//importation des meshes du fichier dans la liste Ressource.meshes
-			for(i=0;i<=count_2;i++){
-				char* path_meshes;
-				fgets(path_meshes, 40, f);
-				Mesh *mesh = mesh_create();
-				mesh_load_from_obj(mesh, path_meshes);
-				list_mesh_put(Ressource.meshes, mesh);
-			}
+
+		//importation des meshes du fichier dans la liste Ressource.meshes
+		for(i=0;i<count_2;i++){
+			fgets(path, 40, f);
+			path[strlen(path)-1]=0;
+			Mesh *mesh = mesh_create();
+			mesh_load_from_obj(mesh, path);
+			list_mesh_put(Ressource.meshes, mesh);
 		}
-		if(count_3 != 0){
-			for(i=0;i<=count_2;i++){
-				//importation des textures du fichier dans la liste Ressource.textures
-				char* path_textures;
-				fgets(path_textures, 40, f);
-				Texture *texture = texture_create("path_textures");
-				texture_from_BMP(texture);
-				texture_load(texture);
-				list_mesh_put(Ressource.textures, texture);
-			}
+
+
+		for(i=0;i<count_3;i++){
+			//importation des textures du fichier dans la liste Ressource.textures
+			fgets(path, 40, f);
+			path[strlen(path)-1]=0;
+			Texture *texture = texture_create(path);
+			texture_from_BMP(texture);
+			texture_load(texture);
+			list_texture_put(Ressource.textures, texture);
 		}
+
 	}
 }
 
-Shader* ressources_get_Shaderfromlist(int a){
+Shader* ressources_get_shader(int a){
 	node_shader *iterator = Ressource.shaders->root;
 
-	while(iterator->next != NULL){
-		int i;
-		for(i=0;i<a;i++){
-			iterator = iterator->next;
-		}
-		return iterator->value;
+	int i;
+	for(i=0;i<a;i++){
+		if(iterator==NULL) return NULL;
+		iterator = iterator->next;
 	}
+	return iterator->value;
 }
 
 
-Mesh* ressources_get_MeshfromList(int a){
+Mesh* ressources_get_mesh(int a){
 	node_mesh *iterator = Ressource.meshes->root;
 
-	while(iterator->next != NULL){
 		int i;
 		for(i=0;i<a;i++){
+			if(iterator==NULL) return NULL;
 			iterator = iterator->next;
 		}
 		return iterator->value;
-	}
 }
 
 
-Texture* ressources_get_Texture(int a){
+Texture* ressources_get_texture(int a){
 	node_texture *iterator = Ressource.textures->root;
 
-	while(iterator->next != NULL){
 		int i;
 		for(i=0;i<a;i++){
+			if(iterator==NULL) return NULL;
 			iterator = iterator->next;
 		}
 		return iterator->value;
-	}
 }
 
