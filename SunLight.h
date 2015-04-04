@@ -14,10 +14,13 @@ typedef struct SunLight {
 	vec3 position;
 	vec3 direction;
 	vec3 color;
+	float force;
 } SunLight;
 
-SunLight sunlight_create(const vec3 position, const vec3 direction, const vec3 color);
+SunLight sunlight_create(const vec3 position, const vec3 direction, const vec3 color, float force);
 
 SunLight sunlight_default();
+
+void sunlight_set_direction(SunLight* light, const vec3 direction);
 
 #endif /* SUNLIGHT_H_ */

@@ -25,6 +25,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	ressources_init();
 	ressources_load();
 
+
 	Tank *script = malloc(sizeof(Tank));
 	script->name = "Tank";
 	script->setup = tank_setup;
@@ -35,13 +36,19 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {5,0.7,5},
+	vec3 pos = {5,3,5},
 			center = {3,0,3},
 			up = {0,1,0};
 	camera_look_at(&cam, pos, center, up);
 	camera_refresh_matrices(&cam);
+	// Day color : {1,0.94,0.5}; force : 1
+	// Moonlight color :{0,0,0.8}; force : 0.3
+	vec3 poslight = {5,30,5},
+			dirlight = {-1,-1,-0.1},
+			colorlight = {1,0.94,0.5};
 
 	Game.scene->camera = cam;
+	Game.scene->light = sunlight_create(poslight, dirlight, colorlight, 1);
 
 	init_controlsTable();
 
@@ -54,8 +61,9 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	sc_map();
 }
 
-void sc_run(SceneScript* tank, SceneObject* so) {
-
+void sc_run(SceneScript* scenescript, SceneObject* so) {
+	vec3 dir = {cos(0.1*Time.timeSinceStart),-1,sin(0.1*Time.timeSinceStart)};
+	sunlight_set_direction(&(Game.scene->light), dir);
 }
 
 void sc_map()

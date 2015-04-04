@@ -8,6 +8,7 @@ in vec2 UV;
 
 uniform vec3 lightdir;
 uniform vec3 lightcolor;
+uniform float lightforce;
 uniform vec3 camdir;
 
 uniform mat4 M;
@@ -33,9 +34,9 @@ void main()
 	 
 	color =
 	    // Ambient : simulates indirect lighting
-	    texture_color +
+	    mix(texture_color, lightcolor, 0.05) * (0.1+lightforce)/2 +
 	    // Diffuse : "color" of the object
-	    texture_color * lightcolor * cosTheta ;
+	    texture_color * lightcolor * lightforce  * cosTheta ;
 	
 	//out_Color = texture_color;
 	out_Color = color;

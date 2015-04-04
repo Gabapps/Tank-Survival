@@ -68,6 +68,7 @@ void so_draw(SceneObject* so, Camera* cam, SunLight* light) {
 
 		glUniform3fv(glGetUniformLocation(so->shader->program, "lightdir"), 1, light->direction);
 		glUniform3fv(glGetUniformLocation(so->shader->program, "lightcolor"), 1, light->color);
+		glUniform1f(glGetUniformLocation(so->shader->program, "lightforce"), light->force);
 		glUniform3fv(glGetUniformLocation(so->shader->program, "camdir"), 1, camera_direction(cam));
 
 		if(so->texture != NULL) {
