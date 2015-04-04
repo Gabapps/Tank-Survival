@@ -13,8 +13,10 @@
 #include "Math.h"
 
 typedef struct Camera{
-	Transform transform;
+	//Transform transform;
+	vec3 pos, target, up;
 	float fov, near, far;
+	mat4x4 view_matrix;
 	mat4x4 perspective_matrix;
 } Camera;
 
@@ -34,5 +36,9 @@ void camera_init(Camera* cam);
  * \param cam Camera to refresh.
  */
 void camera_refresh_matrices(Camera* cam);
+
+void camera_look_at(Camera* cam, vec3 pos, vec3 target, vec3 up);
+
+float* camera_direction(Camera* cam);
 
 #endif /* CAMERA_H_ */

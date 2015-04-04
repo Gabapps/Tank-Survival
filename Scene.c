@@ -26,6 +26,7 @@ Scene* scene_create(char* name)
 		new_scene->name = name;
 		new_scene->sceneObjects = list_so_create();
 		new_scene->script = NULL;
+		new_scene->light = sunlight_default();
 		camera_init(&(new_scene->camera));
 	}
 	return new_scene;
@@ -91,7 +92,7 @@ void scene_draw(Scene* scene) {
 
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
-		so_draw(iterator->value, &(scene->camera));
+		so_draw(iterator->value, &(scene->camera), &(scene->light));
 		iterator = iterator->next;
 	}
 }

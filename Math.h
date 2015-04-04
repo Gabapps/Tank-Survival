@@ -81,6 +81,18 @@ static inline void vec3_zero(vec3 r) {
 		r[i] = 0;
 }
 
+static inline void vec3_cpy(vec3 r, const vec3 a) {
+	int i;
+	for(i=0; i<3; ++i)
+		r[i] = a[i];
+}
+
+static inline void vec3_create(vec3 r, float x, float y, float z) {
+	r[0]=x;
+	r[0]=y;
+	r[0]=z;
+}
+
 static inline void vec3_add(vec3 r, vec3 const a, vec3 const b)
 {
 	int i;

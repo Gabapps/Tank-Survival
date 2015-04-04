@@ -38,7 +38,8 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	vec3 pos = {5,0.7,5},
 			center = {3,0,3},
 			up = {0,1,0};
-	transform_look_at(&(cam.transform),pos, center,up);
+	camera_look_at(&cam, pos, center, up);
+	camera_refresh_matrices(&cam);
 
 	Game.scene->camera = cam;
 

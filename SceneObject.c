@@ -50,7 +50,7 @@ void so_run(SceneObject* so) {
 	}
 }
 
-void so_draw(SceneObject* so, Camera* cam) {
+void so_draw(SceneObject* so, Camera* cam, SunLight* light) {
 	if(so->mesh != NULL && so->shader != NULL) {
 		transform_refresh_matrix(&(so->transform));
 		glUseProgram(so->shader->program); // On verouille le shader
@@ -63,9 +63,12 @@ void so_draw(SceneObject* so, Camera* cam) {
 		glEnableVertexAttribArray(2);
 
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "M"), 1, GL_FALSE, mat4x4_ptr(so->transform.matrix));
-		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->transform.matrix));
+		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->view_matrix));
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "P"), 1, GL_FALSE, mat4x4_ptr(cam->perspective_matrix));
-		//glUniform3fv(glGetUniformLocation(so->shader->program, "target"), 1,pos);
+
+		glUniform3fv(glGetUniformLocation(so->shader->program, "lightdir"), 1, light->direction);
+		glUniform3fv(glGetUniformLocation(so->shader->program, "lightcolor"), 1, light->color);
+		glUniform3fv(glGetUniformLocation(so->shader->program, "camdir"), 1, camera_direction(cam));
 
 		if(so->texture != NULL) {
 			glBindTexture(GL_TEXTURE_2D, so->texture->texID);
