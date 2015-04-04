@@ -61,7 +61,7 @@ void ressources_load(){
 	}
 }
 
-Shader* get_Shaderfromlist(int a){
+Shader* ressources_get_Shaderfromlist(int a){
 	node_shader *iterator = Ressource.shaders->root;
 
 	while(iterator->next != NULL){
@@ -74,7 +74,7 @@ Shader* get_Shaderfromlist(int a){
 }
 
 
-Mesh* get_MeshfromList(int a){
+Mesh* ressources_get_MeshfromList(int a){
 	node_mesh *iterator = Ressource.meshes->root;
 
 	while(iterator->next != NULL){
@@ -87,7 +87,7 @@ Mesh* get_MeshfromList(int a){
 }
 
 
-Texture* get_TexturefromList(int a){
+Texture* ressources_get_Texture(int a){
 	node_texture *iterator = Ressource.textures->root;
 
 	while(iterator->next != NULL){
