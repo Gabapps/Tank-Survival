@@ -36,8 +36,8 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {5,3,5},
-			center = {3,0,3},
+	vec3 pos = {30,30,15},
+			center = {15,0,15},
 			up = {0,1,0};
 	camera_look_at(&cam, pos, center, up);
 	camera_refresh_matrices(&cam);

@@ -14,6 +14,7 @@
 typedef struct Time_s {
 	double timeSinceStart;
 	float deltaTime;
+	int maxfps;
 } Time_s;
 
 Time_s Time;

@@ -26,12 +26,11 @@ void camera_look_at(Camera* cam, vec3 pos, vec3 target, vec3 up) {
 	vec3_cpy(cam->pos, pos);
 	vec3_cpy(cam->target, target);
 	vec3_cpy(cam->up, up);
+	vec3_cpy(cam->dir, cam->target);
+	vec3_sub(cam->dir, cam->dir, cam->pos);
 
 }
 
 float* camera_direction(Camera* cam) {
-	vec3 dir;
-	vec3_cpy(dir, cam->target);
-	vec3_sub(dir, dir, cam->pos);
-	return dir;
+	return cam->dir;
 }

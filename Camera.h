@@ -14,7 +14,7 @@
 
 typedef struct Camera{
 	//Transform transform;
-	vec3 pos, target, up;
+	vec3 pos, target, up, dir;
 	float fov, near, far;
 	mat4x4 view_matrix;
 	mat4x4 perspective_matrix;
