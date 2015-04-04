@@ -10,6 +10,8 @@
 
 #include "Tank.h"
 #include <stdio.h>
+#include "C:\Users\ethel\Documents\INSA\Langage C\projet_C\Ressources.h"
+//#include "Ressources.h" // ne veut pas le charger
 
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
@@ -21,8 +23,12 @@ typedef struct SceneScript {
 void sc_map();
 
 void sc_setup(SceneScript* scenescript, SceneObject* so) {
+	ressources_init();
+	ressources_load();
+
 	Shader *shader = shader_create("Shaders/texture.vert", "Shaders/texture.frag");
 	shader_load(shader);
+
 
 	Mesh *mesh = mesh_create();
 	mesh_load_from_obj(mesh, "Models/Tank/Tank.obj");
@@ -30,12 +36,15 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	/*Mesh *cube_mesh = mesh_create();
 	mesh_load_from_obj(cube_mesh, "Models/Cube.obj");*/
 
+
 	Tank *script = malloc(sizeof(Tank));
 	script->name = "Tank";
 	script->setup = tank_setup;
 	script->run = tank_run;
 
+
 	Texture *texture = texture_create("Models/Tank/Tank.bmp");
+
 	texture_from_BMP(texture);
 	texture_load(texture);
 

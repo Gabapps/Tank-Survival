@@ -13,6 +13,7 @@ void camera_init(Camera* cam){
 	cam->far = 100.f;
 	mat4x4_perspective(cam->perspective_matrix, 70.f, 640.f/480.f, 0.1f, 100.f);
 }
+//initialisation of the camera
 
 void camera_refresh_matrices(Camera* cam){
 
