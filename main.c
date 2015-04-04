@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "Time.h"
 #include "Game.h"
+#include "Ressources.h"
 
 #include "Scripts/SceneScript.h"
 #include "Scripts/Tank.h"

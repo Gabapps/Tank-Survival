@@ -19,7 +19,10 @@ void ressources_load(){
 	int count_1;
 	int count_2;
 	int count_3;
-	f = fopen("ressources.scene", "r");
+	char path[40] = "Scenes/";
+	strcat(path, Game.scene->name);
+	strcat(path, ".scene");
+	f = fopen(path, "r");
 	if (f == NULL)
 	{
 		printf("Impossible d'ouvrir le fichier test.txt");
@@ -68,7 +71,7 @@ void ressources_load(){
 	}
 }
 
-Shader* ressources_get_shader(int a){
+Shader* ressources_get_shader(Shader_ID a){
 	node_shader *iterator = Ressource.shaders->root;
 
 	int i;
@@ -80,7 +83,7 @@ Shader* ressources_get_shader(int a){
 }
 
 
-Mesh* ressources_get_mesh(int a){
+Mesh* ressources_get_mesh(Mesh_ID a){
 	node_mesh *iterator = Ressource.meshes->root;
 
 		int i;
@@ -92,7 +95,7 @@ Mesh* ressources_get_mesh(int a){
 }
 
 
-Texture* ressources_get_texture(int a){
+Texture* ressources_get_texture(Texture_ID a){
 	node_texture *iterator = Ressource.textures->root;
 
 		int i;

@@ -10,8 +10,7 @@
 
 #include "Tank.h"
 #include <stdio.h>
-#include "C:\Users\ethel\Documents\INSA\Langage C\projet_C\Ressources.h"
-//#include "Ressources.h" // ne veut pas le charger
+#include "../Ressources.h"
 
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
@@ -26,44 +25,19 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	ressources_init();
 	ressources_load();
 
-	Shader *shader = shader_create("Shaders/texture.vert", "Shaders/texture.frag");
-	shader_load(shader);
-
-
-	Mesh *mesh = mesh_create();
-	mesh_load_from_obj(mesh, "Models/Tank/Tank.obj");
-
-	/*Mesh *cube_mesh = mesh_create();
-	mesh_load_from_obj(cube_mesh, "Models/Cube.obj");*/
-
-
 	Tank *script = malloc(sizeof(Tank));
 	script->name = "Tank";
 	script->setup = tank_setup;
 	script->run = tank_run;
 
-
-	Texture *texture = texture_create("Models/Tank/Tank.bmp");
-
-	texture_from_BMP(texture);
-	texture_load(texture);
-
 	SceneObject *tank = so_create("Tank", transform_xyz(3,0,3));
 	so_add_script(tank, (Script*)script);
-	/*tank->mesh = mesh;
-	tank->shader = shader;
-	tank->texture = texture;*/
-
-	tank->mesh = mesh;
-	tank->shader = shader;
-	tank->texture = texture;
 
 	Camera cam;
 	camera_init(&cam);
 	vec3 pos = {5,0.7,5},
 			center = {3,0,3},
 			up = {0,1,0};
-	//vec3_add(cam.transform.position, cam.transform.position, pos);
 	transform_look_at(&(cam.transform),pos, center,up);
 
 	Game.scene->camera = cam;
@@ -76,7 +50,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	controls_create("P1_right", GLFW_KEY_RIGHT);
 
 	scene_add_so(Game.scene, tank);
-	sc_map(shader);
+	sc_map();
 }
 
 void sc_run(SceneScript* tank, SceneObject* so) {
@@ -86,23 +60,13 @@ void sc_run(SceneScript* tank, SceneObject* so) {
 void sc_map()
 {
 	int i, j, test;
-	Shader* shader = shader_create("Shaders/texture.vert", "Shaders/texture.frag");
-	shader_load(shader);
 	Transform transform_map = transform_origin();
 
-	Mesh *mesh_map_wall = mesh_create();
-	mesh_load_from_obj(mesh_map_wall, "Models/Wall/Wall.obj");
+	SceneObject *map_wall = so_create("Wall", transform_origin());
 
-	SceneObject *map_wall = so_create("map_wall", transform_origin());
-
-	Texture *texture = texture_create("Models/Wall/Wall.bmp");
-	texture_from_BMP(texture);
-	texture_load(texture);
-
-	map_wall->mesh = mesh_map_wall;
-	map_wall->name = "wall";
-	map_wall->shader = shader;
-	map_wall->texture = texture;
+	map_wall->shader = ressources_get_shader(SHADER_TEXTURE);
+	map_wall->mesh = ressources_get_mesh(MESH_WALL);
+	map_wall->texture = ressources_get_texture(TEXTURE_WALL);
 
 	FILE* map = fopen("Map/map.txt", "r");
 	if (map == NULL)

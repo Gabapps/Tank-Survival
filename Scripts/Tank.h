@@ -14,6 +14,10 @@ typedef struct Tank {
 } Tank;
 
 void tank_setup(Tank* tank, SceneObject* so) {
+
+	so->mesh = ressources_get_mesh(MESH_TANK);
+	so->shader = ressources_get_shader(SHADER_TEXTURE);
+	so->texture = ressources_get_texture(TEXTURE_TANK);
 	tank->speed=1;
 }
 

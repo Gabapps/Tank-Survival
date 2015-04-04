@@ -7,15 +7,15 @@
 
 #ifndef RESSOURCES_H_
 #define RESSOURCES_H_
-#include "List.h"
-#include "Shader.h"
-#include "Mesh.h"
-#include "Texture.h"
-
+#include "Game.h"
 
 typelist(mesh, Mesh*);
 typelist(shader, Shader*);
 typelist(texture, Texture*);
+
+typedef enum {MESH_TANK, MESH_WALL} Mesh_ID;
+typedef enum {SHADER_TEXTURE, SHADER_NOTEXTURE} Shader_ID;
+typedef enum {TEXTURE_TANK, TEXTURE_WALL} Texture_ID;
 
 typedef struct Ressources{
 	char* name; //Nom de l'objet
@@ -29,8 +29,8 @@ Ressources Ressource;
 
 void ressources_init();
 void ressources_load();
-Shader* ressources_get_shader(int a);
-Mesh* ressources_get_mesh(int a);
-Texture* ressources_get_texture(int a);
+Shader* ressources_get_shader(Shader_ID a);
+Mesh* ressources_get_mesh(Mesh_ID a);
+Texture* ressources_get_texture(Texture_ID a);
 
 #endif /* RESSOURCES_H_ */
