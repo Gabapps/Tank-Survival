@@ -56,17 +56,7 @@ Controls* input_get_controls(char* nom_control)
 
 Controls* input_get_controls_index(int key_number)
 {
-	int i;
-	extern int numberOfControls;
-	for(i=0; i<numberOfControls; i++)
-	{
-		if(key_number == controlsTable[i]->key_number)
-		{
-			return controlsTable[i];
-		}
-	}
-	fprintf(stderr, "Nonexistent key name");
-	return NULL;
+	return controlsTable[key_number];
 }
 
 /*
