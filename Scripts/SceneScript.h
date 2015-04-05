@@ -8,9 +8,11 @@
 #ifndef SCRIPTS_SCENESCRIPT_H_
 #define SCRIPTS_SCENESCRIPT_H_
 
+#include "Bullet.h"
 #include "Tank.h"
 #include <stdio.h>
 #include "../Ressources.h"
+
 
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
@@ -33,6 +35,14 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	SceneObject *tank = so_create("Tank", transform_xyz(3,0,3));
 	so_add_script(tank, (Script*)script);
 
+	Bullet *script_bullet = malloc(sizeof(Bullet));
+	script_bullet->name = "Bullet";
+	script_bullet->setup = bullet_setup;
+	script_bullet->run = bullet_run;
+
+	SceneObject *bullet = so_create("Bullet", transform_xyz(3,5,3));
+	so_add_script(bullet, (Script*)script_bullet);
+
 	Camera cam;
 	camera_init(&cam);
 	vec3 pos = {5,0.7,5},
@@ -48,8 +58,10 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	controls_create("P1_down", GLFW_KEY_DOWN);
 	controls_create("P1_left", GLFW_KEY_LEFT);
 	controls_create("P1_right", GLFW_KEY_RIGHT);
+	controls_create("P1_fire", GLFW_KEY_SPACE);
 
 	scene_add_so(Game.scene, tank);
+	scene_add_so(Game.scene, bullet);
 	sc_map();
 }
 
