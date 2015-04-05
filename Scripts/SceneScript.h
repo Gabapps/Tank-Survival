@@ -8,9 +8,11 @@
 #ifndef SCRIPTS_SCENESCRIPT_H_
 #define SCRIPTS_SCENESCRIPT_H_
 
-#include "Tank.h"
 #include <stdio.h>
+
 #include "../Ressources.h"
+
+#include "Tank.h"
 
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
@@ -45,7 +47,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	Game.scene->camera = cam;
 	Game.scene->light = sunlight_create(poslight, dirlight, colorlight, 1);
-
+	//Time.maxfps=-1;
 	sc_controls();
 	sc_map(scenescript);
 	sc_loadplayers(scenescript);

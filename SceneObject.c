@@ -55,12 +55,16 @@ void so_draw(SceneObject* so, Camera* cam, SunLight* light) {
 		transform_refresh_matrix(&(so->transform));
 		glUseProgram(so->shader->program); // On verouille le shader
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, so->mesh->vertices);
+		glBindBuffer(GL_ARRAY_BUFFER, so->mesh->vbo);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, so->mesh->normals);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0,(void*)( 9*so->mesh->f*sizeof(float)));
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, so->mesh->uvs);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, (void*)(18*so->mesh->f*sizeof(float)));
 		glEnableVertexAttribArray(2);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "M"), 1, GL_FALSE, mat4x4_ptr(so->transform.matrix));
 		glUniformMatrix4fv(glGetUniformLocation(so->shader->program, "V"), 1, GL_FALSE, mat4x4_ptr(cam->view_matrix));

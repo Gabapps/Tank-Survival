@@ -24,7 +24,7 @@ void time_update() {
 	if(sleeptime>=0.001) {
 		#ifdef WIN32
 		Sleep((int)(sleeptime*1000));
-		Time.deltaTime += (float)(glfwGetTime()-Time.timeSinceStart);
 		#endif
 	}
+	Time.deltaTime += (float)(glfwGetTime()-Time.timeSinceStart);
 }

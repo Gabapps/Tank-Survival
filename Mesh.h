@@ -8,6 +8,8 @@
 #ifndef MESH_H_
 #define MESH_H_
 
+#define GLEW_STATIC
+#include <GL/glew.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,6 +21,7 @@ typedef struct {
 	int* triangles_id;
 	int* normals_id;
 	int* uvs_id;
+	GLuint vbo;
 	int v,vn,f,vt;
 } Mesh;
 
@@ -26,7 +29,7 @@ Mesh* mesh_create();
 
 int mesh_load_from_obj(Mesh* mesh, char* filename);
 
-void mesh_send_to_shader(Mesh* mesh);
+void mesh_load_vbo(Mesh* mesh);
 
 float* mesh_get_vertices(Mesh* mesh);
 

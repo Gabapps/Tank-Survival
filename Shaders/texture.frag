@@ -11,7 +11,6 @@ uniform vec3 lightcolor;
 uniform float lightforce;
 uniform vec3 camdir;
 
-uniform mat4 M;
 uniform sampler2D Mytexture;
 
 void main()
