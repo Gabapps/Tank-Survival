@@ -14,7 +14,7 @@ uniform vec3 camdir;
 void main()
 {
 	vec3 color;
-	vec3 texture_color =  vec3(0.7,0.7,0.7);
+	vec3 texture_color =  vec3(1,0,1);
 	
 	vec3 n = normalize(normal);
 	vec3 l = normalize(-lightdir);
