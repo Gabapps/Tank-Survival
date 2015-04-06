@@ -1,6 +1,6 @@
-#version 150
+#version 150 core
 
-vec3 in_Vertex;
+in vec3 in_Vertex;
 in vec3 in_Normal;
 in vec2 in_UV;
 
