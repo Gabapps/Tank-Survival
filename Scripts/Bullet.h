@@ -30,9 +30,7 @@ void bullet_setup(Bullet* bullet, SceneObject* so){
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
-	Tank* tank = bullet->fromtank->scripts->root->value;
-	vec3 v = {bullet->speed,0,0};
-	vec3_scale(v,v,Time.deltaTime);
+	Tank* tank = (Tank*) bullet->fromtank->scripts->root->value;
 	if(bullet->active == 0){
 		so->transform = bullet->fromtank->transform;
 	}
@@ -52,6 +50,8 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 		bullet->active=1;
 
 	}
+	vec3 v = {bullet->speed,0,0};
+	vec3_scale(v,v,Time.deltaTime);
 	transform_translate(&(so->transform), v);
 }
 

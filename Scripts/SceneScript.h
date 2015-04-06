@@ -41,14 +41,14 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 			up = {0,1,0};
 	camera_look_at(&cam, pos, center, up);
 	camera_refresh_matrices(&cam);
-	// Day color : {1,0.94,0.5}; force : 1
+	// Day color : {1,0.94,0.5}; force : 0.7
 	// Moonlight color :{0,0,0.8}; force : 0.3
 	vec3 poslight = {5,30,5},
 			dirlight = {-1,-1,-0.1},
 			colorlight = {1,0.94,0.5};
 
 	Game.scene->camera = cam;
-	Game.scene->light = sunlight_create(poslight, dirlight, colorlight, 1);
+	Game.scene->light = sunlight_create(poslight, dirlight, colorlight, 0.7);
 	//Time.maxfps=-1;
 	sc_controls();
 	sc_map(scenescript);
@@ -96,6 +96,13 @@ void sc_map(SceneScript* scscript)
 		fscanf(map, "\n");
 	}
 	fclose(map);
+
+	SceneObject* ground = so_create("Ground", transform_xyz(15,0,15));
+	ground->mesh = ressources_get_mesh(MESH_GROUND);
+	ground->texture = ressources_get_texture(TEXTURE_GROUND);
+	ground->shader = ressources_get_shader(SHADER_TEXTURE);
+
+	scene_add_so(Game.scene, ground);
 
 }
 
