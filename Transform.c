@@ -69,6 +69,4 @@ void transform_rotateY(Transform* t, float angle) {
 	t->rotation += angle;
 	if(t->rotation>2*M_PI) t->rotation-=2*M_PI;
 	if(t->rotation<-2*M_PI) t->rotation+=2*M_PI;
-
-
 }

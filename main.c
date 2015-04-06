@@ -66,6 +66,7 @@ int main(void)
 
     glEnable(GL_DEPTH_TEST);
 
+
     while (!glfwWindowShouldClose(window_get()))
     {
     	input_update();

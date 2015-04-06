@@ -18,6 +18,7 @@
 #include "List.h"
 #include "Texture.h"
 #include "SunLight.h"
+#include "Physics.h"
 
 typelist(script, Script*);
 
@@ -28,6 +29,7 @@ typedef struct SceneObject {
 	Shader* shader;
 	Texture* texture;
 	list_script* scripts;
+	BoxCollider* collider;
 } SceneObject;
 
 /**
@@ -98,5 +100,7 @@ SceneObject* so_from_transform(Transform* t);
 
 
 void so_add_script(SceneObject* so, Script* script);
+
+int so_collision(SceneObject* so1, SceneObject* so2);
 
 #endif /* SCENEOBJECT_H_ */

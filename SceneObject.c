@@ -15,6 +15,7 @@ SceneObject* so_create(char* name, Transform t) {
 	so->shader=NULL;
 	so->texture=NULL;
 	so->scripts=list_script_create();
+	so->collider = NULL;
 	return so;
 }
 
@@ -31,6 +32,7 @@ SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	new_so->texture = so->texture;
 	new_so->transform = t;
 	new_so->scripts = list_script_create();
+	new_so->collider = so->collider;
 	return new_so;
 }
 
@@ -107,4 +109,10 @@ SceneObject* so_from_transform(Transform* t){
 
 void so_add_script(SceneObject* so, Script* script) {
 	list_script_put(so->scripts, script);
+}
+
+int so_collision(SceneObject* so1, SceneObject* so2)
+{
+	//Renvoi le transform et le collider à Physics
+	return RotRectsCollision(&(so1->transform), so1->collider, &(so2->transform), so2->collider);
 }
