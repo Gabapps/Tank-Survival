@@ -27,3 +27,4 @@
 .settings/*
 main.c
 /Debug/
+/Release/

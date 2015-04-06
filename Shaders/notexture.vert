@@ -1,4 +1,4 @@
-#version 330
+#version 150
 
 in vec3 in_Vertex;
 in vec3 in_Normal;
