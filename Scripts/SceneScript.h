@@ -14,6 +14,8 @@
 
 #include "Tank.h"
 
+#include "Bullet.h"
+
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
 
@@ -104,21 +106,25 @@ void sc_controls() {
 	controls_create("P1_down", GLFW_KEY_DOWN);
 	controls_create("P1_left", GLFW_KEY_LEFT);
 	controls_create("P1_right", GLFW_KEY_RIGHT);
+	controls_create("P1_fire", GLFW_KEY_KP_1);
 
 	controls_create("P2_up", GLFW_KEY_Z);
 	controls_create("P2_down", GLFW_KEY_S);
 	controls_create("P2_left", GLFW_KEY_Q);
 	controls_create("P2_right", GLFW_KEY_D);
+	controls_create("P2_fire", GLFW_KEY_E);
 
 	controls_create("P3_up", GLFW_KEY_Y);
 	controls_create("P3_down", GLFW_KEY_H);
 	controls_create("P3_left", GLFW_KEY_G);
 	controls_create("P3_right", GLFW_KEY_J);
+	controls_create("P3_fire", GLFW_KEY_U);
 
 	controls_create("P4_up", GLFW_KEY_KP_5);
 	controls_create("P4_down", GLFW_KEY_KP_6);
 	controls_create("P4_left", GLFW_KEY_KP_3);
 	controls_create("P4_right", GLFW_KEY_KP_9);
+	controls_create("P4_fire", GLFW_KEY_KP_8);
 }
 
 void sc_loadplayers(SceneScript* scscript) {
@@ -133,6 +139,17 @@ void sc_loadplayers(SceneScript* scscript) {
 		SceneObject *tank = so_create("Tank", transform_xyz(scscript->spawnpoints[i*2],0,scscript->spawnpoints[i*2+1]));
 		so_add_script(tank, (Script*)script);
 		scene_add_so(Game.scene, tank);
+
+		Bullet *script_bullet = malloc(sizeof(Bullet));
+		script_bullet->name = "Bullet";
+		script_bullet->fromtank = tank;
+		script_bullet->setup = bullet_setup;
+		script_bullet->run = bullet_run;
+
+		SceneObject *bullet = so_create("Bullet", transform_xyz(3,5,3));
+		so_add_script(bullet, (Script*)script_bullet);
+		scene_add_so(Game.scene, bullet);
+
 	}
 }
 #endif /* SCRIPTS_SCENESCRIPT_H_ */

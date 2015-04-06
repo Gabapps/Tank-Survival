@@ -28,16 +28,16 @@ void tank_run(Tank* tank, SceneObject* so) {
 	vec3 v = {tank->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
 
-	if(input_keypressed_index(4*tank->player+3)) {
+	if(input_keypressed_index(5*tank->player+3)) {
 		transform_rotateY(&(so->transform), -Time.deltaTime);
 	}
-	if(input_keypressed_index(4*tank->player+2)) {
+	if(input_keypressed_index(5*tank->player+2)) {
 			transform_rotateY(&(so->transform), Time.deltaTime);
 	}
-	if(input_keypressed_index(4*tank->player)) {
+	if(input_keypressed_index(5*tank->player)) {
 		transform_translate(&(so->transform), v);
 	}
-	else if(input_keypressed_index(4*tank->player+1)) {
+	else if(input_keypressed_index(5*tank->player+1)) {
 		vec3_scale(v,v,-0.7f);
 		transform_translate(&(so->transform), v);
 	}

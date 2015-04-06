@@ -8,6 +8,8 @@
 #ifndef SCRIPTS_BULLET_H_
 #define SCRIPTS_BULLET_H_
 
+#include "../Script.h"
+
 typedef struct Bullet{
 	define_script(Bullet);
 	float speed;
@@ -28,6 +30,7 @@ void bullet_setup(Bullet* bullet, SceneObject* so){
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
+	Tank* tank = bullet->fromtank->scripts->root->value;
 	vec3 v = {bullet->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
 	if(bullet->active == 0){
@@ -43,9 +46,11 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 	}
 
 	//so->transform = tank->transform; Avec ça on suit bien la pos du tank mais on ne peut pas tirer car on bloque la position de la balle
-	if(input_keypressed("P1_fire")){
+
+	if(input_keypressed_index(5*tank->player+4)){
 		bullet->speed =15;
 		bullet->active=1;
+
 	}
 	transform_translate(&(so->transform), v);
 }
