@@ -11,12 +11,26 @@ void camera_init(Camera* cam){
 	cam->fov = 70.f;
 	cam->near = 0.1f;
 	cam->far = 100.f;
-	mat4x4_perspective(cam->perspective_matrix, 70.f, 640.f/480.f, 0.1f, 100.f);
+	mat4x4_perspective(cam->perspective_matrix,
+			cam->fov, window_get_ratio(), cam->near, cam->far);
 }
 //initialisation of the camera
 
 void camera_refresh_matrices(Camera* cam){
 
-	transform_refresh_matrix(&(cam->transform));
+	mat4x4_look_at(cam->view_matrix, cam->pos, cam->target, cam->up);
 }
 
+
+void camera_look_at(Camera* cam, vec3 pos, vec3 target, vec3 up) {
+	vec3_cpy(cam->pos, pos);
+	vec3_cpy(cam->target, target);
+	vec3_cpy(cam->up, up);
+	vec3_cpy(cam->dir, cam->target);
+	vec3_sub(cam->dir, cam->dir, cam->pos);
+
+}
+
+float* camera_direction(Camera* cam) {
+	return cam->dir;
+}

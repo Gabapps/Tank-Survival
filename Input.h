@@ -24,15 +24,61 @@ Controls_s* controls;
 int count_countrols;
 }Input_s;
  */
-void input_update();
-void input_set_controls();
 
-/*
-Controls_s* input_get_controls(char*);
-Controls_s* input_get_controls_index(int);
+
+/**
+ * \fn void input_update();
+ * \brief Check if the useful keys are pressed or not and update the Controls structure
  */
-int input_keypressed(char*);
-int input_keypressed_index(int);
+void input_update();
+
+// void input_set_controls();
+
+/**
+ * \fn Controls* input_get_controls(char* nom_control)
+ * \brief Check the status of the key from its name in the Controls structure
+ *
+ * \param nom_control The name of the key
+ *
+ * return The status of the key
+ */
+Controls* input_get_controls(char* nom_control);
+
+
+/**
+ * \fn Controls* input_get_controls_index(int key_number)
+ * \brief Check the status of the key from its index number in the Controls structure
+ *
+ * \param key_number The index number of the key
+ *
+ * return The status of the key
+ */
+Controls* input_get_controls_index(int key_number);
+
+
+/**
+ * \fn int input_keypressed(char* nom_control)
+ * \brief Return true if the key is pressed (depend of the previous input_update)
+ *
+ * \param nom_control The name of the key
+ *
+ * return true if the key is pressed
+ */
+int input_keypressed(char* nom_control);
+
+
+/**
+ * \fn int input_keypressed(char*)
+ * \brief Return true if the key is pressed (depend of the previous input_update)
+ *
+ * \param key The index number of the key
+ *
+ * return true if the key is pressed
+ */
+int input_keypressed_index(int key);
+
+
+
 /*
 int input_keypressed_index(int, int);
  */

@@ -50,6 +50,16 @@ static inline void vec2_scale(vec2 r, vec2 const v, float const s)
 		r[i] = v[i] * s;
 }
 
+static inline void vec2_create(vec2 r, float x, float y) {
+	r[0]=x;
+	r[1]=y;
+}
+
+static inline void vec2_cpy(vec2 r, const vec2 a) {
+	r[0]=a[0];
+	r[1]=a[1];
+}
+
 static inline float vec2_mul_inner(vec2 const a, vec2 const b)
 {
 	float p = 0.;
@@ -70,15 +80,23 @@ static inline void vec2_norm(vec2 r, vec2 const v)
 	vec2_scale(r, v, k);
 }
 
-/*static inline float* vec3_create(float x, float y, float z) {
-	vec3 v = {x,y,z};
-	return v;
-}*/
 
 static inline void vec3_zero(vec3 r) {
 	int i;
 	for(i=0; i<3; ++i)
 		r[i] = 0;
+}
+
+static inline void vec3_cpy(vec3 r, const vec3 a) {
+	int i;
+	for(i=0; i<3; ++i)
+		r[i] = a[i];
+}
+
+static inline void vec3_create(vec3 r, float x, float y, float z) {
+	r[0]=x;
+	r[1]=y;
+	r[2]=z;
 }
 
 static inline void vec3_add(vec3 r, vec3 const a, vec3 const b)

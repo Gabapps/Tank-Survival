@@ -17,6 +17,7 @@
 #include "Camera.h"
 #include "List.h"
 #include "Texture.h"
+#include "SunLight.h"
 
 typelist(script, Script*);
 
@@ -81,8 +82,9 @@ void so_run(SceneObject* so);
  *
  * \param so The SceneObject to initiate.
  * \param cam The current scene's camera.
+ * \param light The current scene's light.
  */
-void so_draw(SceneObject* so, Camera* cam);
+void so_draw(SceneObject* so, Camera* cam, SunLight* light);
 
 /**
  * \fn SceneObject* so_from_transform(Transform*);

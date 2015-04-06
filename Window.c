@@ -30,7 +30,7 @@ int window_open()
 
 float window_get_ratio()
 {
-	return (Window.width / Window.height);
+	return ((float)Window.width / (float)Window.height);
 }
 
 GLFWwindow* window_get() {

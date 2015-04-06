@@ -16,6 +16,8 @@ Mesh* mesh_create() {
 	mesh->vertices = NULL;
 	mesh->triangles_id = NULL;
 	mesh->normals_id = NULL;
+	mesh->vbo = 0;
+
 	return mesh;
 }
 
@@ -109,10 +111,25 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 	mesh->vertices = mesh_get_vertices(mesh);
 	mesh->normals = mesh_get_normals(mesh);
 	mesh->uvs = mesh_get_uvs(mesh);
+
 	free(temp_vertices);
 	free(temp_normals);
 	free(temp_uvs);
+
+	mesh_load_vbo(mesh);
 	return 1;
+}
+
+void mesh_load_vbo(Mesh* mesh) {
+	glGenBuffers(1,&( mesh->vbo));
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
+
+	glBufferData(GL_ARRAY_BUFFER, 3*9*mesh->f*sizeof(float), 0, GL_STATIC_DRAW);
+	glBufferSubData(GL_ARRAY_BUFFER, 0, 9*mesh->f*sizeof(float), mesh->vertices);
+	glBufferSubData(GL_ARRAY_BUFFER, 9*mesh->f*sizeof(float), 9*mesh->f*sizeof(float), mesh->normals);
+	if(mesh->vt) glBufferSubData(GL_ARRAY_BUFFER,18*mesh->f*sizeof(float), 6*mesh->f*sizeof(float), mesh->uvs);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 float* mesh_get_vertices(Mesh* mesh) {

@@ -1,20 +1,40 @@
-#version 330
+#version 150 core
 
-out vec4 out_Color;
+out vec3 out_Color;
 
 in vec3 normal;
 in vec4 position;
 
-uniform vec3 target;
-uniform mat4 M;
-uniform sampler2D texture;
+uniform vec3 lightdir;
+uniform vec3 lightcolor;
+uniform float lightforce;
+uniform vec3 camdir;
+
 
 void main()
 {
-	float a = dot(normalize(M*vec4(normal,1)), normalize(position-vec4(target,1)));
-	vec4 color = vec4(0.1,0.8,0.2,1);
-	a=abs(a);
-	out_Color = color*a*0.8+color*0.2;
+	vec3 color;
+	vec3 texture_color =  vec3(0.7,0.7,0.7);
 	
-	//out_Color = vec4(texture( myTextureSampler, UV ),rgb,1);
+	vec3 n = normalize(normal);
+	vec3 l = normalize(-lightdir);
+		// Eye vector (towards the camera)
+	vec3 E = normalize(camdir);
+	// Direction in which the triangle reflects the light
+	vec3 R = reflect(-l,n);
+	// Cosine of the angle between the Eye vector and the Reflect vector,
+	// clamped to 0
+	//  - Looking into the reflection -> 1
+	//  - Looking elsewhere -> < 1
+	float cosAlpha = clamp( dot( E,R ), 0,1 );
+	float cosTheta = clamp( dot( n,l ), 0,1 );
+	 
+	color =
+	    // Ambient : simulates indirect lighting
+	    mix(texture_color, lightcolor, 0.05) * (0.1+lightforce)/2 +
+	    // Diffuse : "color" of the object
+	    texture_color * lightcolor * lightforce  * cosTheta ;
+	
+	//out_Color = texture_color;
+	out_Color = color;
 }
