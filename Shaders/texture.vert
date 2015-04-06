@@ -1,8 +1,8 @@
 #version 150
 
-layout(location = 0) in vec3 in_Vertex;
-layout(location = 1) in vec3 in_Normal;
-layout(location = 2) in vec2 in_UV;
+vec3 in_Vertex;
+in vec3 in_Normal;
+in vec2 in_UV;
 
 out vec3 normal;
 out vec4 position;
