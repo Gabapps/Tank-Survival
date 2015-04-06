@@ -11,22 +11,45 @@
 typedef struct Bullet{
 	define_script(Bullet);
 	float speed;
-	//double  x, y, dx, dy, bullet_phi;
-	//int active;
+	SceneObject *fromtank;
+	int active;
+	float time;
 }Bullet;
 
 void bullet_setup(Bullet* bullet, SceneObject* so){
-	bullet->speed =2;
+
+	so->mesh = ressources_get_mesh(MESH_MISSILE);
+	so->shader = ressources_get_shader(SHADER_NOTEXTURE);
+	//so->texture= ressources_get_texture(TEXTURE_BULLET); //revoir la texture
+	so->transform = bullet->fromtank->transform;
+	bullet->speed = 0;
+	bullet->active =0;
+	bullet->time = 0;
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
 	vec3 v = {bullet->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
+	if(bullet->active == 0){
+		so->transform = bullet->fromtank->transform;
+	}
+	else bullet->time+= Time.deltaTime;
+	if(bullet->time>2) {
+		bullet->active =0;
+		so->transform = bullet->fromtank->transform;
+		bullet->speed = 0;
+		bullet->time = 0;
 
+	}
+
+	//so->transform = tank->transform; Avec ça on suit bien la pos du tank mais on ne peut pas tirer car on bloque la position de la balle
+	if(input_keypressed("P1_fire")){
+		bullet->speed =15;
+		bullet->active=1;
+	}
 	transform_translate(&(so->transform), v);
-	printf("%f-%f-%f\n",v[0],v[1],v[2]);
-
 }
+
 
 
 #endif /* SCRIPTS_BULLET_H_ */

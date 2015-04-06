@@ -29,7 +29,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 		transform_rotateY(&(so->transform), -Time.deltaTime);
 	}
 	if(input_keypressed("P1_left")) {
-			transform_rotateY(&(so->transform), Time.deltaTime);
+		transform_rotateY(&(so->transform), Time.deltaTime);
 	}
 	if(input_keypressed("P1_up")) {
 		transform_translate(&(so->transform), v);
@@ -38,7 +38,8 @@ void tank_run(Tank* tank, SceneObject* so) {
 		vec3_scale(v,v,-0.7f);
 		transform_translate(&(so->transform), v);
 	}
-
+	printf("tank pos : %f %f %f\n", so->transform.position[0],so->transform.position[1],so->transform.position[2]);
+	printf("tank rot : %f\n", so->transform.rotation);
 }
 
 #endif /* SCRIPTS_TANK_H_ */

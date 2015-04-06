@@ -37,6 +37,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	Bullet *script_bullet = malloc(sizeof(Bullet));
 	script_bullet->name = "Bullet";
+	script_bullet->fromtank = tank;
 	script_bullet->setup = bullet_setup;
 	script_bullet->run = bullet_run;
 
@@ -45,8 +46,8 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {5,0.7,5},
-			center = {3,0,3},
+	vec3 pos = {30,30,15},
+			center = {15,0,15},
 			up = {0,1,0};
 	transform_look_at(&(cam.transform),pos, center,up);
 
