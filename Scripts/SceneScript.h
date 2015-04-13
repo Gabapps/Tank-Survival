@@ -66,6 +66,7 @@ void sc_map(SceneScript* scscript)
 	Transform transform_map = transform_origin();
 
 	SceneObject *map_wall = so_create("Wall", transform_origin());
+	map_wall->collider = collider_create(0.5, 0.5);
 
 	map_wall->shader = ressources_get_shader(SHADER_TEXTURE);
 	map_wall->mesh = ressources_get_mesh(MESH_WALL);
