@@ -27,20 +27,34 @@ void tank_setup(Tank* tank, SceneObject* so) {
 void tank_run(Tank* tank, SceneObject* so) {
 	vec3 v = {tank->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
+	int res = 0;
 
-	if(input_keypressed_index(5*tank->player+3)) {
-		transform_rotateY(&(so->transform), -Time.deltaTime);
+	if(tank->player==0) {
+		node_so *iterator = Game.scene->sceneObjects->root;
+		while(iterator != NULL) {
+			if(so!=iterator->value && iterator->value->collider != NULL) {
+				if(so_collision(so, iterator->value)) res=1;
+			}
+			iterator = iterator->next;
+		}
 	}
-	if(input_keypressed_index(5*tank->player+2)) {
+	if(!res) {
+		if(input_keypressed_index(5*tank->player+3)) {
+			transform_rotateY(&(so->transform), -Time.deltaTime);
+		}
+		if(input_keypressed_index(5*tank->player+2)) {
 			transform_rotateY(&(so->transform), Time.deltaTime);
+		}
+		if(input_keypressed_index(5*tank->player)) {
+			transform_translate(&(so->transform), v);
+		}
+		else if(input_keypressed_index(5*tank->player+1)) {
+			vec3_scale(v,v,-0.7f);
+			transform_translate(&(so->transform), v);
+		}
 	}
-	if(input_keypressed_index(5*tank->player)) {
-		transform_translate(&(so->transform), v);
-	}
-	else if(input_keypressed_index(5*tank->player+1)) {
-		vec3_scale(v,v,-0.7f);
-		transform_translate(&(so->transform), v);
-	}
+
+
 
 }
 

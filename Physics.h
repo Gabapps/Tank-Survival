@@ -18,13 +18,36 @@
 
 //Bounding box rectangle à créer
 
+
 typedef struct BoxCollider{
 	float largeur;
 	float longueur;
 } BoxCollider;
 
 
+/**
+ * \fn BoxCollider* collider_create(float largeur, float longueur);
+ * \brief create a BoxCollider structure with the given parameters
+ *
+ * \param largeur	The width of the shape
+ * \param longueur	The length of the shape
+ *
+ * \return a BoxCollider pointer
+ */
 BoxCollider* collider_create(float largeur, float longueur);
+
+
+/**
+ * \fn int RotRectsCollision(Transform* tr1, BoxCollider* b1, Transform* tr2, BoxCollider* b2);
+ * \brief Detect if there is a collision between two rectangles (based on Oren Becker's code)
+ *
+ * \param tr1	Transformation structure of the first rectangle
+ * \param b1	BoxCollider of the first rectangle (define the physique shape)
+ * \param tr2	Transformation structure of the second rectangle
+ * \param b2	BoxCollider of the second rectangle (define the physique shape)
+ *
+ * \return 1 if there is a collision. 0 otherwise.
+ */
 int RotRectsCollision(Transform* tr1, BoxCollider* b1, Transform* tr2, BoxCollider* b2);
 
 

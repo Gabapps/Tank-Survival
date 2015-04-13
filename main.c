@@ -43,7 +43,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     if(!GLEW_VERSION_3_3) {
-    	printf("Your graphic card doesn't support OpenGL 3.3 !\nSwitching in OpenGL 2.1 compatibility mode");
+    	printf("Your graphic card doesn't support OpenGL 3.3 !\nSwitching in OpenGL 2.1 compatibility mode\n");
     }
     if (!GLEW_VERSION_2_1) {  // check that the machine supports the 2.1 API.
     	printf("Your graphic card doesn't support OpenGL 2.1 !\nCheck if your video drivers are up to date.\n");

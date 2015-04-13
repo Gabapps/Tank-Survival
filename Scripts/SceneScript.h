@@ -144,6 +144,7 @@ void sc_loadplayers(SceneScript* scscript) {
 		script->player = i;
 
 		SceneObject *tank = so_create("Tank", transform_xyz(scscript->spawnpoints[i*2],0,scscript->spawnpoints[i*2+1]));
+		tank->collider = collider_create(0.29, 0.49);
 		so_add_script(tank, (Script*)script);
 		scene_add_so(Game.scene, tank);
 

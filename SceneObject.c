@@ -111,8 +111,19 @@ void so_add_script(SceneObject* so, Script* script) {
 	list_script_put(so->scripts, script);
 }
 
-int so_collision(SceneObject* so1, SceneObject* so2)
-{
-	//Renvoi le transform et le collider à Physics
-	return RotRectsCollision(&(so1->transform), so1->collider, &(so2->transform), so2->collider);
+int so_collision_detection(SceneObject* so1, SceneObject* so2){
+	if(RotRectsCollision(&(so1->transform), so1->collider, &(so2->transform), so2->collider)
+	   || RotRectsCollision(&(so2->transform), so2->collider, &(so1->transform), so1->collider))
+	{
+		return 1;
+	}
+	return 0;
+}
+
+SceneObject* so_collision(SceneObject* so1, SceneObject* so2){
+	if(so_collision_detection(so1, so2))
+	{
+		return so2;
+	}
+	return NULL;
 }

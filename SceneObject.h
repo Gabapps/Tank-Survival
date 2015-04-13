@@ -89,7 +89,7 @@ void so_run(SceneObject* so);
 void so_draw(SceneObject* so, Camera* cam, SunLight* light);
 
 /**
- * \fn SceneObject* so_from_transform(Transform*);
+ * \fn SceneObject* so_from_transform(Transform*)
  *
  * \brief get a sceneObject associated to a transform.
  * \param t The transform of a sceneObject.
@@ -98,9 +98,30 @@ void so_draw(SceneObject* so, Camera* cam, SunLight* light);
  */
 SceneObject* so_from_transform(Transform* t);
 
-
 void so_add_script(SceneObject* so, Script* script);
 
-int so_collision(SceneObject* so1, SceneObject* so2);
+/**
+ * \fn int so_collision_detection(SceneObject* so1, SceneObject* so2)
+ *
+ * \brief Detect collisions between two SceneObjects.
+ * \param so1 The first SceneObject.
+ * \param so2 The second SceneObject.
+ *
+ * \return 1 if there is a collision. 0 otherwise.
+ *
+ */
+int so_collision_detection(SceneObject* so1, SceneObject* so2);
+
+/**
+ * \fn SceneObject* so_collision(SceneObject* so1, SceneObject* so2);
+ *
+ * \brief Detect collisions between two SceneObjects.
+ * \param so1 The first SceneObject.
+ * \param so2 The second SceneObject.
+ *
+ * \return The second SceneObject (so2).
+ *
+ */
+SceneObject* so_collision(SceneObject* so1, SceneObject* so2);
 
 #endif /* SCENEOBJECT_H_ */
