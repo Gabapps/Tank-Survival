@@ -9,6 +9,7 @@
 #define SCRIPTS_BULLET_H_
 
 #include "../Script.h"
+#include "../SceneObject.h"
 
 typedef struct Bullet{
 	define_script(Bullet);
@@ -25,18 +26,58 @@ void bullet_setup(Bullet* bullet, SceneObject* so){
 	//so->texture= ressources_get_texture(TEXTURE_BULLET); //revoir la texture
 	so->transform = bullet->fromtank->transform;
 	bullet->speed = 0;
-	bullet->active =0;
+	bullet->active = 0;
 	bullet->time = 0;
+	so->collider = collider_create(0.2, 0.2);
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
 	Tank* tank = (Tank*) bullet->fromtank->scripts->root->value;
-	if(bullet->active == 0){
+	node_so *iterator = Game.scene->sceneObjects->root;
+
+
+	if(bullet->active == 0)
+	{
 		so->transform = bullet->fromtank->transform;
 	}
 	else bullet->time+= Time.deltaTime;
-	if(bullet->time>2) {
-		bullet->active =0;
+
+	if(bullet->time>0)
+	{
+		while(iterator != NULL)
+			{
+				if(so!=iterator->value && iterator->value->collider != NULL && bullet->fromtank!=iterator->value)//On ne teste pas la collision du bullet avec lui même ni avec son tank d'origine
+				{
+					if(so_collision(so, iterator->value) != NULL)
+					{
+						if(!strcmp(so_collision(so, iterator->value)->name, "Tank"))
+						{
+							//Si collision avec un tank, on vire le tank de la scene...
+							scene_delete_so(Game.scene, iterator->value);
+							so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
+							//...et on remet le bullet immobile à l'origine
+							so->transform = bullet->fromtank->transform;
+							bullet->speed = 0;
+						}
+						else if(!strcmp(so_collision(so, iterator->value)->name, "Wall"))
+						{
+							//Si collision avec un wall, on remet le bullet immobile à l'origine
+							so->transform = bullet->fromtank->transform;
+							bullet->speed = 0;
+						}
+						else if(!strcmp(so_collision(so, iterator->value)->name, "Bullet"))
+						{
+							//Si collision avec un bullet, on ne fait rien pour l'instant
+						}
+					}
+				}
+				iterator = iterator->next;
+			}
+	}
+
+	if(bullet->time>2)
+	{
+		bullet->active = 0;
 		so->transform = bullet->fromtank->transform;
 		bullet->speed = 0;
 		bullet->time = 0;

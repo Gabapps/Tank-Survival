@@ -27,33 +27,132 @@ void tank_setup(Tank* tank, SceneObject* so) {
 void tank_run(Tank* tank, SceneObject* so) {
 	vec3 v = {tank->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
-	int res = 0;
 
-	if(tank->player==0) {
+
+	if(input_keypressed_index(5*tank->player+3)) //rotation horaire
+	{
+		//On commence la manoeuvre
+		transform_rotateY(&(so->transform), -Time.deltaTime);
+
 		node_so *iterator = Game.scene->sceneObjects->root;
-		while(iterator != NULL) {
-			if(so!=iterator->value && iterator->value->collider != NULL) {
-				if(so_collision(so, iterator->value)) res=1;
+		while(iterator != NULL) //Tant qu'on a pas testé tous les so de la scene
+		{
+			if(so!=iterator->value && iterator->value->collider != NULL) //On ne teste pas la collision du so avec lui même
+			{
+				if(so_collision(so, iterator->value) != NULL)
+				{
+					if(!strcmp(so_collision(so, iterator->value)->name, "Tank"))
+					{
+						//Si collision avec un tank, on annule la manoeuvre (rotation dans le sense inverse)
+						transform_rotateY(&(so->transform), Time.deltaTime);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Wall"))
+					{
+						//Si collision avec un wall, on annule la manoeuvre (rotation dans le sense inverse)
+						transform_rotateY(&(so->transform), Time.deltaTime);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Bullet"))
+					{
+						//on ne fait rien. Cas géré dans le bullet_run
+					}
+				}
+			}
+				iterator = iterator->next;
+			}
+		}
+
+
+
+	if(input_keypressed_index(5*tank->player+2)) //rotation antihoraire
+	{
+		transform_rotateY(&(so->transform), Time.deltaTime);
+
+		node_so *iterator = Game.scene->sceneObjects->root;
+		while(iterator != NULL)
+		{
+			if(so!=iterator->value && iterator->value->collider != NULL)
+			{
+				if(so_collision(so, iterator->value) != NULL)
+				{
+					if(!strcmp(so_collision(so, iterator->value)->name, "Tank"))
+					{
+						transform_rotateY(&(so->transform), -Time.deltaTime);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Wall"))
+					{
+						transform_rotateY(&(so->transform), -Time.deltaTime);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Bullet"))
+					{
+					}
+				}
+			}
+				iterator = iterator->next;
+			}
+		}
+
+
+	if(input_keypressed_index(5*tank->player)) //marche avant
+	{
+		transform_translate(&(so->transform), v);
+
+		node_so *iterator = Game.scene->sceneObjects->root;
+		while(iterator != NULL)
+		{
+			if(so!=iterator->value && iterator->value->collider != NULL)
+			{
+				if(so_collision(so, iterator->value) != NULL)
+				{
+					if(!strcmp(so_collision(so, iterator->value)->name, "Tank"))
+					{
+						vec3_scale(v,v,-1.0f);
+						transform_translate(&(so->transform), v);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Wall"))
+					{
+						vec3_scale(v,v,-1.0f);
+						transform_translate(&(so->transform), v);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Bullet"))
+					{
+					}
+				}
 			}
 			iterator = iterator->next;
 		}
 	}
-	if(!res) {
-		if(input_keypressed_index(5*tank->player+3)) {
-			transform_rotateY(&(so->transform), -Time.deltaTime);
-		}
-		if(input_keypressed_index(5*tank->player+2)) {
-			transform_rotateY(&(so->transform), Time.deltaTime);
-		}
-		if(input_keypressed_index(5*tank->player)) {
-			transform_translate(&(so->transform), v);
-		}
-		else if(input_keypressed_index(5*tank->player+1)) {
-			vec3_scale(v,v,-0.7f);
-			transform_translate(&(so->transform), v);
+
+
+	else if(input_keypressed_index(5*tank->player+1)) //marche arrière
+	{
+		vec3_scale(v,v,-0.5f);
+		transform_translate(&(so->transform), v);
+
+		node_so *iterator = Game.scene->sceneObjects->root;
+		while(iterator != NULL)
+		{
+			if(so!=iterator->value && iterator->value->collider != NULL)
+			{
+				if(so_collision(so, iterator->value) != NULL)
+				{
+					if(!strcmp(so_collision(so, iterator->value)->name, "Tank"))
+					{
+						vec3_scale(v,v,-1.0f);
+						transform_translate(&(so->transform), v);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Wall"))
+					{
+						vec3_scale(v,v,-1.0f);
+						transform_translate(&(so->transform), v);
+					}
+					else if(!strcmp(so_collision(so, iterator->value)->name, "Bullet"))
+					{
+					}
+				}
+			}
+			iterator = iterator->next;
 		}
 	}
-
 
 
 }

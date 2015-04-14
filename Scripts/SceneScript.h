@@ -86,7 +86,7 @@ void sc_map(SceneScript* scscript)
 			fscanf(map, "%d ", &test);
 			if(test == 1)
 			{
-				scene_add_so(Game.scene, so_duplicate(map_wall, "wall", transform_map));
+				scene_add_so(Game.scene, so_duplicate(map_wall, "Wall", transform_map));
 			}
 			else if(test == 2) {
 				scscript->spawnpoints[nbspawn*2]=(float)j;
