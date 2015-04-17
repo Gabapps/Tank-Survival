@@ -42,37 +42,39 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 	}
 	else bullet->time+= Time.deltaTime;
 
-	if(bullet->time>0)
+	if(bullet->active)
 	{
 		while(iterator != NULL)
-			{
-				if(so!=iterator->value && iterator->value->collider != NULL && bullet->fromtank!=iterator->value)//On ne teste pas la collision du bullet avec lui même ni avec son tank d'origine
+		{
+			if(iterator->value->collider && iterator->value!=so && iterator->value!=bullet->fromtank) {
+				SceneObject *collision_so = so_collision(so, iterator->value);
+
+				if(collision_so)
 				{
-					if(so_collision(so, iterator->value) != NULL)
+					if(strcmp(collision_so->name, "Tank") == 0)
 					{
-						if(!strcmp(so_collision(so, iterator->value)->name, "Tank"))
-						{
-							//Si collision avec un tank, on vire le tank de la scene...
-							scene_delete_so(Game.scene, iterator->value);
-							so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
-							//...et on remet le bullet immobile à l'origine
-							so->transform = bullet->fromtank->transform;
-							bullet->speed = 0;
-						}
-						else if(!strcmp(so_collision(so, iterator->value)->name, "Wall"))
-						{
-							//Si collision avec un wall, on remet le bullet immobile à l'origine
-							so->transform = bullet->fromtank->transform;
-							bullet->speed = 0;
-						}
-						else if(!strcmp(so_collision(so, iterator->value)->name, "Bullet"))
-						{
-							//Si collision avec un bullet, on ne fait rien pour l'instant
-						}
+						//Si collision avec un tank, on vire le tank de la scene...
+						scene_delete_so(Game.scene, iterator->value);
+						so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
+						//...et on remet le bullet immobile à l'origine
+						so->transform = bullet->fromtank->transform;
+						bullet->speed = 0;
+					}
+					else if(strcmp(collision_so->name, "Wall") == 0)
+					{
+						//Si collision avec un wall, on remet le bullet immobile à l'origine
+						so->transform = bullet->fromtank->transform;
+						bullet->speed = 0;
+					}
+					else if(strcmp(collision_so->name, "Bullet") == 0)
+					{
+						//Si collision avec un bullet, on ne fait rien pour l'instant
 					}
 				}
-				iterator = iterator->next;
 			}
+
+			iterator=iterator->next;
+		}
 	}
 
 	if(bullet->time>2)
@@ -86,7 +88,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 
 	//so->transform = tank->transform; Avec ça on suit bien la pos du tank mais on ne peut pas tirer car on bloque la position de la balle
 
-	if(input_keypressed_index(5*tank->player+4)){
+	if(input_keypressed_index(5*tank->player+4) && !bullet->active){
 		bullet->speed =15;
 		bullet->active=1;
 

@@ -15,7 +15,7 @@ SceneObject* so_create(char* name, Transform t) {
 	so->shader=NULL;
 	so->texture=NULL;
 	so->scripts=list_script_create();
-	so->collider = NULL;
+	so->collider=NULL;
 	return so;
 }
 
