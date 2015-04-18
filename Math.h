@@ -342,7 +342,7 @@ static inline void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b)
 	mat4x4_dup(M, temp);
 }
 
-static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, vec4 v)
+static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, const vec4 v)
 {
 	int i, j;
 	for(j=0; j<4; ++j) {
@@ -352,13 +352,14 @@ static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, vec4 v)
 	}
 }
 
-static inline void mat4x4_mul_vec3(vec3 r, mat4x4 M, vec3 v)
+static inline void mat4x4_mul_vec3(vec3 r, mat4x4 M, const vec3 v)
 {
-	vec4 vec = {v[0], v[1], v[2], 1};
-	mat4x4_mul_vec4(vec, M, vec);
-	r[0]=vec[0];
-	r[1]=vec[1];
-	r[2]=vec[2];
+	vec4 vec1 = {v[0], v[1], v[2], 1};
+	vec4 vec2 = {v[0], v[1], v[2], 1};
+	mat4x4_mul_vec4(vec1, M, vec2);
+	r[0]=vec1[0];
+	r[1]=vec1[1];
+	r[2]=vec1[2];
 }
 
 static inline void mat4x4_translate(mat4x4 T, float x, float y, float z)

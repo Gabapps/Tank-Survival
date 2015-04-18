@@ -31,5 +31,7 @@ void scene_draw(Scene* scene);
 void scene_add_so(Scene* scene, SceneObject* so);
 int scene_delete_so(Scene* scene, SceneObject* so);
 int scene_find_so(Scene* scene, SceneObject* so);
+void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent);
+void scene_detach_so(Scene* scene, SceneObject* so);
 
 #endif /* SCENE_H_ */

@@ -108,8 +108,9 @@ void scene_draw(Scene* scene) {
 void scene_add_so(Scene* scene, SceneObject* so)
 {
 	//Ajoute so dans le tableau sceneObject de la structure scene
-
-	list_so_put(scene->sceneObjects, so);
+	if(so->transform.parent == NULL)
+		list_so_put(scene->sceneObjects, so);
+	else printf("Warning : Can't add child sceneObject to scene, it must be a root\n");
 }
 
 
@@ -124,7 +125,30 @@ void scene_add_so(Scene* scene, SceneObject* so)
  */
 int scene_delete_so(Scene* scene, SceneObject* so)
 {
-	return list_so_delete(scene->sceneObjects, so, 1);;
+	return list_so_delete(scene->sceneObjects, so, 1);
+}
+
+void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent) {
+	if(child->transform.parent == NULL) {
+		list_so_delete(scene->sceneObjects, child, 0);
+		so_add_child(parent, child);
+	}
+	else {
+		printf("Warning : You're trying to attach a sceneObject that is not a root\n"
+				"Use so_add_child instead\n");
+	}
+}
+
+void scene_detach_so(Scene* scene, SceneObject* so) {
+	if(so->transform.parent) {
+		transform_to_world_coord(&(so->transform));
+		transform_rm_child(so->transform.parent, &(so->transform));
+		so->transform.parent = NULL;
+		scene_add_so(scene, so);
+	}
+	else {
+		printf("Warning : You're trying to detach a sceneObject is already a root\n");
+	}
 }
 
 

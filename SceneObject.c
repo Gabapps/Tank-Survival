@@ -7,6 +7,12 @@
 
 #include "SceneObject.h"
 
+//Private functions
+void so_draw_one_step(SceneObject* so, Camera* cam, SunLight* light);
+void so_destroy_one_step(SceneObject* so);
+void so_run_one_step(SceneObject* so);
+void so_setup_one_step(SceneObject* so);
+
 SceneObject* so_create(char* name, Transform t) {
 	SceneObject* so = (SceneObject*)malloc(sizeof(SceneObject));
 	so->transform=t;
@@ -19,9 +25,22 @@ SceneObject* so_create(char* name, Transform t) {
 	return so;
 }
 
-void so_detroy(SceneObject* so) {
+void so_destroy_one_step(SceneObject* so) {
 	free(so->name);
 	free(so);
+}
+void so_detroy(SceneObject* so) {
+	if(so->transform.children->root == NULL) {
+		so_destroy_one_step(so);
+	}
+	else {
+		so_destroy_one_step(so);
+		node_tf *iterator = so->transform.children->root;
+		while(iterator != NULL) {
+			so_detroy(so_from_transform(iterator->value));
+			iterator = iterator->next;
+		}
+	}
 }
 
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
@@ -36,7 +55,7 @@ SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	return new_so;
 }
 
-void so_setup(SceneObject* so) {
+void so_setup_one_step(SceneObject* so) {
 	node_script *iterator = so->scripts->root;
 	while(iterator != NULL) {
 		iterator->value->setup(iterator->value, so);
@@ -44,17 +63,44 @@ void so_setup(SceneObject* so) {
 	}
 }
 
-void so_run(SceneObject* so) {
+void so_run_one_step(SceneObject* so) {
 	node_script *iterator = so->scripts->root;
 	while(iterator != NULL) {
 		iterator->value->run(iterator->value, so);
 		iterator = iterator->next;
 	}
 }
+void so_setup(SceneObject* so) {
+	if(so->transform.children->root == NULL) {
+		so_setup_one_step(so);
+	}
+	else {
+		so_setup_one_step(so);
+		node_tf *iterator = so->transform.children->root;
+		while(iterator != NULL) {
+			so_setup(so_from_transform(iterator->value));
+			iterator = iterator->next;
+		}
+	}
+}
 
-void so_draw(SceneObject* so, Camera* cam, SunLight* light) {
+void so_run(SceneObject* so) {
+	if(so->transform.children->root == NULL) {
+		so_run_one_step(so);
+	}
+	else {
+		so_run_one_step(so);
+		node_tf *iterator = so->transform.children->root;
+		while(iterator != NULL) {
+			so_run(so_from_transform(iterator->value));
+			iterator = iterator->next;
+		}
+	}
+}
+
+void so_draw_one_step(SceneObject* so, Camera* cam, SunLight* light) {
+	transform_refresh_matrix(&(so->transform));
 	if(so->mesh != NULL && so->shader != NULL) {
-		transform_refresh_matrix(&(so->transform));
 		glUseProgram(so->shader->program); // On verouille le shader
 		if(GLEW_VERSION_3_3) {
 			glBindBuffer(GL_ARRAY_BUFFER, so->mesh->vbo);
@@ -103,6 +149,20 @@ void so_draw(SceneObject* so, Camera* cam, SunLight* light) {
 	}
 }
 
+void so_draw(SceneObject* so, Camera* cam, SunLight* light) {
+	if(so->transform.children->root == NULL) {
+		so_draw_one_step(so, cam, light);
+	}
+	else {
+		so_draw_one_step(so, cam, light);
+		node_tf *iterator = so->transform.children->root;
+		while(iterator != NULL) {
+			so_draw(so_from_transform(iterator->value), cam, light);
+			iterator = iterator->next;
+		}
+	}
+}
+
 SceneObject* so_from_transform(Transform* t){
 	return (SceneObject*)t;
 }
@@ -126,4 +186,12 @@ SceneObject* so_collision(SceneObject* so1, SceneObject* so2){
 		return so2;
 	}
 	return NULL;
+}
+
+void so_add_child(SceneObject* parent, SceneObject* child) {
+	transform_add_child(&(parent->transform), &(child->transform));
+}
+
+void so_rm_child(SceneObject* parent, SceneObject* child) {
+	transform_rm_child(&(parent->transform), &(child->transform));
 }

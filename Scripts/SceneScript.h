@@ -63,9 +63,9 @@ void sc_run(SceneScript* scenescript, SceneObject* so) {
 void sc_map(SceneScript* scscript)
 {
 	int i, j, test;
-	Transform transform_map = transform_origin();
+	Transform transform_map = transform_origin_no_parent();
 
-	SceneObject *map_wall = so_create("Wall", transform_origin());
+	SceneObject *map_wall = so_create("Wall", transform_origin_no_parent(NULL));
 	map_wall->collider = collider_create(0.5, 0.5);
 
 	map_wall->shader = ressources_get_shader(SHADER_TEXTURE);
@@ -80,7 +80,7 @@ void sc_map(SceneScript* scscript)
 	{
 		for(j=0;j<MAPWIDTH;++j)
 		{
-			transform_map = transform_origin();
+			transform_map = transform_origin_no_parent();
 			vec3 vec = {i,0,MAPWIDTH-j-1};
 			transform_translate_world(&transform_map, vec);
 			fscanf(map, "%d ", &test);
@@ -98,12 +98,13 @@ void sc_map(SceneScript* scscript)
 	}
 	fclose(map);
 
-	SceneObject* ground = so_create("Ground", transform_xyz(15,0,15));
+	SceneObject* ground = so_create("Ground", transform_xyz_no_parent(15,0,15));
+
 	ground->mesh = ressources_get_mesh(MESH_GROUND);
 	ground->texture = ressources_get_texture(TEXTURE_GROUND);
 	ground->shader = ressources_get_shader(SHADER_TEXTURE);
 
-	scene_add_so(Game.scene, ground);
+	//scene_add_so(Game.scene, ground);
 
 }
 
@@ -144,20 +145,19 @@ void sc_loadplayers(SceneScript* scscript) {
 		script->run = tank_run;
 		script->player = i;
 
-		SceneObject *tank = so_create("Tank", transform_xyz(scscript->spawnpoints[i*2],0,scscript->spawnpoints[i*2+1]));
+		SceneObject *tank = so_create("Tank", transform_xyz_no_parent(scscript->spawnpoints[i*2],0,scscript->spawnpoints[i*2+1]));
 		so_add_script(tank, (Script*)script);
-		scene_add_so(Game.scene, tank);
 
 		Bullet *script_bullet = malloc(sizeof(Bullet));
 		script_bullet->name = "Bullet";
-		script_bullet->fromtank = tank;
 		script_bullet->setup = bullet_setup;
 		script_bullet->run = bullet_run;
 
-		SceneObject *bullet = so_create("Bullet", transform_xyz(3,5,3));
+		SceneObject *bullet = so_create("Bullet", transform_xyz_no_parent(3,5,3));
 		so_add_script(bullet, (Script*)script_bullet);
-		scene_add_so(Game.scene, bullet);
-
+		so_add_child(tank, bullet);
+		scene_add_so(Game.scene, tank);
 	}
+
 }
 #endif /* SCRIPTS_SCENESCRIPT_H_ */

@@ -56,6 +56,7 @@ int main(void)
 
     Game.scene = scene_create("Main");
     Game.scene->script = (Script*) &scenescript;
+    game_resume();
 
     // Scene script init
     	// ALL MOVED TO SCENESCRIPT
@@ -69,9 +70,11 @@ int main(void)
 
     while (!glfwWindowShouldClose(window_get()))
     {
-    	input_update();
-    	time_update();
-    	scene_run(Game.scene);
+    	if(Game.running) {
+    		input_update();
+        	time_update();
+        	scene_run(Game.scene);
+    	}
 
     	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // On vide les tampons couleurs et profondeur
 

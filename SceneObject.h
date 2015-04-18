@@ -124,4 +124,8 @@ int so_collision_detection(SceneObject* so1, SceneObject* so2);
  */
 SceneObject* so_collision(SceneObject* so1, SceneObject* so2);
 
+void so_add_child(SceneObject* parent, SceneObject* child);
+
+void so_rm_child(SceneObject* parent, SceneObject* child);
+
 #endif /* SCENEOBJECT_H_ */

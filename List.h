@@ -56,16 +56,16 @@ static inline void list_##name##_put(list_##name* list, type value) { \
 static inline int list_##name##_delete(list_##name* list, type value, int freevalue) { \
 	if(list->count==0) return 0; \
 	else { \
-		node_##name *iterator = list->root, *temp; \
-		while(iterator->next->value!=value) {\
-			if(iterator==NULL) return 0; \
-			iterator=iterator->next; \
-			} \
 		if(list->count==1) { \
 			node_##name##_delete(list->root, freevalue); \
 			list->root = NULL; \
 		} \
 		else { \
+			node_##name *iterator = list->root, *temp; \
+			while(iterator->next->value!=value) {\
+				if(iterator==NULL) return 0; \
+				iterator=iterator->next; \
+			} \
 			temp = iterator->next; \
 			iterator->next = temp->next; \
 			node_##name##_delete(temp, freevalue); \
