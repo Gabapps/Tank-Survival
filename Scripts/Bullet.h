@@ -10,6 +10,7 @@
 
 #include "../Script.h"
 #include "../SceneObject.h"
+#include "Wall.h"
 
 typedef struct Bullet{
 	define_script(Bullet);
@@ -61,7 +62,21 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 					}
 					else if(strcmp(collision_so->name, "Wall") == 0)
 					{
-						//Si collision avec un wall, on remet le bullet immobile à l'origine
+						//le mur est il destructible ?
+						if(((Wall*)collision_so->scripts->root->value)->dest == 1)
+						{
+							((Wall*)collision_so->scripts->root->value)->life -=20;
+
+						}
+
+						//faut il en profiter pour enlever le mur ?
+						if(((Wall*)collision_so->scripts->root->value)->life <= 0)
+						{
+							scene_delete_so(Game.scene, iterator->value);
+//							so_detroy(iterator->value);
+						}
+
+						//On remet le bullet immobile à l'origine
 						transform_origin(&(so->transform));
 						bullet->speed = 0;
 					}

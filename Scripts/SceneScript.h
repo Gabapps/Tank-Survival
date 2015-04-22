@@ -16,6 +16,8 @@
 
 #include "Bullet.h"
 
+#include "Wall.h"
+
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
 
@@ -66,11 +68,8 @@ void sc_map(SceneScript* scscript)
 	Transform transform_map = transform_origin_no_parent();
 
 	SceneObject *map_wall = so_create("Wall", transform_origin_no_parent(NULL));
-	map_wall->collider = collider_create(0.5, 0.5);
+	SceneObject* wallToAdd;
 
-	map_wall->shader = ressources_get_shader(SHADER_TEXTURE);
-	map_wall->mesh = ressources_get_mesh(MESH_WALL);
-	map_wall->texture = ressources_get_texture(TEXTURE_WALL);
 
 	FILE* map = fopen("Map/map.txt", "r");
 	if (map == NULL)
@@ -86,12 +85,33 @@ void sc_map(SceneScript* scscript)
 			fscanf(map, "%d ", &test);
 			if(test == 1)
 			{
-				scene_add_so(Game.scene, so_duplicate(map_wall, "Wall", transform_map));
+				Wall *script = malloc(sizeof(Wall));
+				script->name = "Wall";
+				script->setup = wall_setup;
+				script->run = wall_run;
+				script->dest = 0;
+
+				wallToAdd = so_duplicate(map_wall, "Wall", transform_map);
+
+				so_add_script(wallToAdd, (Script*)script);
+				scene_add_so(Game.scene, wallToAdd);
 			}
 			else if(test == 2) {
 				scscript->spawnpoints[nbspawn*2]=(float)j;
 				scscript->spawnpoints[nbspawn*2+1]=(float)i;
 				nbspawn++;
+			}
+			else if(test == 3) {
+				Wall *script = malloc(sizeof(Wall));
+				script->name = "Wall";
+				script->setup = wall_setup;
+				script->run = wall_run;script->dest = 0;
+				script->dest = 1;
+
+				wallToAdd = so_duplicate(map_wall, "Wall", transform_map);
+
+				so_add_script(wallToAdd, (Script*)script);
+				scene_add_so(Game.scene, wallToAdd);
 			}
 		}
 		fscanf(map, "\n");
