@@ -18,6 +18,8 @@
 
 #include "Wall.h"
 
+#include "math.h"
+
 #define MAPHEIGHT 30
 #define MAPWIDTH 30
 
@@ -28,33 +30,46 @@ typedef struct SceneScript {
 	float spawnpoints[MAX_PLAYER*2]; // 4 spawns with 2 coords each
 } SceneScript;
 
-void sc_map(SceneScript* scscript);
+typedef struct MapConf {
+	vec3 cam_pos;
+	vec3 cam_center;
+	int map_size_x, map_size_y;
+} MapConf;
+
+void sc_map(SceneScript* scscript, MapConf *map_conf);
 void sc_controls();
 void sc_loadplayers(SceneScript* scscript);
+void get_map_infos(MapConf *map_conf, FILE* map);
 
 void sc_setup(SceneScript* scenescript, SceneObject* so) {
+
+	MapConf* map_conf = (MapConf*)malloc(sizeof(MapConf));
+
 	ressources_init();
 	ressources_load();
 
+	sc_controls();
+	sc_map(scenescript, map_conf);
+	sc_loadplayers(scenescript);
+
 	Camera cam;
 	camera_init(&cam);
-	vec3 pos = {30,30,15},
-			center = {15,0,15},
-			up = {0,1,0};
-	camera_look_at(&cam, pos, center, up);
+	//vec3 pos = {map_conf->cam_pos[0],map_conf->cam_pos[1],map_conf->cam_pos[2]},
+	//		center = {map_conf->cam_center[0],map_conf->cam_center[1],map_conf->cam_center[2]},
+	//		up = {0,1,0};
+
+	vec3 up = {0,1,0};
+	camera_look_at(&cam, map_conf->cam_pos, map_conf->cam_center, up);
 	camera_refresh_matrices(&cam);
 	// Day color : {1,0.94,0.5}; force : 0.7
 	// Moonlight color :{0,0,0.8}; force : 0.3
 	vec3 poslight = {5,30,5},
 			dirlight = {-1,-1,-0.1},
 			colorlight = {1,0.94,0.5};
-
 	Game.scene->camera = cam;
 	Game.scene->light = sunlight_create(poslight, dirlight, colorlight, 0.7);
 	//Time.maxfps=-1;
-	sc_controls();
-	sc_map(scenescript);
-	sc_loadplayers(scenescript);
+
 }
 
 void sc_run(SceneScript* scenescript, SceneObject* so) {
@@ -62,7 +77,14 @@ void sc_run(SceneScript* scenescript, SceneObject* so) {
 	sunlight_set_direction(&(Game.scene->light), dir);
 }
 
-void sc_map(SceneScript* scscript)
+void get_map_infos(MapConf *map_conf, FILE* map)
+{
+	fscanf(map, "%f %f %f\n", &(map_conf->cam_pos[0]), &(map_conf->cam_pos[1]), &(map_conf->cam_pos[2]));
+	fscanf(map, "%f %f %f\n", &(map_conf->cam_center[0]), &(map_conf->cam_center[1]), &(map_conf->cam_center[2]));
+	fscanf(map, "%d %d\n", &(map_conf->map_size_x), &(map_conf->map_size_y));
+}
+
+void sc_map(SceneScript* scscript, MapConf *map_conf)
 {
 	int i, j, test;
 	Transform transform_map = transform_origin_no_parent();
@@ -70,11 +92,13 @@ void sc_map(SceneScript* scscript)
 	SceneObject *map_wall = so_create("Wall", transform_origin_no_parent(NULL));
 	SceneObject* wallToAdd;
 
-
 	FILE* map = fopen("Map/map.txt", "r");
 	if (map == NULL)
 		fprintf(stderr, "Failed to open map.txt");
 	int nbspawn = 0;
+
+	get_map_infos(map_conf, map);
+
 	for(i=0;i<MAPHEIGHT;++i)
 	{
 		for(j=0;j<MAPWIDTH;++j)
