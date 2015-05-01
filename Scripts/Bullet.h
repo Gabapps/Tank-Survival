@@ -19,6 +19,7 @@ typedef struct Bullet{
 	Transform startpos;
 	int active;
 	float time;
+	int damage;
 }Bullet;
 
 void bullet_reset(Bullet* bullet, SceneObject* so);
@@ -36,6 +37,7 @@ void bullet_setup(Bullet* bullet, SceneObject* so){
 	transform_copy(&(so->transform), &(bullet->startpos));
 	bullet->speed = 0;
 	bullet->time = 0;
+	bullet->damage = 35;
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
@@ -57,6 +59,15 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						//scene_delete_so(Game.scene, iterator->value);
 						//so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
 						//...et on remet le bullet immobile à l'origine
+
+						((Tank*)collision_so->scripts->root->value)->life -= bullet->damage;
+
+						if(((Tank*)collision_so->scripts->root->value)->life <= 0)
+						{
+								scene_delete_so(Game.scene, iterator->value);
+						//		so_detroy(iterator->value);
+						}
+
 						transform_origin(&(so->transform));
 						bullet->speed = 0;
 					}
@@ -65,7 +76,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						//le mur est il destructible ?
 						if(((Wall*)collision_so->scripts->root->value)->dest == 1)
 						{
-							((Wall*)collision_so->scripts->root->value)->life -=20;
+							((Wall*)collision_so->scripts->root->value)->life -= bullet->damage;
 
 						}
 

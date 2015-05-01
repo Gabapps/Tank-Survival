@@ -15,7 +15,6 @@ typedef struct Wall {
 }Wall;
 
 void wall_setup(Wall* wall, SceneObject* so) {
-
 	so->mesh = ressources_get_mesh(MESH_WALL);
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
 	so->texture = ressources_get_texture(TEXTURE_WALL);
