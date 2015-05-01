@@ -19,4 +19,8 @@ GUI_s GUI;
 void GUI_init();
 void GUI_draw();
 
+void GUI_init() {
+	mesh_load_canvas();
+}
+
 #endif /* GUI_H_ */

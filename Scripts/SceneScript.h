@@ -104,7 +104,7 @@ void sc_map(SceneScript* scscript)
 	ground->texture = ressources_get_texture(TEXTURE_GROUND);
 	ground->shader = ressources_get_shader(SHADER_TEXTURE);
 
-	//scene_add_so(Game.scene, ground);
+	scene_add_so(Game.scene, ground);
 
 }
 

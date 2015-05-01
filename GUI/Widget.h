@@ -12,39 +12,38 @@
 #include <GL/glew.h>
 
 #include "../List.h"
+#include "../Mesh.h"
+#include "../Shader.h"
 #include "../Math.h"
 
 typedef enum {VISIBLE, INVISBLE} Visibility;
 
 #define define_widget(type) \
-	list_widget *childs; \
+	list_widget *children; \
 	void (*setup) (struct type *widget); \
 	void (*draw) (struct type *widget); \
 	Visibility visibility; \
 	vec2 position; \
 	vec2 size; \
-	float angleY
+	float angleY; \
+	mat4x4 matrix
 
 typedef struct Widget Widget;
 
-typelist(widget, Widget);
+typelist(widget, Widget*);
 
 struct Widget {
 	define_widget(Widget);
 };
 
-void widget_init(Widget* widget);
+void widget_init(Widget* widget, void* setup_fct, void *draw_fct);
 
 void widget_add_child(Widget* parent, Widget* child);
 
-void widget_init(Widget* widget, void* setup_fct, void *draw_fct) {
-	widget->visibility = VISIBLE;
-	widget->childs = list_widget_create();
-	widget->angleY = 0;
-	widget->setup = setup_fct;
-	widget->draw = draw_fct;
-	vec2_zero(widget->position);
-	vec2_create(widget->size, 0.1, 0.1);
-}
+void widget_refresh_matrix(Widget* widget);
+
+void widget_resize(Widget* widget, float x, float y);
+
+void widget_set_position(Widget* widget, float x, float y);
 
 #endif /* WIDGET_H_ */
