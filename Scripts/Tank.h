@@ -8,6 +8,8 @@
 #ifndef SCRIPTS_TANK_H_
 #define SCRIPTS_TANK_H_
 
+#include <string.h>
+
 typedef struct Tank {
 	define_script(Tank);
 	float speed;
@@ -58,12 +60,12 @@ void tank_run(Tank* tank, SceneObject* so) {
 				if(strcmp(collision_so->name, "Tank") == 0)
 				{
 					//On annule le mouvement
-					so->transform = backup;
+					transform_copy(&(so->transform), &backup);
 				}
 				else if(strcmp(collision_so->name, "Wall") == 0)
 				{
 					//On annule le mouvement
-					so->transform = backup;
+					transform_copy(&(so->transform), &backup);
 				}
 			}
 		}

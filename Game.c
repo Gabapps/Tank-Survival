@@ -44,6 +44,7 @@ void game_load_scene(char* name) {
 	while(iterator != NULL) {
 		if(strcmp(name, iterator->value->name) == 0) {
 			Game.scene_to_load = iterator->value;
+			break;
 		}
 		iterator = iterator->next;
 	}

@@ -69,7 +69,7 @@ int main(void)
     game_add_scene(menu_scene);
 
 
-    game_load_scene("Main");
+    game_load_scene("Menu");
     game_resume();
 
     glEnable(GL_DEPTH_TEST);

@@ -46,7 +46,7 @@ void so_detroy(SceneObject* so) {
 
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	SceneObject* new_so = (SceneObject*)malloc(sizeof(SceneObject));
-	so->name = name;
+	new_so->name = name;
 	new_so->mesh = so->mesh;
 	new_so->shader = so->shader;
 	new_so->texture = so->texture;
