@@ -24,6 +24,7 @@ typedef struct Window_s{
 Window_s Window;
 
 int window_open();
+void window_close();
 float window_get_ratio();
 GLFWwindow* window_get();
 

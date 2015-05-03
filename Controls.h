@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int numberOfControls;
+
 typedef struct{
 	char* action_name;
 	int key_number;

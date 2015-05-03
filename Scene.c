@@ -28,6 +28,7 @@ Scene* scene_create(char* name)
 		new_scene->script = NULL;
 		new_scene->light = sunlight_default();
 		camera_init(&(new_scene->camera));
+		new_scene->GUI = NULL;
 	}
 	return new_scene;
 }
@@ -41,9 +42,25 @@ Scene* scene_create(char* name)
  */
 void scene_destroy(Scene* scene)
 {
+	scene_destroy_content(scene);
 	free(scene->name);
-	// TODO : add destroy list.
+	free(scene->script);
 	free(scene);
+}
+
+
+void scene_destroy_content(Scene* scene) {
+	if(scene->GUI && scene->GUI->current_root) {
+		GUI_destroy(scene->GUI);
+	}
+
+	node_so *iterator = scene->sceneObjects->root;
+	while(iterator != NULL) {
+		so_detroy(iterator->value);
+		iterator = iterator->next;
+	}
+	free(scene->sceneObjects);
+	scene->sceneObjects = list_so_create();
 }
 
 
@@ -80,6 +97,10 @@ void scene_run(Scene* scene)
 	if(scene->script!=NULL)
 		scene->script->run(scene->script, NULL);
 
+	if(scene->GUI && scene->GUI->current_root) {
+		GUI_run(scene->GUI);
+	}
+
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
 		so_run(iterator->value);
@@ -88,7 +109,10 @@ void scene_run(Scene* scene)
 }
 
 void scene_draw(Scene* scene) {
-	//camera_refresh_matrices(&(scene->camera)); //TODO : uncomment when ready.
+
+	if(scene->GUI && scene->GUI->current_root) {
+		GUI_draw(scene->GUI);
+	}
 
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {

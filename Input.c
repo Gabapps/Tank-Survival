@@ -13,7 +13,7 @@ void input_update()
 {
 	int i;
 
-	extern int numberOfControls;
+
 	for(i=0; i<numberOfControls; i++)
 	{
 		controlsTable[i]->key_state = glfwGetKey(window_get(), controlsTable[i]->key_number);
@@ -32,7 +32,6 @@ void input_set_controls()
 Controls* input_get_controls(char* nom_control)
 {
 	int i;
-	extern int numberOfControls;
 	for(i=0; i<numberOfControls; i++)
 	{
 		if(strcmp(nom_control, controlsTable[i]->action_name) == 0)

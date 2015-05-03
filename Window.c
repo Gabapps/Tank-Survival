@@ -28,6 +28,11 @@ int window_open()
 	return 0;
 }
 
+
+void window_close() {
+    glfwSetWindowShouldClose(Window.window, GL_TRUE);
+}
+
 float window_get_ratio()
 {
 	return ((float)Window.width / (float)Window.height);

@@ -16,11 +16,15 @@
 #include "../Shader.h"
 #include "../Math.h"
 
+#define RESIZE_LINEAR 0
+#define RESIZE_NONLINEAR -1
+
 typedef enum {VISIBLE, INVISBLE} Visibility;
 
 #define define_widget(type) \
 	list_widget *children; \
-	void (*setup) (struct type *widget); \
+	struct Widget* parent; \
+	void (*run) (struct type *widget); \
 	void (*draw) (struct type *widget); \
 	Visibility visibility; \
 	vec2 position; \
@@ -37,6 +41,8 @@ struct Widget {
 };
 
 void widget_init(Widget* widget, void* setup_fct, void *draw_fct);
+
+void widget_destroy(Widget* widget);
 
 void widget_add_child(Widget* parent, Widget* child);
 

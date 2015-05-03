@@ -7,25 +7,32 @@
 
 #include "Widget.h"
 
-void widget_init(Widget* widget, void* setup_fct, void *draw_fct) {
+void widget_init(Widget* widget, void* run_fct, void *draw_fct) {
 	widget->visibility = VISIBLE;
 	widget->children = list_widget_create();
+	widget->parent = NULL;
 	widget->angleY = 0;
-	widget->setup = setup_fct;
+	widget->run = run_fct;
 	widget->draw = draw_fct;
 	vec2_zero(widget->position);
 	vec2_create(widget->size, 0.1, 0.1);
 	mat4x4_identity(widget->matrix);
 }
 
+void widget_destroy(Widget* widget) {
+	free(widget);
+}
+
 void widget_add_child(Widget* parent, Widget* child) {
 	list_widget_put(parent->children, child);
+	child->parent = parent;
 }
 
 void widget_refresh_matrix(Widget* widget) {
 	mat4x4_identity(widget->matrix);
 	mat4x4_translate(widget->matrix, widget->position[0], widget->position[1], 0);
 	mat4x4_scale_aniso(widget->matrix, widget->matrix, widget->size[0], widget->size[1], 0);
+	if(widget->parent) mat4x4_mul(widget->matrix, widget->parent->matrix, widget->matrix);
 }
 
 void widget_resize(Widget* widget, float x, float y) {
@@ -42,6 +49,12 @@ void widget_resize(Widget* widget, float x, float y) {
 	else if(x>0 && y>0) {
 		widget->size[0]=x;
 		widget->size[1]=y;
+	}
+	else if(x<0 && y>0) {
+		widget->size[1]=y;
+	}
+	else if(x>0 && y<0) {
+		widget->size[0]=x;
 	}
 }
 

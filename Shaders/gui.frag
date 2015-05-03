@@ -1,12 +1,15 @@
 #version 150 core
 
-out vec3 out_Color;
+out vec4 out_Color;
 
 in vec2 UV;
 
 uniform sampler2D Mytexture;
+uniform vec3 alphaColor;
 
 void main()
 {
-	out_Color = texture( Mytexture, UV ).rgb;
+	vec4 color = texture( Mytexture, UV );
+	if(all(equal(color.rgb, alphaColor))) color = vec4(0,0,0,0);
+	out_Color = color;
 }

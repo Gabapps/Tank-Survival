@@ -10,6 +10,7 @@
 #include "Ressources.h"
 
 #include "Scripts/SceneScript.h"
+#include "Scripts/MenuSceneScript.h"
 #include "Scripts/Tank.h"
 
 static void error_callback(int error, const char* description)
@@ -50,26 +51,33 @@ int main(void)
     	exit(EXIT_FAILURE);
     }
 
+    game_init();
+
+    MenuSceneScript menuscenescript;
+    menuscenescript.setup = menu_script_init;
+    menuscenescript.run = menu_script_run;
+    Scene *menu_scene = scene_create("Menu");
+    menu_scene->script = (Script*) &menuscenescript;
+
     SceneScript scenescript;
     scenescript.setup=sc_setup;
     scenescript.run=sc_run;
+    Scene *fight_scene = scene_create("Main");
+    fight_scene->script = (Script*) &scenescript;
 
-    Game.scene = scene_create("Main");
-    Game.scene->script = (Script*) &scenescript;
+    game_add_scene(fight_scene);
+    game_add_scene(menu_scene);
+
+
+    game_load_scene("Main");
     game_resume();
-
-    // Scene script init
-    	// ALL MOVED TO SCENESCRIPT
-    // Scene script stop
-
-    time_init();
-    scene_setup(Game.scene);
 
     glEnable(GL_DEPTH_TEST);
 
 
     while (!glfwWindowShouldClose(window_get()))
     {
+    	game_update();
     	if(Game.running) {
     		input_update();
         	time_update();

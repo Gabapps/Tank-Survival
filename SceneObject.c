@@ -16,7 +16,7 @@ void so_setup_one_step(SceneObject* so);
 SceneObject* so_create(char* name, Transform t) {
 	SceneObject* so = (SceneObject*)malloc(sizeof(SceneObject));
 	so->transform=t;
-	so->name=name;
+	so->name = name;
 	so->mesh=NULL;
 	so->shader=NULL;
 	so->texture=NULL;
@@ -27,6 +27,7 @@ SceneObject* so_create(char* name, Transform t) {
 
 void so_destroy_one_step(SceneObject* so) {
 	free(so->name);
+	free(so->scripts);
 	free(so);
 }
 void so_detroy(SceneObject* so) {
@@ -34,18 +35,18 @@ void so_detroy(SceneObject* so) {
 		so_destroy_one_step(so);
 	}
 	else {
-		so_destroy_one_step(so);
 		node_tf *iterator = so->transform.children->root;
 		while(iterator != NULL) {
 			so_detroy(so_from_transform(iterator->value));
 			iterator = iterator->next;
 		}
+		so_destroy_one_step(so);
 	}
 }
 
 SceneObject* so_duplicate(SceneObject* so, char* name, Transform t) {
 	SceneObject* new_so = (SceneObject*)malloc(sizeof(SceneObject));
-	new_so->name = name;
+	so->name = name;
 	new_so->mesh = so->mesh;
 	new_so->shader = so->shader;
 	new_so->texture = so->texture;
