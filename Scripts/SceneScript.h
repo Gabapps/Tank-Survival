@@ -37,7 +37,8 @@ void sc_map(SceneScript* scscript, MapConf *map_conf);
 void sc_controls();
 void sc_loadplayers(SceneScript* scscript);
 void get_map_infos(MapConf *map_conf, FILE* map);
-
+//ajout de fonctions permettant la gestion de parties
+void sc_end_game(SceneScript* scscript);
 void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
 	MapConf* map_conf = (MapConf*)malloc(sizeof(MapConf));
@@ -201,4 +202,10 @@ void sc_loadplayers(SceneScript* scscript) {
 	}
 
 }
+
+void sc_end_game(SceneScript* scscript){
+
+}
+
+
 #endif /* SCRIPTS_SCENESCRIPT_H_ */

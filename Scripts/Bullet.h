@@ -12,6 +12,8 @@
 #include "../SceneObject.h"
 #include "Wall.h"
 
+int death_counter;
+
 typedef struct Bullet{
 	define_script(Bullet);
 	float speed;
@@ -25,6 +27,7 @@ typedef struct Bullet{
 void bullet_reset(Bullet* bullet, SceneObject* so);
 
 void bullet_setup(Bullet* bullet, SceneObject* so){
+	death_counter=0;
 	bullet->fromtank = so_from_transform(so->transform.parent);
 	so->mesh = ressources_get_mesh(MESH_MISSILE);
 	so->shader = ressources_get_shader(SHADER_NOTEXTURE);
@@ -65,6 +68,10 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						if(((Tank*)collision_so->scripts->root->value)->life <= 0)
 						{
 								scene_delete_so(Game.scene, iterator->value);
+								death_counter++;
+								if(death_counter==3){
+									game_load_scene("Menu");
+								}
 						//		so_detroy(iterator->value);
 						}
 
