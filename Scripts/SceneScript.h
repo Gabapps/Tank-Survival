@@ -20,9 +20,6 @@
 
 #include "math.h"
 
-#define MAPHEIGHT 30
-#define MAPWIDTH 30
-
 #define MAX_PLAYER 4
 
 typedef struct SceneScript {
@@ -99,12 +96,12 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 
 	get_map_infos(map_conf, map);
 
-	for(i=0;i<MAPHEIGHT;++i)
+	for(i=0;i<map_conf->map_size_x;++i)
 	{
-		for(j=0;j<MAPWIDTH;++j)
+		for(j=0;j<map_conf->map_size_y;++j)
 		{
 			transform_map = transform_origin_no_parent();
-			vec3 vec = {i,0,MAPWIDTH-j-1};
+			vec3 vec = {i,0,map_conf->map_size_y-j-1};
 			transform_translate_world(&transform_map, vec);
 			fscanf(map, "%d ", &test);
 			if(test == 1)
@@ -121,15 +118,15 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 				scene_add_so(Game.scene, wallToAdd);
 			}
 			else if(test == 2) {
-				scscript->spawnpoints[nbspawn*2]=(float)j;
-				scscript->spawnpoints[nbspawn*2+1]=(float)i;
+				scscript->spawnpoints[nbspawn*2]=(float)i;
+				scscript->spawnpoints[nbspawn*2+1]=(float)j;
 				nbspawn++;
 			}
 			else if(test == 3) {
 				Wall *script = malloc(sizeof(Wall));
 				script->name = "Wall";
 				script->setup = wall_setup;
-				script->run = wall_run;script->dest = 0;
+				script->run = wall_run;//script->dest = 0;
 				script->dest = 1;
 
 				wallToAdd = so_duplicate(map_wall, "Wall", transform_map);
