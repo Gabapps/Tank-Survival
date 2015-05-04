@@ -1,6 +1,7 @@
-2 4 4
+3 4 4
 Shaders/texture
 Shaders/notexture
+Shaders/particles
 Models/Tank/Tank.obj
 Models/Wall/Wall.obj
 Models/Bullet/Bullet.obj
