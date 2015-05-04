@@ -119,7 +119,7 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 			}
 			else if(test == 2) {
 				scscript->spawnpoints[nbspawn*2]=(float)i;
-				scscript->spawnpoints[nbspawn*2+1]=(float)j;
+				scscript->spawnpoints[nbspawn*2+1]=(float)map_conf->map_size_x-j-1;
 				nbspawn++;
 			}
 			else if(test == 3) {
