@@ -8,6 +8,8 @@
 #ifndef SCRIPTS_TANK_H_
 #define SCRIPTS_TANK_H_
 
+#include <string.h>
+
 typedef struct Tank {
 	define_script(Tank);
 	float speed;
@@ -20,9 +22,9 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->mesh = ressources_get_mesh(MESH_TANK);
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
 	so->texture = ressources_get_texture(TEXTURE_TANK);
-	so->collider = collider_create(0.29, 0.49);
+	so->collider = collider_create(0.27, 0.49);
 	tank->speed=1;
-	tank->life=100;
+	tank->life=150;
 }
 
 void tank_run(Tank* tank, SceneObject* so) {
@@ -58,12 +60,12 @@ void tank_run(Tank* tank, SceneObject* so) {
 				if(strcmp(collision_so->name, "Tank") == 0)
 				{
 					//On annule le mouvement
-					so->transform = backup;
+					transform_copy(&(so->transform), &backup);
 				}
 				else if(strcmp(collision_so->name, "Wall") == 0)
 				{
 					//On annule le mouvement
-					so->transform = backup;
+					transform_copy(&(so->transform), &backup);
 				}
 			}
 		}
