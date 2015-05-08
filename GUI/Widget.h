@@ -21,6 +21,8 @@
 
 typedef enum {VISIBLE, INVISBLE} Visibility;
 
+int shader_gui;
+
 #define define_widget(type) \
 	list_widget *children; \
 	struct Widget* parent; \
@@ -51,5 +53,7 @@ void widget_refresh_matrix(Widget* widget);
 void widget_resize(Widget* widget, float x, float y);
 
 void widget_set_position(Widget* widget, float x, float y);
+
+void widget_set_shader_gui(int shader_gui_id);
 
 #endif /* WIDGET_H_ */

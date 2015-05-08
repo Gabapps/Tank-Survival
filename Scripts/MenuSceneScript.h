@@ -14,6 +14,7 @@
 #include "../GUI/ImageButton.h"
 #include "../GUI/RelativeLayout.h"
 #include "../GUI/Button.h"
+#include "../GUI/TextView.h"
 
 typedef struct MenuSceneScript {
 	define_script(MenuSceneScript);
@@ -21,6 +22,8 @@ typedef struct MenuSceneScript {
 
 typedef struct MenuGUI {
 	parse_widget(RelativeLayout, main_layout);
+
+	parse_widget(TextView, title);
 
 	parse_widget(ImageButton, play);
 
@@ -53,18 +56,22 @@ void menu_script_init(MenuSceneScript* script, SceneObject* so) {
 
 	menu_script_load_views();
 
-	menu->current_root = (Widget*)menuGUI.main_layout;
+	GUI_parse((Widget*)menuGUI.main_layout, &menuGUI);
 
-	GUI_parse(menu, &menuGUI);
+	GUI_add_root(menu, (Widget*)menuGUI.main_layout);
 
 	Game.scene->GUI = menu;
 }
 
 void menu_script_load_views() {
-	enum {TEXTURE_BUTTON_FOCUSED, TEXTURE_BUTTON_UNFOCUSED};
+	enum {TEXTURE_BUTTON_FOCUSED, TEXTURE_BUTTON_UNFOCUSED, FONT_ARIAL};
 	enum {SHADER_GUI};
 
-	parse_config(menuGUI, main_layout, 3);
+	widget_set_shader_gui(SHADER_GUI);
+	textview_use_font(FONT_ARIAL);
+
+	parse_config(menuGUI, main_layout, 4);
+	parse_config(menuGUI, title, 0);
 	parse_config(menuGUI, play, 0);
 	parse_config(menuGUI, settings, 0);
 	parse_config(menuGUI, quit, 0);
@@ -72,13 +79,17 @@ void menu_script_load_views() {
 	image_use_texture(TEXTURE_BUTTON_UNFOCUSED);
 
 	menuGUI.main_layout = layout_rel_create();
+	menuGUI.title = textview_create();
 	menuGUI.play = imagebutton_create();
 	menuGUI.settings = imagebutton_create();
 	menuGUI.quit = imagebutton_create();
 
 	widget_set_position((Widget*)menuGUI.play, 0, 0.5);
+	widget_set_position((Widget*)menuGUI.title, -0.2, 0);
 	widget_set_position((Widget*)menuGUI.settings, 0, 0);
 	widget_set_position((Widget*)menuGUI.quit, 0, -0.5);
+
+	textview_set_text(menuGUI.title, "Title");
 
 	void onFocus(Button *widget, int focus) {
 		if(focus) image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_FOCUSED);

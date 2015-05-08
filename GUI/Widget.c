@@ -62,3 +62,7 @@ void widget_set_position(Widget* widget, float x, float y) {
 	widget->position[0]=x;
 	widget->position[1]=y;
 }
+
+void widget_set_shader_gui(int shader_gui_id) {
+	shader_gui = shader_gui_id;
+}

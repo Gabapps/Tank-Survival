@@ -72,7 +72,11 @@ void GUI_destroy_rec(Widget* widget) {
 }
 
 void GUI_destroy(GUI* gui) {
-	GUI_destroy_rec(gui->current_root);
+	node_widget* iterator = gui->roots->root;
+	while(iterator != NULL) {
+		GUI_destroy_rec(iterator->value);
+		iterator = iterator->next;
+	}
 }
 
 void* move_ptr(void** ptr, size_t size) {
@@ -107,6 +111,24 @@ void GUI_parse_rec(Widget* parent, Widget* current, int nbchildren, void* parsin
 	}
 }
 
-void GUI_parse(GUI* gui, void* parsing_structure) {
-	GUI_parse_rec(NULL, gui->current_root, 1, parsing_structure);
+void GUI_parse(Widget* root, void* parsing_structure) {
+	GUI_parse_rec(NULL, root, 1, parsing_structure);
+}
+
+void GUI_add_root(GUI* gui, Widget* root) {
+	list_widget_put(gui->roots, root);
+	if(gui->roots->count == 1) gui->current_root = root;
+}
+
+void GUI_select_root(GUI* gui, unsigned int index) {
+	if(gui->roots->count<= index) return;
+	node_widget* iterator = gui->roots->root;
+	while(iterator != NULL) {
+		if(!index) {
+			gui->current_root = iterator->value;
+			return;
+		}
+		index--;
+		iterator = iterator->next;
+	}
 }

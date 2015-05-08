@@ -110,10 +110,16 @@ void scene_run(Scene* scene)
 
 void scene_draw(Scene* scene) {
 
+	glEnable(GL_BLEND);
+
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glAlphaFunc(GL_GREATER, 0);
+
 	if(scene->GUI && scene->GUI->current_root) {
 		GUI_draw(scene->GUI);
 	}
 
+	glDisable(GL_BLEND);
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
 		so_draw(iterator->value, &(scene->camera), &(scene->light));
