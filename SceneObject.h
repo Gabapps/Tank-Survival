@@ -100,6 +100,8 @@ SceneObject* so_from_transform(Transform* t);
 
 void so_add_script(SceneObject* so, Script* script);
 
+void so_rm_script(SceneObject* so, Script* script);
+
 /**
  * \fn int so_collision_detection(SceneObject* so1, SceneObject* so2)
  *

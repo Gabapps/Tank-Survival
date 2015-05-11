@@ -24,8 +24,6 @@ void textview_draw(TextView* tv) {
 		Mesh* mesh = tv->mesh;
 
 		Shader* shader = ressources_get_shader(shader_gui);
-		mat4x4 ortho;
-		mat4x4_ortho(ortho, -window_get_ratio(), window_get_ratio(), -1, 1, 0, 3);
 
 		glUseProgram(shader->program);
 

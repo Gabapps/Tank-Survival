@@ -9,6 +9,7 @@
 
 void GUI_init() {
 	mesh_load_canvas();
+	widgets_init();
 }
 
 GUI* GUI_create() {

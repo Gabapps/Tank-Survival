@@ -212,7 +212,7 @@ void mesh_load_canvas() {
 
 	mesh_malloc_indexed(canvas);
 
-	float vertices[] = {-0.5f,0.5f,1,   -0.5f,-0.5f,1,   0.5f,-0.5f,1,   0.5f,0.5f,1};
+	float vertices[] = {-0.5f,0.5f,0,   -0.5f,-0.5f,0,   0.5f,-0.5f,0,   0.5f,0.5f,0};
 	float uvs[] = {0,1,   0,0,   1,0,   1,1};
 	int triangles_id[] = {1,2,4,  2,4,3};
 	int uvs_id[] = {1,2,4,  2,4,3};
@@ -231,6 +231,22 @@ Mesh* mesh_get_canvas() {
 
 Mesh* mesh_get_text_view_canvas(const char* text) {
 	int i, j,  x = 0, y = 0, count = 0;
+
+	for(i=0; i<strlen(text); i++) {
+		if(text[i]=='\n') {
+			x--;
+			count = (x > count ? x : count);
+			y++;
+		}
+		else {
+			x++;
+		}
+	}
+	count = (x > count ? x : count);
+	float xcenter = -0.5+(float)count/2, ycenter = (float)y/2;
+
+	x=0;y=0;count=0;
+
 	Mesh* mesh = mesh_create();
 
 	mesh->f = 2 * strlen(text);
@@ -256,8 +272,8 @@ Mesh* mesh_get_text_view_canvas(const char* text) {
 			float x_uv = (float)x_ascii/16, y_uv = (float)y_ascii/16;
 
 			for(j=0; j<4; j++) {
-				mesh->vertices[12*i+j*3] = vertices_[j*3]+(float)x;
-				mesh->vertices[12*i+j*3+1] = vertices_[j*3+1]+(float)y;
+				mesh->vertices[12*i+j*3] = vertices_[j*3]+(float)x-xcenter;
+				mesh->vertices[12*i+j*3+1] = vertices_[j*3+1]+(float)y-ycenter;
 				mesh->vertices[12*i+j*3+2] = 0;
 				mesh->uvs[8*i+j*2] = x_uv + uvs_[j*2]/16;
 				mesh->uvs[8*i+j*2+1] = y_uv + uvs_[j*2+1]/16;

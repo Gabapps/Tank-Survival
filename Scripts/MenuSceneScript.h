@@ -84,12 +84,12 @@ void menu_script_load_views() {
 	menuGUI.settings = imagebutton_create();
 	menuGUI.quit = imagebutton_create();
 
+	widget_set_position((Widget*)menuGUI.title, 0, 0.8);
 	widget_set_position((Widget*)menuGUI.play, 0, 0.5);
-	widget_set_position((Widget*)menuGUI.title, -0.2, 0);
 	widget_set_position((Widget*)menuGUI.settings, 0, 0);
 	widget_set_position((Widget*)menuGUI.quit, 0, -0.5);
 
-	textview_set_text(menuGUI.title, "Title");
+	textview_set_text(menuGUI.title, "Tank survival");
 
 	void onFocus(Button *widget, int focus) {
 		if(focus) image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_FOCUSED);
@@ -107,6 +107,7 @@ void menu_script_load_views() {
 	button_set_onFocusListener(playbutton, onFocus);
 	button_set_onClickListener(playbutton, onClickPlay);
 	button_set_near_buttons(playbutton, NULL, NULL, NULL, settingsbutton);
+	imagebutton_set_text(menuGUI.play, "Play");
 	//SETTINGS
 	void onClickSettings(Button *widget) {
 
@@ -114,6 +115,7 @@ void menu_script_load_views() {
 	button_set_onFocusListener(settingsbutton, onFocus);
 	button_set_onClickListener(settingsbutton, onClickSettings);
 	button_set_near_buttons(settingsbutton, NULL, NULL, playbutton, quitbutton);
+	imagebutton_set_text(menuGUI.settings, "Settings");
 	//QUIT
 	void onClickQuit(Button *widget) {
 		game_exit();
@@ -121,6 +123,7 @@ void menu_script_load_views() {
 	button_set_onFocusListener(quitbutton, onFocus);
 	button_set_onClickListener(quitbutton, onClickQuit);
 	button_set_near_buttons(quitbutton, NULL, NULL, settingsbutton,  NULL);
+	imagebutton_set_text(menuGUI.quit, "Quit");
 
 
 	button_focus(playbutton);

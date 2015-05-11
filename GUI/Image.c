@@ -26,8 +26,6 @@ void image_draw(Image *image) {
 	Mesh* mesh = mesh_get_canvas();
 	//Shader* shader = ressources_get_shader(SHADER_GUI);
 	Shader* shader = ressources_get_shader(shader_gui);
-	mat4x4 ortho;
-	mat4x4_ortho(ortho, -window_get_ratio(), window_get_ratio(), -1, 1, 0, 3);
 
 	glUseProgram(shader->program);
 

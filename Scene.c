@@ -113,7 +113,6 @@ void scene_draw(Scene* scene) {
 	glEnable(GL_BLEND);
 
 	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glAlphaFunc(GL_GREATER, 0);
 
 	if(scene->GUI && scene->GUI->current_root) {
 		GUI_draw(scene->GUI);
