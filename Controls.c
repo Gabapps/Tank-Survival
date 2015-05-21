@@ -8,7 +8,7 @@
 #include "Controls.h"
 
 
-Controls* controlsTable[20];
+Controls* controlsTable[30];
 
 void init_controlsTable()
 {
