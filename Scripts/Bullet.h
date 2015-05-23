@@ -72,7 +72,6 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				{
 					if(strcmp(collision_so->name, "Tank") == 0)
 					{
-						Tank* tank = NULL;
 						if(collision_so->scripts->count) tank = (Tank*)collision_so->scripts->root->value;
 						bullet_explosion(bullet, so);
 						//Si collision avec un tank, on vire le tank de la scene...

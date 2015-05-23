@@ -8,6 +8,7 @@
 
 #include "Window.h"
 
+const int height = 1080, width = 1920, fullscreen = 1;
 
 int window_open()
 {
@@ -16,9 +17,12 @@ int window_open()
 			return -1;
 		}
 
-	(Window.window) = glfwCreateWindow(1024, 768, "Tank Survival", NULL, NULL);
-	(Window.height) = 768;
-	(Window.width) = 1024;
+	const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+	(Window.height) = mode->height;
+	(Window.width) = mode->width;
+	(Window.window) = glfwCreateWindow(Window.width, Window.height, "Tank Survival", (fullscreen ? glfwGetPrimaryMonitor() : NULL), NULL);
+
 	if(Window.window == NULL){
 	    fprintf(stderr, "Failed to open GLFW window.\n" );
 	    glfwTerminate();
