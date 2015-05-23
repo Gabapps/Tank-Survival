@@ -18,13 +18,17 @@
 
 #include "Wall.h"
 
-#include "math.h"
+#include <math.h>
+#include <time.h>
 
-#define MAX_PLAYER 4
+#include "Items.h"
+
+
 
 typedef struct SceneScript {
 	define_script(SceneScript);
 	float spawnpoints[MAX_PLAYER*2]; // 4 spawns with 2 coords each
+	float itempoints[8];
 } SceneScript;
 
 typedef struct MapConf {
@@ -37,6 +41,7 @@ void sc_map(SceneScript* scscript, MapConf *map_conf);
 void sc_controls();
 void sc_loadplayers(SceneScript* scscript);
 void get_map_infos(MapConf *map_conf, FILE* map);
+void sc_items(SceneScript* scscript);
 
 void sc_setup(SceneScript* scenescript, SceneObject* so) {
 
@@ -72,6 +77,7 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 void sc_run(SceneScript* scenescript, SceneObject* so) {
 	vec3 dir = {cos(0.1*Time.timeSinceStart),-1,sin(0.1*Time.timeSinceStart)};
 	sunlight_set_direction(&(Game.scene->light), dir);
+	sc_items(scenescript);											///////////////////////////////////////////////////////////////////////
 }
 
 void get_map_infos(MapConf *map_conf, FILE* map)
@@ -92,7 +98,7 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 	FILE* map = fopen("Map/map.txt", "r");
 	if (map == NULL)
 		fprintf(stderr, "Failed to open map.txt");
-	int nbspawn = 0;
+	int nbspawn = 0, nbpoints = 0;
 
 	get_map_infos(map_conf, map);
 
@@ -133,6 +139,11 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 
 				so_add_script(wallToAdd, (Script*)script);
 				scene_add_so(Game.scene, wallToAdd);
+			}
+			else if(test == 4) {
+				scscript->itempoints[nbpoints*2]=(float)i;
+				scscript->itempoints[nbpoints*2+1]=(float)map_conf->map_size_x-j-1;
+				nbpoints++;
 			}
 		}
 		fscanf(map, "\n");
@@ -201,4 +212,17 @@ void sc_loadplayers(SceneScript* scscript) {
 	}
 
 }
+
+void sc_items(SceneScript* scscript)
+{
+	int vrand = rand() % 4;
+	static float time = 0;
+	time += Time.deltaTime;
+	if(time>15)
+	{
+		time = 0;
+		activ_items(scscript->itempoints[2*vrand], scscript->itempoints[2*vrand+1]);
+	}
+}
+
 #endif /* SCRIPTS_SCENESCRIPT_H_ */

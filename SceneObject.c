@@ -32,14 +32,14 @@ void so_destroy_one_step(SceneObject* so) {
 	free(so->scripts);
 	free(so);
 }
-void so_detroy(SceneObject* so) {
+void so_destroy(SceneObject* so) {
 	if(so->transform.children->root == NULL) {
 		so_destroy_one_step(so);
 	}
 	else {
 		node_tf *iterator = so->transform.children->root;
 		while(iterator != NULL) {
-			so_detroy(so_from_transform(iterator->value));
+			so_destroy(so_from_transform(iterator->value));
 			iterator = iterator->next;
 		}
 		so_destroy_one_step(so);

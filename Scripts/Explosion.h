@@ -26,7 +26,7 @@ void explosion_setup(Explosion* script, SceneObject* so) {
 void explosion_run(Explosion* script, SceneObject* so) {
 	script->scale+=30*Time.deltaTime;
 	if(script->scale >= 7) {
-		so_detroy(so);
+		so_destroy(so);
 		scene_delete_so(Game.scene, so);
 		so->mesh = NULL;
 	}

@@ -9,13 +9,19 @@
 #define SCRIPTS_TANK_H_
 
 #include <string.h>
+#include "Items.h"
+
+#define MAX_PLAYER 4
 
 typedef struct Tank {
 	define_script(Tank);
 	float speed;
 	int life;
 	int player;
+	int damage;
 } Tank;
+
+Tank* tanks[MAX_PLAYER];
 
 void tank_setup(Tank* tank, SceneObject* so) {
 
@@ -25,11 +31,15 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->collider = collider_create(0.27, 0.49);
 	tank->speed=1;
 	tank->life=150;
+	tank->damage = 50;
+	tanks[tank->player] = tank;
 }
 
 void tank_run(Tank* tank, SceneObject* so) {
 	vec3 v = {tank->speed,0,0};
 	vec3_scale(v,v,Time.deltaTime);
+
+	Item* item = NULL;
 
 	//On sauvegarde l'état avant transformation
 	Transform backup = so->transform;
@@ -39,7 +49,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 		transform_rotateY(&(so->transform), -Time.deltaTime);
 	}
 	if(input_keypressed_index(5*tank->player+2)) {
-			transform_rotateY(&(so->transform), Time.deltaTime);
+		transform_rotateY(&(so->transform), Time.deltaTime);
 	}
 	if(input_keypressed_index(5*tank->player)) {
 		transform_translate(&(so->transform), v);
@@ -66,6 +76,31 @@ void tank_run(Tank* tank, SceneObject* so) {
 				{
 					//On annule le mouvement
 					transform_copy(&(so->transform), &backup);
+				}
+				else if(strcmp(collision_so->name, "Item") == 0)
+				{
+					//Collision avec un item
+					item = (Item*)collision_so->scripts->root->value;
+					if(item->speed > 0 || item->fire > 0) {
+						tank->speed += item->speed;
+						tank->damage += item->fire;
+					}
+					else {
+						int i;
+						for(i=0; i < MAX_PLAYER; i++) {
+							if(i!=tank->player) {
+								if(tanks[i]->speed >= 0.6)
+								{
+									tanks[i]->speed += item->speed;
+								}
+								if(tanks[i]->damage >= 20)
+								{
+									tanks[i]->damage += item->fire;
+								}
+							}
+						}
+					}
+					item->destroying = 1;
 				}
 			}
 		}

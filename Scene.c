@@ -56,7 +56,7 @@ void scene_destroy_content(Scene* scene) {
 
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
-		so_detroy(iterator->value);
+		so_destroy(iterator->value);
 		iterator = iterator->next;
 	}
 	free(scene->sceneObjects);

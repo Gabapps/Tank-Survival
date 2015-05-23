@@ -49,7 +49,7 @@ SceneObject* so_create(char* name, Transform t);
  * \param so SceneObject to destroy.
  * \return The new instantiated sceneObject.
  */
-void so_detroy(SceneObject* so);
+void so_destroy(SceneObject* so);
 
 /**
  * \fn SceneObject* so_duplicate(SceneObject* so, char* name, Transform t)
