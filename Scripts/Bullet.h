@@ -72,17 +72,18 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				{
 					if(strcmp(collision_so->name, "Tank") == 0)
 					{
-						if(collision_so->scripts->count) tank = (Tank*)collision_so->scripts->root->value;
+						Tank* tankcol = NULL;
+						if(collision_so->scripts->count) tankcol = (Tank*)collision_so->scripts->root->value;
 						bullet_explosion(bullet, so);
 						//Si collision avec un tank, on vire le tank de la scene...
 						//scene_delete_so(Game.scene, iterator->value);
 						//so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
 						//...et on remet le bullet immobile à l'origine
 
-						if(tank) {
-							if(collision_so->scripts->count) tank->life -= bullet->damage; //bullet->damage;
+						if(tankcol) {
+							if(collision_so->scripts->count) tankcol->life -= bullet->damage; //bullet->damage;
 
-							if(tank->life <= 0)
+							if(tankcol->life <= 0)
 							{
 								death_counter++;
 								end =1;
