@@ -1,4 +1,4 @@
-3 8 8
+3 13 10
 Shaders/gui
 Shaders/texture
 Shaders/notexture
@@ -10,6 +10,12 @@ Models/Wall/Antichar.obj
 Models/Bullet/Bullet.obj
 Models/Ground.obj
 Models/Bullet/Explosion.obj
+Models/Items/Speed_m.obj
+Models/Items/Speed_l.obj
+Models/Items/Fire_m.obj
+Models/Items/Fire_l.obj
+Models/Items/Laser_m.obj
+Models/Items/Laser.obj
 Models/Tank/Tank.bmp
 Models/Tank/Tankdamaged.bmp
 Models/Tank/Tankdead.bmp
@@ -18,3 +24,5 @@ Models/Wall/Antichar.bmp
 Models/Bullet/Bullet.bmp
 Models/Ground.bmp
 Models/Bullet/Explosion.bmp
+Models/Items/Green.bmp
+Models/Items/Red.bmp

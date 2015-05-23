@@ -83,7 +83,22 @@ void tank_run(Tank* tank, SceneObject* so) {
 				{
 					//Collision avec un item
 					item = (Item*)collision_so->scripts->root->value;
-					if(item->speed > 0 || item->fire > 0) {
+					if(item->laser) {
+						SceneObject* laser = so_create("Laser", transform_xyz_no_parent(0.65,0.35,0));
+						Item* item = (Item*)malloc(sizeof(Item));
+						item->setup = item_setup;
+						item->run = item_run;
+
+						laser->shader = ressources_get_shader(SHADER_TEXTURE);
+						laser->mesh = ressources_get_mesh(MESH_ITEMS_LASER);
+						laser->texture = ressources_get_texture(TEXTURE_RED);
+
+						so_add_script(laser, (Script*)item);
+						so_setup(laser);
+
+						so_add_child(so, laser);
+					}
+					else if(item->speed > 0 || item->fire > 0) {
 						tank->speed += item->speed;
 						tank->damage += item->fire;
 					}

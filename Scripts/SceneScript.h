@@ -247,9 +247,9 @@ void sc_loadplayers(SceneScript* scscript) {
 void sc_items(SceneScript* scscript)
 {
 	int vrand = rand() % 4;
-	static float time = 0;
+	static float time = 15;
 	time += Time.deltaTime;
-	if(time>15)
+	if(time>20)
 	{
 		time = 0;
 		activ_items(scscript->itempoints[2*vrand], scscript->itempoints[2*vrand+1]);
