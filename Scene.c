@@ -70,9 +70,10 @@ void scene_destroy_content(Scene* scene) {
 	}
 
 	free(scene->sceneObjects);
-	free(scene->sounds);
-
 	scene->sceneObjects = list_so_create();
+
+	free(scene->sounds);
+	scene->sounds = initSoundList();
 }
 
 
@@ -93,6 +94,7 @@ void scene_setup(Scene* scene)
 		so_setup(iterator->value);
 		iterator = iterator->next;
 	}
+
 	addSound("Audio/musique.ogg", scene->sounds, 1, 1);
 }
 
