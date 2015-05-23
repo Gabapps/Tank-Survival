@@ -27,10 +27,10 @@ typelist(sound, Sound*);
 int initOpenAL();
 void shutdownOpenAL();
 ALuint loadSound(char* filename);
-Sound* addSound(char* filename,list_sound* sounds, float pitch);
+Sound* addSound(char* filename,list_sound* sounds, float pitch, float gain);
 Sound* createSound(char* filename, float pitch);
 void removeSound(Sound* sound, list_sound* sounds);
-void setupListener(float x, float y, float z, float u, float v, float w);
+void setupListener(vec3 pos, vec3 dir);
 list_sound* initSoundList();
 
 void playSounds(list_sound* sounds);

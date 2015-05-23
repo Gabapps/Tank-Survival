@@ -89,20 +89,20 @@ ALuint loadSound(char* filename)
     return Buffer;
 }
 
-void setupListener(float x, float y, float z, float u, float v, float w)
+void setupListener(vec3 pos, vec3 dir)
 {
 	// Définition de la position de l'écouteur (ici l'origine)
-	alListener3f(AL_POSITION, x, y, z);
+	alListener3f(AL_POSITION, pos[0], pos[1], pos[2]);
 
 	// Définition de la vitesse de l'écouteur (ici nulle)
 	alListener3f(AL_VELOCITY, 0.f, 0.f, 0.f);
 
 	// Définition de l'orientation de l'écouteur (ici il regarde vers l'axe des Z)
-	ALfloat Orientation[] = {u, v, w, 0.f, 1.f, 0.f};
+	ALfloat Orientation[] = {dir[0], dir[1], dir[2], 0.f, 1.f, 0.f};
 	alListenerfv(AL_ORIENTATION, Orientation);
 }
 
-Sound* addSound(char* filename, list_sound* sounds, float pitch)
+Sound* addSound(char* filename, list_sound* sounds, float pitch, float gain)
 {
 	Sound* sound = malloc(sizeof(Sound));
 	sound->buffer = loadSound(filename);
@@ -112,7 +112,7 @@ Sound* addSound(char* filename, list_sound* sounds, float pitch)
 	alGenSources(1, &(sound->source));
 
 	alSourcef(sound->source, AL_PITCH, pitch);
-
+	alSourcef(sound->source, AL_GAIN, gain);
 
 
 	alSourcei(sound->source, AL_BUFFER, sound->buffer);

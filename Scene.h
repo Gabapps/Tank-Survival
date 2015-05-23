@@ -13,6 +13,7 @@
 #include "List.h"
 #include "SunLight.h"
 #include "GUI/GUI.h"
+#include "Audio.h"
 
 typelist(so, SceneObject*);
 
@@ -23,6 +24,7 @@ typedef struct Scene {
 	Camera camera;				//Camera liée à la scene
 	SunLight light;
 	GUI* GUI;
+	list_sound* sounds;
 } Scene;
 
 Scene* scene_create(char* name);
