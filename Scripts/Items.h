@@ -106,7 +106,7 @@ void activ_items(float x, float y)
 		//item->texture = ressources_get_texture(TEXTURE_ITEMS_FIRE_L);
 		item->collider = collider_create(0.5, 0.5);
 		item_struct->fire = 0;
-		item_struct->speed = -0.3;
+		item_struct->speed = -0.15;
 	}
 
 	so_add_script(item, (Script*)item_struct);

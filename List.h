@@ -26,6 +26,8 @@ static inline node_##name* node_##name##_create(type value); \
 static inline void list_##name##_put(list_##name* list, type value); \
 static inline int list_##name##_delete(list_##name* list, type value, int freevalue); \
 static inline void node_##name##_delete(node_##name* node, int freevalue); \
+static inline void list_##name##_free(list_##name* list); \
+static inline void _list_##name##_rec(node_##name* node); \
 \
 static inline list_##name* list_##name##_create() { \
 	list_##name* list = (list_##name*) malloc(sizeof(list_##name)); \
@@ -78,6 +80,18 @@ static inline int list_##name##_delete(list_##name* list, type value, int freeva
 static inline void node_##name##_delete(node_##name* node, int freevalue) { \
 	if(freevalue) free(node->value); \
 	free(node); \
-}
+} \
+\
+static inline void list_##name##_free(list_##name* list) { \
+	_list_##name##_rec(list->root); \
+	free(list); \
+} \
+\
+static inline void _list_##name##_rec(node_##name* node) { \
+	if(node) { \
+		_list_##name##_rec(node->next); \
+		node_##name##_delete(node, 1); \
+	} \
+} \
 
 #endif /* LIST_H_ */

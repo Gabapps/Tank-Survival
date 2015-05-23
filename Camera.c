@@ -34,3 +34,6 @@ void camera_look_at(Camera* cam, vec3 pos, vec3 target, vec3 up) {
 float* camera_direction(Camera* cam) {
 	return cam->dir;
 }
+
+
+

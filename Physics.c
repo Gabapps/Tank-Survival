@@ -36,7 +36,7 @@ int RotRectsCollision(Transform* tr1, BoxCollider* b1, Transform* tr2, BoxCollid
 	vec3_cpy(position1, tr1->matrix[3]);
 	vec3_cpy(position2, tr2->matrix[3]);
 
-	ang = tr1->rotation - tr2->rotation;	// Angle du rectangle 1
+	ang = tr2->rotation - tr1->rotation;	// Angle du rectangle 1
 	cosa = cos(ang);           				// Pré calculs
 	sina = sin(ang);
 

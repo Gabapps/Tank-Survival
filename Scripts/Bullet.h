@@ -12,7 +12,12 @@
 #include "../SceneObject.h"
 #include "Explosion.h"
 #include "Wall.h"
+#include "../Camera.h"
 
+SceneObject* tank_gagnant = NULL;//scene object pointant sur le tank gagnant
+
+int death_counter;
+int end =0;
 typedef struct Bullet{
 	define_script(Bullet);
 	float speed;
@@ -27,6 +32,8 @@ void bullet_goback(Bullet* bullet, SceneObject* so);
 void bullet_explosion(Bullet* bullet, SceneObject* so);
 
 void bullet_setup(Bullet* bullet, SceneObject* so){
+	death_counter=0;
+	tank_gagnant = NULL;
 	bullet->fromtank = so_from_transform(so->transform.parent);
 	so->mesh = NULL;
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
@@ -51,7 +58,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 		return;
 	}
 
-	if(bullet->active)
+	if(so->transform.parent == NULL)
 	{
 		node_so *iterator = Game.scene->sceneObjects->root;
 		while(iterator != NULL)
@@ -63,32 +70,43 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				{
 					if(strcmp(collision_so->name, "Tank") == 0)
 					{
+						Tank* tankcol = NULL;
+						if(collision_so->scripts->count) tankcol = (Tank*)collision_so->scripts->root->value;
 						bullet_explosion(bullet, so);
 						//Si collision avec un tank, on vire le tank de la scene...
 						//scene_delete_so(Game.scene, iterator->value);
 						//so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
 						//...et on remet le bullet immobile à l'origine
 
-						if(collision_so->scripts->count) ((Tank*)collision_so->scripts->root->value)->life -= 110; //bullet->damage;
+						if(tankcol) {
+							if(collision_so->scripts->count) tankcol->life -= tank->damage; //bullet->damage;
+
+							if(tankcol->life <= 0)
+							{
+								death_counter++;
+								end =1;
+								if(death_counter==3){
+									tank_gagnant = bullet->fromtank;
+								}
+							}
+						}
+
+
+						transform_origin(&(so->transform));
+						bullet->speed = 0;
 
 						bullet_goback(bullet, so);
 						iterator=NULL;
+
 					}
 					else if(strcmp(collision_so->name, "Wall") == 0)
 					{
 						bullet_explosion(bullet, so);
 						//le mur est il destructible ?
-						if(((Wall*)collision_so->scripts->root->value)->dest == 1)
+						if(((Wall*)collision_so->scripts->root->value)->destrutible == 1)
 						{
 							((Wall*)collision_so->scripts->root->value)->life -= tank->damage;
 
-						}
-
-						//faut il en profiter pour enlever le mur ?
-						if(((Wall*)collision_so->scripts->root->value)->life <= 0)
-						{
-							scene_delete_so(Game.scene, iterator->value);
-//							so_detroy(iterator->value);
 						}
 
 						//On remet le bullet immobile à l'origine
@@ -116,10 +134,10 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 
 	if(input_keypressed_index(5*tank->player+4) && !bullet->active){
 		scene_detach_so(Game.scene, so);
-//		printf("bullet : %f %f %f\n", so->transform.position[0], so->transform.position[1], so->transform.position[2]);
-//		printf("tank : %f %f %f\n", bullet->fromtank->transform.position[0],
-//				bullet->fromtank->transform.position[1],
-//				bullet->fromtank->transform.position[2]);
+		//		printf("bullet : %f %f %f\n", so->transform.position[0], so->transform.position[1], so->transform.position[2]);
+		//		printf("tank : %f %f %f\n", bullet->fromtank->transform.position[0],
+		//				bullet->fromtank->transform.position[1],
+		//				bullet->fromtank->transform.position[2]);
 		bullet->speed =15;
 		bullet->active=1;
 		so->mesh = ressources_get_mesh(MESH_MISSILE);

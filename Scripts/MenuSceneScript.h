@@ -33,7 +33,23 @@ typedef struct MenuGUI {
 
 } MenuGUI;
 
+typedef struct SettingsGUI {
+	parse_widget(RelativeLayout, main_layout);
+
+	parse_widget(TextView, title);
+
+	parse_widget(ImageButton, play);
+
+	parse_widget(ImageButton, settings);
+
+	parse_widget(ImageButton, cancel);
+
+	parse_widget(ImageButton, savequit);
+
+} SettingsGUI;
+
 MenuGUI menuGUI;
+SettingsGUI settingsGUI;
 
 void menu_script_init(MenuSceneScript* script, SceneObject* so);
 void menu_script_run(MenuSceneScript* script, SceneObject* so);

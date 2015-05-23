@@ -51,6 +51,8 @@ int main(void)
     	exit(EXIT_FAILURE);
     }
 
+    initOpenAL();
+
     game_init();
 
     MenuSceneScript menuscenescript;
@@ -93,7 +95,7 @@ int main(void)
         glfwSwapBuffers(window_get());
         glfwPollEvents();
     }
-
+    shutdownOpenAL();
     glfwDestroyWindow(window_get());
     glfwTerminate();
     return 0;
