@@ -71,24 +71,27 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				{
 					if(strcmp(collision_so->name, "Tank") == 0)
 					{
-						Tank* tank = (Tank*)collision_so->scripts->root->value;
+						Tank* tank = NULL;
+						if(collision_so->scripts->count) tank = (Tank*)collision_so->scripts->root->value;
 						bullet_explosion(bullet, so);
 						//Si collision avec un tank, on vire le tank de la scene...
 						//scene_delete_so(Game.scene, iterator->value);
 						//so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
 						//...et on remet le bullet immobile à l'origine
 
-						if(collision_so->scripts->count) tank->life -= 110; //bullet->damage;
+						if(tank) {
+							if(collision_so->scripts->count) tank->life -= 110; //bullet->damage;
 
 
-						if(tank->life <= 0)
-						{
-							death_counter++;
-							end =1;
-							if(death_counter==3){
-								tank_gagnant = bullet->fromtank;
+							if(tank->life <= 0)
+							{
+								death_counter++;
+								end =1;
+								if(death_counter==3){
+									tank_gagnant = bullet->fromtank;
+								}
+								//		so_detroy(iterator->value);
 							}
-							//		so_detroy(iterator->value);
 						}
 
 						transform_origin(&(so->transform));
