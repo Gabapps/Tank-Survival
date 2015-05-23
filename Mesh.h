@@ -35,6 +35,8 @@ void mesh_load_canvas();
 
 Mesh* mesh_get_canvas();
 
+Mesh* mesh_get_text_view_canvas(const char* text);
+
 void mesh_free(Mesh* mesh);
 
 #endif /* MESH_H_ */

@@ -1,12 +1,17 @@
-3 4 4
+3 7 6
 Shaders/gui
 Shaders/texture
 Shaders/notexture
 Models/Tank/Tank.obj
+Models/Tank/Tankdamaged.obj
+Models/Tank/Tankdead.obj
 Models/Wall/Wall.obj
 Models/Bullet/Bullet.obj
 Models/Ground.obj
+Models/Bullet/Explosion.obj
 Models/Tank/Tank.bmp
+Models/Tank/Tankdead.bmp
 Models/Wall/Wall.bmp
 Models/Bullet/Bullet.bmp
 Models/Ground.bmp
+Models/Bullet/Explosion.bmp

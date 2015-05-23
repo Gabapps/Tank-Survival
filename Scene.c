@@ -110,11 +110,16 @@ void scene_run(Scene* scene)
 
 void scene_draw(Scene* scene) {
 
+	glEnable(GL_BLEND);
+
+	glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	if(scene->GUI && scene->GUI->current_root) {
 		GUI_draw(scene->GUI);
 	}
 
 	camera_refresh_matrices(&(scene->camera));
+	glDisable(GL_BLEND);
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
 		so_draw(iterator->value, &(scene->camera), &(scene->light));
@@ -135,7 +140,7 @@ void scene_add_so(Scene* scene, SceneObject* so)
 	//Ajoute so dans le tableau sceneObject de la structure scene
 	if(so->transform.parent == NULL)
 		list_so_put(scene->sceneObjects, so);
-	else printf("Warning : Can't add child sceneObject to scene, it must be a root\n");
+	else printf("Warning : Can't add child sceneObject %s to scene, it must be a root\n", so->name);
 }
 
 
@@ -159,8 +164,8 @@ void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent) {
 		so_add_child(parent, child);
 	}
 	else {
-		printf("Warning : You're trying to attach a sceneObject that is not a root\n"
-				"Use so_add_child instead\n");
+		printf("Warning : You're trying to attach a sceneObject %s that is not a root\n"
+				"Use so_add_child instead\n", child->name);
 	}
 }
 
@@ -172,7 +177,7 @@ void scene_detach_so(Scene* scene, SceneObject* so) {
 		scene_add_so(scene, so);
 	}
 	else {
-		printf("Warning : You're trying to detach a sceneObject is already a root\n");
+		printf("Warning : You're trying to detach a sceneObject %s is already a root\n", so->name);
 	}
 }
 

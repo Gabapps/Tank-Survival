@@ -52,4 +52,6 @@ void transform_rm_child(Transform* parent, Transform* child);
 
 void transform_to_world_coord(Transform* t);
 
+void transform_scale(Transform* t, float x, float y, float z);
+
 #endif /* TRANSFORM_H_ */

@@ -15,6 +15,7 @@ void transform_refresh_matrix(Transform* t){
 	mat4x4_rotate_Y(t->matrix, t->matrix, t->rotation);
 	mat4x4_translate(translation, t->position[0], t->position[1], t->position[2]);
 	mat4x4_mul(t->matrix, translation, t->matrix);
+	mat4x4_scale_aniso(t->matrix, t->matrix, t->scale[0], t->scale[1], t->scale[2]);
 	if(t->parent) {
 		//Transform in parent space
 		mat4x4_mul(t->matrix, t->parent->matrix, t->matrix);
@@ -23,7 +24,7 @@ void transform_refresh_matrix(Transform* t){
 
 void transform_origin(Transform* t) {
 	vec3_zero(t->position);
-	vec3_zero(t->scale);
+	vec3_create(t->scale, 1,1,1);
 	t->rotation = 0;
 	mat4x4_identity(t->matrix);
 }
@@ -109,4 +110,8 @@ void transform_to_world_coord(Transform* t) {
 	//mat4x4_mul_vec3(t->position, t->matrix, t->position);
 	vec3_cpy(t->position, t->matrix[3]);
 	t->rotation=t->parent->rotation;
+}
+
+void transform_scale(Transform* t, float x, float y, float z) {
+	 vec3_create(t->scale, x, y, z);
 }

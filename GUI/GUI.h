@@ -31,6 +31,9 @@ void GUI_run(GUI* gui);
 
 void GUI_destroy(GUI* gui);
 
-void GUI_parse(GUI* gui, void* parsing_structure);
+void GUI_add_root(GUI* gui, Widget* root);
+void GUI_select_root(GUI* gui, unsigned int index);
+
+void GUI_parse(Widget* root, void* parsing_structure);
 
 #endif /* GUI_H_ */

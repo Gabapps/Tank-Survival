@@ -13,9 +13,9 @@ typelist(mesh, Mesh*);
 typelist(shader, Shader*);
 typelist(texture, Texture*);
 
-typedef enum {MESH_TANK, MESH_WALL, MESH_MISSILE, MESH_GROUND} Mesh_ID;
+typedef enum {MESH_TANK, MESH_TANK_DAMAGED, MESH_TANK_DEAD, MESH_WALL, MESH_MISSILE, MESH_GROUND, MESH_EXPLOSION} Mesh_ID;
 typedef enum {SHADER_GUI, SHADER_TEXTURE, SHADER_NOTEXTURE} Shader_ID;
-typedef enum {TEXTURE_TANK, TEXTURE_WALL, TEXTURE_BULLET, TEXTURE_GROUND} Texture_ID;
+typedef enum {TEXTURE_TANK, TEXTURE_TANK_DEAD, TEXTURE_WALL, TEXTURE_BULLET, TEXTURE_GROUND, TEXTURE_EXPLOSION} Texture_ID;
 
 typedef struct Ressources{
 	char* name; //Nom de l'objet

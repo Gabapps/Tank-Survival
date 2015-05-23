@@ -71,6 +71,16 @@ void tank_run(Tank* tank, SceneObject* so) {
 		}
 		iterator = iterator->next;
 	}
+	if(tank->life > 0 && tank->life < 50) {
+		so->mesh = ressources_get_mesh(MESH_TANK_DAMAGED);
+	}
+
+	if(tank->life <= 0) {
+		tank->life=0;
+		so->mesh = ressources_get_mesh(MESH_TANK_DEAD);
+		so->texture = ressources_get_texture(TEXTURE_TANK_DEAD);
+		so_rm_script(so, (Script*)tank);
+	}
 
 }
 

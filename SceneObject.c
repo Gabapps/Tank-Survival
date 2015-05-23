@@ -13,6 +13,8 @@ void so_destroy_one_step(SceneObject* so);
 void so_run_one_step(SceneObject* so);
 void so_setup_one_step(SceneObject* so);
 
+list_script scripts_to_destroy = {0, NULL};
+
 SceneObject* so_create(char* name, Transform t) {
 	SceneObject* so = (SceneObject*)malloc(sizeof(SceneObject));
 	so->transform=t;
@@ -70,6 +72,13 @@ void so_run_one_step(SceneObject* so) {
 		iterator->value->run(iterator->value, so);
 		iterator = iterator->next;
 	}
+	node_script *iterators = scripts_to_destroy.root;
+	while(iterators != NULL) {
+		list_script_delete(so->scripts, iterators->value, 1);
+		iterators = iterators->next;
+	}
+	scripts_to_destroy.count = 0;
+	scripts_to_destroy.root = NULL;
 }
 void so_setup(SceneObject* so) {
 	if(so->transform.children->root == NULL) {
@@ -170,6 +179,10 @@ SceneObject* so_from_transform(Transform* t){
 
 void so_add_script(SceneObject* so, Script* script) {
 	list_script_put(so->scripts, script);
+}
+
+void so_rm_script(SceneObject* so, Script* script) {
+	list_script_put(&scripts_to_destroy, script);
 }
 
 int so_collision_detection(SceneObject* so1, SceneObject* so2){
