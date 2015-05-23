@@ -85,6 +85,7 @@ void sc_run(SceneScript* scenescript, SceneObject* so) {
 	camera_look_at(cam,pos,cam->target,cam->up);
 
 	if(delta>10){
+		delta = 0;
 		game_load_scene("Menu"); //apres un certain temps,on arrete de tourner la camera
 	}
 	}
@@ -100,7 +101,7 @@ void get_map_infos(MapConf *map_conf, FILE* map)
 
 void sc_map(SceneScript* scscript, MapConf *map_conf)
 {
-	int i, j, test;
+	int i, j, input;
 	Transform transform_map = transform_origin_no_parent();
 
 	SceneObject *map_wall = so_create("Wall", transform_origin_no_parent(NULL));
@@ -120,31 +121,39 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 			transform_map = transform_origin_no_parent();
 			vec3 vec = {i,0,map_conf->map_size_y-j-1};
 			transform_translate_world(&transform_map, vec);
-			fscanf(map, "%d ", &test);
-			if(test == 1)
+			fscanf(map, "%d ", &input);
+			//Mur indestructible
+			if(input == 1)
 			{
 				Wall *script = malloc(sizeof(Wall));
 				script->name = "Wall";
 				script->setup = wall_setup;
 				script->run = wall_run;
-				script->dest = 0;
+				script->destrutible = 0;
+				script->texture = TEXTURE_WALL;
+				script->mesh = MESH_WALL;
 
 				wallToAdd = so_duplicate(map_wall, "Wall", transform_map);
 
 				so_add_script(wallToAdd, (Script*)script);
 				scene_add_so(Game.scene, wallToAdd);
 			}
-			else if(test == 2) {
+			//Spawn
+			else if(input == 2) {
 				scscript->spawnpoints[nbspawn*2]=(float)i;
 				scscript->spawnpoints[nbspawn*2+1]=(float)map_conf->map_size_x-j-1;
 				nbspawn++;
 			}
-			else if(test == 3) {
+			//Antichar
+			else if(input == 3) {
 				Wall *script = malloc(sizeof(Wall));
 				script->name = "Wall";
 				script->setup = wall_setup;
-				script->run = wall_run;//script->dest = 0;
-				script->dest = 1;
+				script->run = wall_run;
+				script->destrutible = 1;
+				script->life = 70;
+				script->texture = TEXTURE_ANTICHAR;
+				script->mesh = MESH_ANTICHAR;
 
 				wallToAdd = so_duplicate(map_wall, "Wall", transform_map);
 

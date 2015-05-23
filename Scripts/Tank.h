@@ -22,7 +22,7 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->mesh = ressources_get_mesh(MESH_TANK);
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
 	so->texture = ressources_get_texture(TEXTURE_TANK);
-	so->collider = collider_create(0.27, 0.49);
+	so->collider = collider_create(0.27, 0.40); //0.49
 	tank->speed=1;
 	tank->life=150;
 }
@@ -73,6 +73,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 	}
 	if(tank->life > 0 && tank->life < 50) {
 		so->mesh = ressources_get_mesh(MESH_TANK_DAMAGED);
+		so->texture = ressources_get_texture(TEXTURE_TANK_DAMAGED);
 	}
 
 	if(tank->life <= 0) {

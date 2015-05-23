@@ -34,6 +34,7 @@ void bullet_explosion(Bullet* bullet, SceneObject* so);
 
 void bullet_setup(Bullet* bullet, SceneObject* so){
 	death_counter=0;
+	tank_gagnant = NULL;
 	bullet->fromtank = so_from_transform(so->transform.parent);
 	so->mesh = NULL;
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
@@ -59,7 +60,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 		return;
 	}
 
-	if(bullet->active)
+	if(so->transform.parent == NULL)
 	{
 		node_so *iterator = Game.scene->sceneObjects->root;
 		while(iterator != NULL)
@@ -80,8 +81,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						//...et on remet le bullet immobile à l'origine
 
 						if(tank) {
-							if(collision_so->scripts->count) tank->life -= 110; //bullet->damage;
-
+							if(collision_so->scripts->count) tank->life -= bullet->damage; //bullet->damage;
 
 							if(tank->life <= 0)
 							{
@@ -90,9 +90,9 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 								if(death_counter==3){
 									tank_gagnant = bullet->fromtank;
 								}
-								//		so_detroy(iterator->value);
 							}
 						}
+
 
 						transform_origin(&(so->transform));
 						bullet->speed = 0;
@@ -105,17 +105,9 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 					{
 						bullet_explosion(bullet, so);
 						//le mur est il destructible ?
-						if(((Wall*)collision_so->scripts->root->value)->dest == 1)
+						if(((Wall*)collision_so->scripts->root->value)->destrutible == 1)
 						{
 							((Wall*)collision_so->scripts->root->value)->life -= bullet->damage;
-
-						}
-
-						//faut il en profiter pour enlever le mur ?
-						if(((Wall*)collision_so->scripts->root->value)->life <= 0)
-						{
-							scene_delete_so(Game.scene, iterator->value);
-							//							so_detroy(iterator->value);
 						}
 
 						//On remet le bullet immobile à l'origine
