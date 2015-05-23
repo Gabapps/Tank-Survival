@@ -36,7 +36,7 @@ void item_setup(Item* item, SceneObject* so) {
 
 void item_run(Item* item, SceneObject* so) {
 	//Rotation de l'item
-	transform_rotateY(&(so->transform), Time.deltaTime);
+	if(item->laser<2) transform_rotateY(&(so->transform), Time.deltaTime);
 
 	if(item->destroying) {
 		free(so->collider);
@@ -79,6 +79,7 @@ void activ_items(float x, float y)
 	//Choisir un item avec un random
 	int random_item;
 	random_item = rand()%(NB_ITEMS);
+	random_item = 4;
 	switch(random_item){
 	case 0 :
 		item->mesh = ressources_get_mesh(MESH_ITEMS_SPEED_M);
@@ -113,7 +114,7 @@ void activ_items(float x, float y)
 		item_struct->laser = 0;
 		break;
 	default :
-		item->mesh = ressources_get_mesh(MESH_ITEMS_LASER);
+		item->mesh = ressources_get_mesh(MESH_ITEMS_LASER_M);
 		item->texture = ressources_get_texture(TEXTURE_GREEN);
 		item->collider = collider_create(0.5, 0.5);
 		item_struct->fire = 0;

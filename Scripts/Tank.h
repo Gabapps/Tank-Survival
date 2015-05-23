@@ -88,6 +88,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 						Item* item = (Item*)malloc(sizeof(Item));
 						item->setup = item_setup;
 						item->run = item_run;
+						item->laser = 2;
 
 						laser->shader = ressources_get_shader(SHADER_TEXTURE);
 						laser->mesh = ressources_get_mesh(MESH_ITEMS_LASER);
