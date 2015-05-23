@@ -19,6 +19,4 @@ ImageButton* imagebutton_create();
 
 Button* imagebutton_get_button(ImageButton* widget);
 
-void imagebutton_set_text(ImageButton* widget, char* text);
-
 #endif /* GUI_IMAGEBUTTON_H_ */

@@ -44,7 +44,7 @@ void texture_from_BMP(Texture* texture) {
 	// Open the file
 	FILE * file = fopen(texture->path,"rb");
 	if (!file){
-		printf("Image could not be opened\n"); return;
+		printf("Image %s could not be opened\n", texture->path); return;
 	}
 
 	if ( fread(header, 1, 54, file)!=54 ){ // If not 54 bytes read : problem

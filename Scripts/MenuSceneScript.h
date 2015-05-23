@@ -23,13 +23,13 @@ typedef struct MenuSceneScript {
 typedef struct MenuGUI {
 	parse_widget(RelativeLayout, main_layout);
 
-	parse_widget(TextView, title);
-
 	parse_widget(ImageButton, play);
 
 	parse_widget(ImageButton, settings);
 
 	parse_widget(ImageButton, quit);
+
+	parse_widget(Image, background);
 
 } MenuGUI;
 
@@ -80,36 +80,49 @@ void menu_script_init(MenuSceneScript* script, SceneObject* so) {
 }
 
 void menu_script_load_views() {
-	enum {TEXTURE_BUTTON_FOCUSED, TEXTURE_BUTTON_UNFOCUSED, FONT_ARIAL};
+	enum {TEXTURE_BACKGROUND, TEXTURE_BUTTON_FOCUSED_PLAY, TEXTURE_BUTTON_UNFOCUSED_PLAY,TEXTURE_BUTTON_FOCUSED_SETTINGS,TEXTURE_BUTTON_UNFOCUSED_SETTINGS, TEXTURE_BUTTON_FOCUSED_QUIT,TEXTURE_BUTTON_UNFOCUSED_QUIT};
 	enum {SHADER_GUI};
 
 	widget_set_shader_gui(SHADER_GUI);
-	textview_use_font(FONT_ARIAL);
 
 	parse_config(menuGUI, main_layout, 4);
-	parse_config(menuGUI, title, 0);
+	parse_config(menuGUI, background, 0);
 	parse_config(menuGUI, play, 0);
 	parse_config(menuGUI, settings, 0);
 	parse_config(menuGUI, quit, 0);
 
-	image_use_texture(TEXTURE_BUTTON_UNFOCUSED);
-
 	menuGUI.main_layout = layout_rel_create();
-	menuGUI.title = textview_create();
+	image_use_texture(TEXTURE_BUTTON_UNFOCUSED_PLAY);
 	menuGUI.play = imagebutton_create();
+	image_use_texture(TEXTURE_BUTTON_UNFOCUSED_SETTINGS);
 	menuGUI.settings = imagebutton_create();
+	image_use_texture(TEXTURE_BUTTON_UNFOCUSED_QUIT);
 	menuGUI.quit = imagebutton_create();
+	menuGUI.background = image_create();
 
-	widget_set_position((Widget*)menuGUI.title, 0, 0.8);
+	image_set_texture(menuGUI.background, TEXTURE_BACKGROUND);
+
 	widget_set_position((Widget*)menuGUI.play, 0, 0.5);
 	widget_set_position((Widget*)menuGUI.settings, 0, 0);
 	widget_set_position((Widget*)menuGUI.quit, 0, -0.5);
+	widget_set_position((Widget*)menuGUI.background, 0, 0);
+	widget_resize((Widget*)menuGUI.background, RESIZE_LINEAR, 2);
 
-	textview_set_text(menuGUI.title, "Tank survival");
+	//	textview_set_text(menuGUI.title, "Tank survival");
 
-	void onFocus(Button *widget, int focus) {
-		if(focus) image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_FOCUSED);
-		else image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_UNFOCUSED);
+	void onFocusPlay(Button *widget, int focus) {
+		if(focus) image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_FOCUSED_PLAY);
+		else image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_UNFOCUSED_PLAY);
+	}
+
+	void onFocusSettings(Button *widget, int focus) {
+		if(focus) image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_FOCUSED_SETTINGS);
+		else image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_UNFOCUSED_SETTINGS);
+	}
+
+	void onFocusQuit(Button *widget, int focus) {
+		if(focus) image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_FOCUSED_QUIT);
+		else image_set_texture((Image*)widget->parent, TEXTURE_BUTTON_UNFOCUSED_QUIT);
 	}
 
 	Button* playbutton = imagebutton_get_button(menuGUI.play);
@@ -120,26 +133,23 @@ void menu_script_load_views() {
 	void onClickPlay(Button *widget) {
 		game_load_scene("Main");
 	}
-	button_set_onFocusListener(playbutton, onFocus);
+	button_set_onFocusListener(playbutton, onFocusPlay);
 	button_set_onClickListener(playbutton, onClickPlay);
 	button_set_near_buttons(playbutton, NULL, NULL, NULL, settingsbutton);
-	imagebutton_set_text(menuGUI.play, "Play");
 	//SETTINGS
 	void onClickSettings(Button *widget) {
 
 	}
-	button_set_onFocusListener(settingsbutton, onFocus);
+	button_set_onFocusListener(settingsbutton, onFocusSettings);
 	button_set_onClickListener(settingsbutton, onClickSettings);
 	button_set_near_buttons(settingsbutton, NULL, NULL, playbutton, quitbutton);
-	imagebutton_set_text(menuGUI.settings, "Settings");
 	//QUIT
 	void onClickQuit(Button *widget) {
 		game_exit();
 	}
-	button_set_onFocusListener(quitbutton, onFocus);
+	button_set_onFocusListener(quitbutton, onFocusQuit);
 	button_set_onClickListener(quitbutton, onClickQuit);
 	button_set_near_buttons(quitbutton, NULL, NULL, settingsbutton,  NULL);
-	imagebutton_set_text(menuGUI.quit, "Quit");
 
 
 	button_focus(playbutton);

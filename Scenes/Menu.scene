@@ -1,5 +1,9 @@
-1 0 3
+1 0 7
 Shaders/gui
-Models/GUI/button_focused.bmp
-Models/GUI/button_unfocused.bmp
-Fonts/Arial.bmp
+Models/GUI/menu4.bmp
+Models/GUI/button_focused_play.bmp
+Models/GUI/button_unfocused_play.bmp
+Models/GUI/button_focused_settings.bmp
+Models/GUI/button_unfocused_settings.bmp
+Models/GUI/button_focused_exit.bmp
+Models/GUI/button_unfocused_exit.bmp

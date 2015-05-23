@@ -96,6 +96,7 @@ void scene_setup(Scene* scene)
 	}
 
 	//addSound("Audio/musique.ogg", scene->sounds, 1, 1);
+//	addSound("Audio/musique.ogg", scene->sounds, 1, 1);
 }
 
 

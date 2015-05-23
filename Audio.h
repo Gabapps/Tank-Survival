@@ -8,9 +8,9 @@
 #ifndef AUDIO_H_
 #define AUDIO_H_
 
+#include <sndfile.h>
 #include <al.h>
 #include <alc.h>
-#include <sndfile.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include "list.h"

@@ -19,7 +19,7 @@ void ressources_load(){
 	int count_1;
 	int count_2;
 	int count_3;
-	char path[40] = "Scenes/";
+	char path[80] = "Scenes/";
 	strcat(path, Game.scene->name);
 	strcat(path, ".scene");
 	f = fopen(path, "r");
@@ -34,10 +34,10 @@ void ressources_load(){
 		//importation des shaders du fichier dans la liste Ressource.shaders
 
 		for(i=0;i<count_1;i++){
-			char path_shaders_vert[40];
-			char path_shaders_fragment[40];
+			char path_shaders_vert[80];
+			char path_shaders_fragment[80];
 
-			fgets(path, 40, f);
+			fgets(path, 80, f);
 			path[strlen(path)-1]=0;
 			strcpy(path_shaders_vert,path);
 			strcat(path_shaders_vert,".vert");
@@ -50,7 +50,7 @@ void ressources_load(){
 
 		//importation des meshes du fichier dans la liste Ressource.meshes
 		for(i=0;i<count_2;i++){
-			fgets(path, 40, f);
+			fgets(path, 80, f);
 			path[strlen(path)-1]=0;
 			Mesh *mesh = mesh_create();
 			mesh_load_from_obj(mesh, path);
@@ -60,7 +60,7 @@ void ressources_load(){
 
 		for(i=0;i<count_3;i++){
 			//importation des textures du fichier dans la liste Ressource.textures
-			fgets(path, 40, f);
+			fgets(path, 80, f);
 			path[strlen(path)-1]=0;
 			Texture *texture = texture_create(path);
 			texture_from_BMP(texture);
