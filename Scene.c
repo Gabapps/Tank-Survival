@@ -114,6 +114,7 @@ void scene_draw(Scene* scene) {
 		GUI_draw(scene->GUI);
 	}
 
+	camera_refresh_matrices(&(scene->camera));
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
 		so_draw(iterator->value, &(scene->camera), &(scene->light));

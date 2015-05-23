@@ -73,7 +73,23 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 void sc_run(SceneScript* scenescript, SceneObject* so) {
 	vec3 dir = {cos(0.1*Time.timeSinceStart),-1,sin(0.1*Time.timeSinceStart)};
 	sunlight_set_direction(&(Game.scene->light), dir);
+	Camera* cam = &(Game.scene->camera);
+	static float delta =0;
+
+	if(death_counter==3 && tank_gagnant != NULL){
+	delta +=Time.deltaTime;
+	vec3_cpy(cam->target,tank_gagnant->transform.position);
+
+	vec3 pos = {15+15*cosf(delta/2),-0.5*delta+15 ,15+20*sinf(delta/2)};
+	//il faut que je recupere 15 ( cam->pos depuis la map "au cas où on change de map)
+	camera_look_at(cam,pos,cam->target,cam->up);
+
+	if(delta>10){
+		game_load_scene("Menu"); //apres un certain temps,on arrete de tourner la camera
+	}
+	}
 }
+
 
 void get_map_infos(MapConf *map_conf, FILE* map)
 {

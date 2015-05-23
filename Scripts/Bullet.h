@@ -11,9 +11,12 @@
 #include "../Script.h"
 #include "../SceneObject.h"
 #include "Wall.h"
+#include "../Camera.h"
+
+SceneObject* tank_gagnant = NULL;//scene object pointant sur le tank gagnant
 
 int death_counter;
-
+int end =0;
 typedef struct Bullet{
 	define_script(Bullet);
 	float speed;
@@ -67,12 +70,13 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 
 						if(((Tank*)collision_so->scripts->root->value)->life <= 0)
 						{
-								scene_delete_so(Game.scene, iterator->value);
-								death_counter++;
-								if(death_counter==3){
-									game_load_scene("Menu");
-								}
-						//		so_detroy(iterator->value);
+							scene_delete_so(Game.scene, iterator->value);
+							death_counter++;
+							end =1;
+							if(death_counter==3){
+								tank_gagnant = bullet->fromtank;
+							}
+							//		so_detroy(iterator->value);
 						}
 
 						transform_origin(&(so->transform));
@@ -91,7 +95,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						if(((Wall*)collision_so->scripts->root->value)->life <= 0)
 						{
 							scene_delete_so(Game.scene, iterator->value);
-//							so_detroy(iterator->value);
+							//							so_detroy(iterator->value);
 						}
 
 						//On remet le bullet immobile à l'origine
@@ -119,10 +123,10 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 
 	if(input_keypressed_index(5*tank->player+4) && !bullet->active){
 		scene_detach_so(Game.scene, so);
-//		printf("bullet : %f %f %f\n", so->transform.position[0], so->transform.position[1], so->transform.position[2]);
-//		printf("tank : %f %f %f\n", bullet->fromtank->transform.position[0],
-//				bullet->fromtank->transform.position[1],
-//				bullet->fromtank->transform.position[2]);
+		//		printf("bullet : %f %f %f\n", so->transform.position[0], so->transform.position[1], so->transform.position[2]);
+		//		printf("tank : %f %f %f\n", bullet->fromtank->transform.position[0],
+		//				bullet->fromtank->transform.position[1],
+		//				bullet->fromtank->transform.position[2]);
 		bullet->speed =15;
 		bullet->active=1;
 
