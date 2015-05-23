@@ -80,7 +80,7 @@ void sc_run(SceneScript* scenescript, SceneObject* so) {
 	delta +=Time.deltaTime;
 	vec3_cpy(cam->target,tank_gagnant->transform.position);
 
-	vec3 pos = {15+15*cosf(delta/2),-0.5*delta+15 ,15+20*sinf(delta/2)};
+	vec3 pos = {cam->target[0]+8*cosf(delta/2),-0.4*delta+4.8 ,cam->target[2]+6*sinf(delta/2)};
 	//il faut que je recupere 15 ( cam->pos depuis la map "au cas où on change de map)
 	camera_look_at(cam,pos,cam->target,cam->up);
 

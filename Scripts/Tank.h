@@ -17,6 +17,8 @@ typedef struct Tank {
 	int player;
 } Tank;
 
+const int totallife = 150;
+
 void tank_setup(Tank* tank, SceneObject* so) {
 
 	so->mesh = ressources_get_mesh(MESH_TANK);
@@ -24,7 +26,7 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->texture = ressources_get_texture(TEXTURE_TANK);
 	so->collider = collider_create(0.27, 0.40); //0.49
 	tank->speed=1;
-	tank->life=150;
+	tank->life=totallife;
 }
 
 void tank_run(Tank* tank, SceneObject* so) {
@@ -71,7 +73,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 		}
 		iterator = iterator->next;
 	}
-	if(tank->life > 0 && tank->life < 50) {
+	if(tank->life > 0 && tank->life < totallife/2) {
 		so->mesh = ressources_get_mesh(MESH_TANK_DAMAGED);
 		so->texture = ressources_get_texture(TEXTURE_TANK_DAMAGED);
 	}

@@ -47,7 +47,7 @@ void bullet_setup(Bullet* bullet, SceneObject* so){
 	transform_copy(&(so->transform), &(bullet->startpos));
 	bullet->speed = 0;
 	bullet->time = 0;
-	bullet->damage = 35;
+	bullet->damage = 50;
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
