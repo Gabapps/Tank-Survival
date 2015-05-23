@@ -118,6 +118,7 @@ void scene_draw(Scene* scene) {
 		GUI_draw(scene->GUI);
 	}
 
+	camera_refresh_matrices(&(scene->camera));
 	glDisable(GL_BLEND);
 	node_so *iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {

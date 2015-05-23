@@ -22,16 +22,16 @@ GUI* GUI_create() {
 void GUI_draw_rec(Widget* widget) {
 	if(widget->children->root == NULL) {
 		widget_refresh_matrix(widget);
-		if(widget->draw) widget->draw(widget);
+		if(widget->draw && widget->visibility == VISIBLE) widget->draw(widget);
 	}
 	else {
-		widget_refresh_matrix(widget);
-		if(widget->draw) widget->draw(widget);
 		node_widget *iterator = widget->children->root;
 		while(iterator != NULL) {
 			GUI_draw_rec(iterator->value);
 			iterator = iterator->next;
 		}
+		widget_refresh_matrix(widget);
+		if(widget->draw && widget->visibility == VISIBLE) widget->draw(widget);
 	}
 }
 
