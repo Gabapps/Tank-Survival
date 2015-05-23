@@ -12,6 +12,7 @@
 #include "SceneObject.h"
 #include "List.h"
 #include "SunLight.h"
+#include "GUI/GUI.h"
 
 typelist(so, SceneObject*);
 
@@ -21,10 +22,12 @@ typedef struct Scene {
 	Script* script;				//Pour associer des fonctions à la scene
 	Camera camera;				//Camera liée à la scene
 	SunLight light;
+	GUI* GUI;
 } Scene;
 
 Scene* scene_create(char* name);
 void scene_destroy(Scene* scene);
+void scene_destroy_content(Scene* scene);
 void scene_setup(Scene* scene);
 void scene_run(Scene* scene);
 void scene_draw(Scene* scene);

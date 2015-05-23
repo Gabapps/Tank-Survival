@@ -10,6 +10,7 @@
 
 #include "../Script.h"
 #include "../SceneObject.h"
+#include "Explosion.h"
 #include "Wall.h"
 
 typedef struct Bullet{
@@ -23,12 +24,14 @@ typedef struct Bullet{
 }Bullet;
 
 void bullet_reset(Bullet* bullet, SceneObject* so);
+void bullet_goback(Bullet* bullet, SceneObject* so);
+void bullet_explosion(Bullet* bullet, SceneObject* so);
 
 void bullet_setup(Bullet* bullet, SceneObject* so){
 	bullet->fromtank = so_from_transform(so->transform.parent);
-	so->mesh = ressources_get_mesh(MESH_MISSILE);
-	so->shader = ressources_get_shader(SHADER_NOTEXTURE);
-	//so->texture= ressources_get_texture(TEXTURE_BULLET); //revoir la texture
+	so->mesh = NULL;
+	so->shader = ressources_get_shader(SHADER_TEXTURE);
+	so->texture= ressources_get_texture(TEXTURE_BULLET); //revoir la texture
 	bullet->startpos = transform_xyz_no_parent(0.65,0.35,0);
 	bullet->startpos.rotation=0;
 	so->collider = collider_create(0.03, 0.0012);
@@ -41,7 +44,14 @@ void bullet_setup(Bullet* bullet, SceneObject* so){
 }
 
 void bullet_run(Bullet* bullet, SceneObject* so){
-	Tank* tank = (Tank*) bullet->fromtank->scripts->root->value;
+	Tank* tank = NULL;
+	if(bullet->fromtank->scripts->root)
+		tank = (Tank*) bullet->fromtank->scripts->root->value;
+	else {
+		bullet_goback(bullet, so);
+		so_rm_script(so, (Script*)bullet);
+		return;
+	}
 
 	if(bullet->active)
 	{
@@ -55,24 +65,20 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				{
 					if(strcmp(collision_so->name, "Tank") == 0)
 					{
+						bullet_explosion(bullet, so);
 						//Si collision avec un tank, on vire le tank de la scene...
 						//scene_delete_so(Game.scene, iterator->value);
 						//so_detroy(iterator->value); // /!\"so_detroy" et non "so_destroy"
 						//...et on remet le bullet immobile à l'origine
 
-						((Tank*)collision_so->scripts->root->value)->life -= bullet->damage;
+						if(collision_so->scripts->count) ((Tank*)collision_so->scripts->root->value)->life -= 110; //bullet->damage;
 
-						if(((Tank*)collision_so->scripts->root->value)->life <= 0)
-						{
-								scene_delete_so(Game.scene, iterator->value);
-						//		so_detroy(iterator->value);
-						}
-
-						transform_origin(&(so->transform));
-						bullet->speed = 0;
+						bullet_goback(bullet, so);
+						iterator=NULL;
 					}
 					else if(strcmp(collision_so->name, "Wall") == 0)
 					{
+						bullet_explosion(bullet, so);
 						//le mur est il destructible ?
 						if(((Wall*)collision_so->scripts->root->value)->dest == 1)
 						{
@@ -88,8 +94,8 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						}
 
 						//On remet le bullet immobile à l'origine
-						transform_origin(&(so->transform));
-						bullet->speed = 0;
+						bullet_goback(bullet, so);
+						iterator=NULL;
 					}
 					else if(strcmp(collision_so->name, "Bullet") == 0)
 					{
@@ -98,7 +104,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				}
 			}
 
-			iterator=iterator->next;
+			if(iterator) iterator=iterator->next;
 		}
 	}
 
@@ -118,10 +124,12 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 //				bullet->fromtank->transform.position[2]);
 		bullet->speed =15;
 		bullet->active=1;
+		so->mesh = ressources_get_mesh(MESH_MISSILE);
 
 	}
 	if(bullet->time>2)
 	{
+		bullet_goback(bullet, so);
 		bullet_reset(bullet, so);
 	}
 
@@ -130,12 +138,34 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 void bullet_reset(Bullet* bullet, SceneObject* so) {
 
 	bullet->active = 0;
-	scene_attach_so(Game.scene, so, bullet->fromtank);
-	transform_copy(&(so->transform), &(bullet->startpos));
-	bullet->speed = 0;
 	bullet->time = 0;
 }
 
+void bullet_goback(Bullet* bullet, SceneObject* so) {
+	if(!so->transform.parent) {
+		scene_attach_so(Game.scene, so, bullet->fromtank);
+		transform_copy(&(so->transform), &(bullet->startpos));
+		bullet->speed = 0;
+		so->mesh = NULL;
+	}
+}
+
+void bullet_explosion(Bullet* bullet, SceneObject* so) {
+	Transform t = transform_origin_no_parent();
+	transform_copy(&t, &(so->transform));
+	SceneObject* exp = so_create("Explosion", t);
+	exp->shader = ressources_get_shader(SHADER_TEXTURE);
+	exp->mesh = ressources_get_mesh(MESH_EXPLOSION);
+	exp->texture = ressources_get_texture(TEXTURE_EXPLOSION);
+
+	Explosion* script = (Explosion*)malloc(sizeof(Explosion));
+	script->run = explosion_run;
+	script->setup = explosion_setup;
+
+	so_add_script(exp, (Script*)script);
+
+	scene_add_so(Game.scene, exp);
+}
 
 
 #endif /* SCRIPTS_BULLET_H_ */

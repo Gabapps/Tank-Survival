@@ -31,11 +31,11 @@ int mesh_load_from_obj(Mesh* mesh, char* filename);
 
 void mesh_load_vbo(Mesh* mesh);
 
-float* mesh_get_vertices(Mesh* mesh);
+void mesh_load_canvas();
 
-float* mesh_get_normals(Mesh* mesh);
+Mesh* mesh_get_canvas();
 
-float* mesh_get_uvs(Mesh* mesh);
+Mesh* mesh_get_text_view_canvas(const char* text);
 
 void mesh_free(Mesh* mesh);
 

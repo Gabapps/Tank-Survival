@@ -28,12 +28,20 @@ int RotRectsCollision(Transform* tr1, BoxCollider* b1, Transform* tr2, BoxCollid
 	float dx;           // deltaX pour les equations lineaires
 	float ext1, ext2;   // min/max verticale
 
+	transform_refresh_matrix(tr1);
+	transform_refresh_matrix(tr2);
+
+	vec3 position1, position2;
+
+	vec3_cpy(position1, tr1->matrix[3]);
+	vec3_cpy(position2, tr2->matrix[3]);
+
 	ang = tr1->rotation - tr2->rotation;	// Angle du rectangle 1
 	cosa = cos(ang);           				// Pré calculs
 	sina = sin(ang);
 
 	// C la position de R2 par rapport à R1 (R1 est fictivement au centre)
-	vec3_sub(C, tr2->position, tr1->position);
+	vec3_sub(C, position1, position2);
 
 	// Rotation de C par l'angle du deuxième rectangle pour l'aligner à la grille
 	vec3_rot(C, tr2->rotation);

@@ -9,14 +9,31 @@
 #define GUI_H_
 
 #include "Widget.h"
+#include <stddef.h>
 
-typedef struct GUI_s {
-	Widget* root;
-} GUI_s;
+#define parse_widget(type, name) type* name; unsigned int nb_##name
 
-GUI_s GUI;
+
+#define parse_config(structname, nameparam, nbchild)\
+	structname.nb_##nameparam = nbchild
+
+typedef struct GUI {
+	list_widget* roots;
+	Widget* current_root;
+} GUI;
 
 void GUI_init();
-void GUI_draw();
+
+GUI* GUI_create();
+
+void GUI_draw(GUI* gui);
+void GUI_run(GUI* gui);
+
+void GUI_destroy(GUI* gui);
+
+void GUI_add_root(GUI* gui, Widget* root);
+void GUI_select_root(GUI* gui, unsigned int index);
+
+void GUI_parse(Widget* root, void* parsing_structure);
 
 #endif /* GUI_H_ */

@@ -7,11 +7,12 @@
 
 #include "Controls.h"
 
-int numberOfControls = 0;
-Controls* controlsTable[20];
+
+Controls* controlsTable[30];
 
 void init_controlsTable()
 {
+	numberOfControls = 0;
 	int i;
 	for(i=0; i<20; ++i)
 	{

@@ -7,6 +7,20 @@
 
 #include "Mesh.h"
 
+Mesh* canvas;
+
+//Private functions
+
+float* mesh_get_vertices(Mesh* mesh);
+
+float* mesh_get_normals(Mesh* mesh);
+
+float* mesh_get_uvs(Mesh* mesh);
+
+void mesh_desindex(Mesh* mesh);
+
+void mesh_malloc_indexed(Mesh* mesh);
+
 Mesh* mesh_create() {
 	Mesh *mesh = (Mesh*)malloc(sizeof(Mesh));
 	mesh->f = 0;
@@ -53,12 +67,7 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 	mesh->vn=vn;
 	mesh->f=f;
 	mesh->vt=vt;
-	mesh->vertices = calloc(3*v, sizeof(float));
-	mesh->normals = calloc(3*vn, sizeof(float));
-	mesh->uvs = calloc(2*vt, sizeof(float));
-	mesh->triangles_id = calloc(3*f, sizeof(int));
-	mesh->normals_id = calloc(3*f, sizeof(int));
-	mesh->uvs_id = calloc(3*f, sizeof(int));
+	mesh_malloc_indexed(mesh);
 
 	rewind(file);
 	res=0;
@@ -107,14 +116,7 @@ int mesh_load_from_obj(Mesh* mesh, char* filename) {
 
 	fclose(file);
 
-	float *temp_vertices = mesh->vertices, *temp_normals = mesh->normals, *temp_uvs = mesh->uvs;
-	mesh->vertices = mesh_get_vertices(mesh);
-	mesh->normals = mesh_get_normals(mesh);
-	mesh->uvs = mesh_get_uvs(mesh);
-
-	free(temp_vertices);
-	free(temp_normals);
-	free(temp_uvs);
+	mesh_desindex(mesh);
 
 	mesh_load_vbo(mesh);
 	return 1;
@@ -134,7 +136,8 @@ void mesh_load_vbo(Mesh* mesh) {
 
 float* mesh_get_vertices(Mesh* mesh) {
 	int i,j,n=3*mesh->f;
-	float *vertices = calloc(3*n, sizeof(float));
+	float* vertices = (float*)calloc(3*n, sizeof(float));
+	if(!vertices)perror("Mesh malloc");
 
 	for(i=0; i<n; i++) {
 		for(j=0; j<3; j++) {
@@ -147,7 +150,8 @@ float* mesh_get_vertices(Mesh* mesh) {
 
 float* mesh_get_uvs(Mesh* mesh) {
 	int i,j,n=3*mesh->f;
-	float *uvs = calloc(2*n, sizeof(float));
+	float *uvs = (float*)calloc(2*n, sizeof(float));
+	if(!uvs)perror("Mesh malloc ");
 
 	for(i=0; i<n; i++) {
 		for(j=0; j<2; j++) {
@@ -158,9 +162,36 @@ float* mesh_get_uvs(Mesh* mesh) {
 	return uvs;
 }
 
+void mesh_desindex(Mesh* mesh) {
+	float *temp_vertices = mesh->vertices, *temp_normals = mesh->normals, *temp_uvs = mesh->uvs;
+
+	mesh->vertices = mesh_get_vertices(mesh);
+	free(temp_vertices);
+
+	if(mesh->vn) {
+		mesh->normals = mesh_get_normals(mesh);
+		free(temp_normals);
+	}
+
+	if(mesh->vt) {
+		mesh->uvs = mesh_get_uvs(mesh);
+		free(temp_uvs);
+	}
+}
+
+void mesh_malloc_indexed(Mesh* mesh) {
+	mesh->vertices = calloc(3*mesh->v, sizeof(float));
+	mesh->normals = calloc(3*mesh->vn, sizeof(float));
+	mesh->uvs = calloc(2*mesh->vt, sizeof(float));
+	mesh->triangles_id = calloc(3*mesh->f, sizeof(int));
+	mesh->normals_id = calloc(3*mesh->f, sizeof(int));
+	mesh->uvs_id = calloc(3*mesh->f, sizeof(int));
+}
+
 float* mesh_get_normals(Mesh* mesh) {
 	int i,j,n=3*mesh->f;
-	float *normals = calloc(3*n, sizeof(float));
+	float *normals = (float*)calloc(3*n, sizeof(float));
+	if(!normals)perror("Mesh malloc ");
 
 	for(i=0; i<n; i++) {
 		for(j=0; j<3; j++) {
@@ -169,6 +200,99 @@ float* mesh_get_normals(Mesh* mesh) {
 	}
 
 	return normals;
+}
+
+void mesh_load_canvas() {
+
+	canvas = (Mesh*)malloc(sizeof(Mesh));
+	canvas->f = 2;
+	canvas->v = 4;
+	canvas->vn = 0;
+	canvas->vt = 4;
+
+	mesh_malloc_indexed(canvas);
+
+	float vertices[] = {-0.5f,0.5f,0,   -0.5f,-0.5f,0,   0.5f,-0.5f,0,   0.5f,0.5f,0};
+	float uvs[] = {0,1,   0,0,   1,0,   1,1};
+	int triangles_id[] = {1,2,4,  2,4,3};
+	int uvs_id[] = {1,2,4,  2,4,3};
+
+	memcpy(canvas->vertices, vertices, canvas->v*3*sizeof(float));
+	memcpy(canvas->uvs, uvs, canvas->vt*2*sizeof(float));
+	memcpy(canvas->triangles_id, triangles_id, canvas->f*3*sizeof(int));
+	memcpy(canvas->uvs_id, uvs_id, canvas->f*3*sizeof(int));
+
+	mesh_desindex(canvas);
+}
+
+Mesh* mesh_get_canvas() {
+	return canvas;
+}
+
+Mesh* mesh_get_text_view_canvas(const char* text) {
+	int i, j,  x = 0, y = 0, count = 0;
+
+	for(i=0; i<strlen(text); i++) {
+		if(text[i]=='\n') {
+			x--;
+			count = (x > count ? x : count);
+			y++;
+		}
+		else {
+			x++;
+		}
+	}
+	count = (x > count ? x : count);
+	float xcenter = -0.5+(float)count/2, ycenter = (float)y/2;
+
+	x=0;y=0;count=0;
+
+	Mesh* mesh = mesh_create();
+
+	mesh->f = 2 * strlen(text);
+	mesh->v = 4 * strlen(text);
+	mesh->vn = 0;
+	mesh->vt = 4 * strlen(text);
+
+	mesh_malloc_indexed(mesh);
+
+	float vertices_[] = {-0.5f,0.5f,0,   -0.5f,-0.5f,0,   0.5f,-0.5f,0,   0.5f,0.5f,0};
+	float uvs_[] = {0,1,   0,0,   1,0,   1,1};
+	int triangles_id_[] = {1,2,4,  2,4,3};
+	int uvs_id_[] = {1,2,4,  2,4,3};
+
+	for(i=0; i<strlen(text); i++) {
+		if(text[i]=='\n') {
+			mesh->f-=2;
+			x=0;
+			y++;
+		}
+		else {
+			int x_ascii = (unsigned char)text[i]%16, y_ascii = 15-((unsigned char)text[i]/16);
+			float x_uv = (float)x_ascii/16, y_uv = (float)y_ascii/16;
+
+			for(j=0; j<4; j++) {
+				mesh->vertices[12*i+j*3] = vertices_[j*3]+(float)x-xcenter;
+				mesh->vertices[12*i+j*3+1] = vertices_[j*3+1]+(float)y-ycenter;
+				mesh->vertices[12*i+j*3+2] = 0;
+				mesh->uvs[8*i+j*2] = x_uv + uvs_[j*2]/16;
+				mesh->uvs[8*i+j*2+1] = y_uv + uvs_[j*2+1]/16;
+			}
+
+			for(j=0; j<6; j++) {
+				mesh->triangles_id[i*6+j] = triangles_id_[j]+count*4;
+				mesh->uvs_id[i*6+j] = uvs_id_[j]+count*4;
+			}
+
+
+			x++;
+			count++;
+		}
+	}
+
+	mesh_desindex(mesh);
+
+	return mesh;
 }
 
 void mesh_free(Mesh* mesh) {
