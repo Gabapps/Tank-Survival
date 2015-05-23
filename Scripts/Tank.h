@@ -24,7 +24,7 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->mesh = ressources_get_mesh(MESH_TANK);
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
 	so->texture = ressources_get_texture(TEXTURE_TANK);
-	so->collider = collider_create(0.27, 0.40); //0.49
+	so->collider = collider_create(0.27, 0.45); //0.49
 	tank->speed=1;
 	tank->life=totallife;
 }
