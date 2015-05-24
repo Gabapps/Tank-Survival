@@ -83,6 +83,7 @@ void sc_run(SceneScript* scenescript, SceneObject* so) {
 
 	sc_items(scenescript);
 
+
 	Camera* cam = &(Game.scene->camera);
 	static float delta =0;
 

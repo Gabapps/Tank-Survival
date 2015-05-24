@@ -12,12 +12,14 @@
 #include "../SceneObject.h"
 #include "Explosion.h"
 #include "Wall.h"
+#include "Tank.h"
 #include "../Camera.h"
 
 SceneObject* tank_gagnant = NULL;//scene object pointant sur le tank gagnant
+SceneObject* tank_col = NULL;
 
 int death_counter;
-int end =0;
+int end;
 typedef struct Bullet{
 	define_script(Bullet);
 	float speed;
@@ -81,6 +83,17 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						if(tankcol) {
 							if(collision_so->scripts->count) tankcol->life -= tank->damage; //bullet->damage;
 
+							if(tankcol->life <= 50){
+								static float delta1 =0;
+								Camera *cam;
+								cam = &(Game.scene->camera);
+
+								if(delta1<3){//todo finir les tremblements ne fonctionnent pas
+									vec3 pos= {cam->pos[0]+2*cosf(delta1/2),15,cam->pos[2]+2*sinf(delta1/2)};
+									camera_look_at(cam,pos,cam->target,cam->up);
+									delta1 += Time.deltaTime;
+								}
+							}
 							if(tankcol->life <= 0)
 							{
 								death_counter++;
