@@ -7,6 +7,8 @@
 
 #include "Scene.h"
 
+list_so* so_to_destroy;
+
 /**
  * \fn Scene* scene_create()
  * \brief Create Scene
@@ -86,6 +88,9 @@ void scene_destroy_content(Scene* scene) {
 
 void scene_setup(Scene* scene)
 {
+	if(so_to_destroy) list_so_free(so_to_destroy);
+	so_to_destroy = list_so_create();
+
 	if(scene->script!=NULL)
 		scene->script->setup(scene->script, NULL);
 
@@ -96,7 +101,7 @@ void scene_setup(Scene* scene)
 	}
 
 	//addSound("Audio/musique.ogg", scene->sounds, 1, 1);
-//	addSound("Audio/musique.ogg", scene->sounds, 1, 1);
+	//	addSound("Audio/musique.ogg", scene->sounds, 1, 1);
 }
 
 
@@ -117,7 +122,16 @@ void scene_run(Scene* scene)
 		GUI_run(scene->GUI);
 	}
 
-	node_so *iterator = scene->sceneObjects->root;
+	node_so *iterator = so_to_destroy->root;
+	while(iterator != NULL) {
+		so_destroy(iterator->value);
+		list_so_delete(scene->sceneObjects, iterator->value, 1);
+		node_so* temp = iterator;
+		iterator = iterator->next;
+		if(temp) list_so_delete(so_to_destroy, temp->value, 0);
+	}
+
+	iterator = scene->sceneObjects->root;
 	while(iterator != NULL) {
 		so_run(iterator->value);
 		iterator = iterator->next;
@@ -170,9 +184,9 @@ void scene_add_so(Scene* scene, SceneObject* so)
  *
  * return The deleted sceneObject
  */
-int scene_delete_so(Scene* scene, SceneObject* so)
+void scene_delete_so(Scene* scene, SceneObject* so)
 {
-	return list_so_delete(scene->sceneObjects, so, 1);
+	list_so_put(so_to_destroy, so);
 }
 
 void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent) {

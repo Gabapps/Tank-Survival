@@ -45,7 +45,7 @@ void item_run(Item* item, SceneObject* so) {
 		item->scale+=4*Time.deltaTime;
 		transform_scale(&(so->transform), 1/item->scale, 1/item->scale, 1/item->scale);
 		if(item->scale > 5) {
-			so_destroy(so);
+			if(so->transform.parent) scene_detach_so(Game.scene, so);
 			scene_delete_so(Game.scene, so);
 		}
 	}
@@ -57,9 +57,11 @@ void item_run(Item* item, SceneObject* so) {
 		}
 		if(item->time >= 15)
 		{
-			if(so->transform.parent) scene_detach_so(Game.scene, so);
-			so_destroy(so);
+			if(so->transform.parent) {
+				scene_detach_so(Game.scene, so);
+			}
 			scene_delete_so(Game.scene, so);
+			item->time = 0;
 		}
 	}
 }
@@ -79,7 +81,6 @@ void activ_items(float x, float y)
 	//Choisir un item avec un random
 	int random_item;
 	random_item = rand()%(NB_ITEMS);
-	random_item = 4;
 	switch(random_item){
 	case 0 :
 		item->mesh = ressources_get_mesh(MESH_ITEMS_SPEED_M);

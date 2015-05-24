@@ -235,7 +235,7 @@ void sc_loadplayers(SceneScript* scscript) {
 		script_bullet->setup = bullet_setup;
 		script_bullet->run = bullet_run;
 
-		SceneObject *bullet = so_create("Bullet", transform_xyz_no_parent(3,5,3));
+		SceneObject *bullet = so_create("Bullet", transform_xyz_no_parent(0.65,0.35,0));
 		so_add_script(bullet, (Script*)script_bullet);
 		so_add_child(tank, bullet);
 		scene_add_so(Game.scene, tank);
@@ -248,12 +248,16 @@ void sc_items(SceneScript* scscript)
 {
 	int vrand = rand() % 4;
 	static float time = 15;
+	static int lastvrand = 6;
+
+	if(vrand==lastvrand) vrand = (vrand+1)%5;
 	time += Time.deltaTime;
-	if(time>20)
+	if(time>13)
 	{
 		time = 0;
 		activ_items(scscript->itempoints[2*vrand], scscript->itempoints[2*vrand+1]);
 	}
+	lastvrand = vrand;
 }
 void sc_end_game(SceneScript* scscript){
 

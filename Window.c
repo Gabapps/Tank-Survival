@@ -8,7 +8,7 @@
 
 #include "Window.h"
 
-const int height = 1080, width = 1920, fullscreen = 1;
+const int height = 1080, width = 1920, fullscreen = 0;
 
 int window_open()
 {

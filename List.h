@@ -58,9 +58,13 @@ static inline void list_##name##_put(list_##name* list, type value) { \
 static inline int list_##name##_delete(list_##name* list, type value, int freevalue) { \
 	if(list->count==0) return 0; \
 	else { \
-		if(list->count==1) { \
+		if(list->root->value==value) { \
+			node_##name* temp = list->root->next; \
 			node_##name##_delete(list->root, freevalue); \
-			list->root = NULL; \
+			list->root = temp; \
+		} \
+		else if(list->count==1) { \
+			return 0; \
 		} \
 		else { \
 			node_##name *iterator = list->root, *temp; \
