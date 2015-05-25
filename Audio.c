@@ -99,10 +99,17 @@ void sound_setup_listener(vec3 pos, vec3 dir)
 
 Sound* sound_add(char* filename, list_sound* sounds, float pitch, float gain)
 {
+	SF_INFO FileInfos;
 	Sound* sound = sound_create(filename, pitch);
 
 	alSourcePlay(sound->source);
 	alGetSourcei(sound->source, AL_SOURCE_STATE, &(sound->status));
+
+	sound->file = sf_open(filename, SFM_READ, &FileInfos);
+	if (!sound->file) {
+		printf("Le son %s ne peut etre ouvert\n", filename);
+		return 0;
+	}
 
 	list_sound_put(sounds, sound);
 
@@ -132,6 +139,21 @@ Sound* sound_create(char* filename, float pitch)
 	return sound;
 }
 
+void sound_destroy(Sound* sound) {
+	int i;
+	free(sound->filename);
+
+	for(i=0; i<NB_BUFFERS; i++) {
+		if(alIsBuffer(sound->buffers[i])) {
+			alDeleteBuffers(1, &(sound->buffers[i]));
+		}
+	}
+
+	alDeleteSources(1, &(sound->source));
+
+	free(sound);
+}
+
 void sound_stream(Sound* sound) {
 	ALenum error;
 	int i;
@@ -143,6 +165,7 @@ void sound_stream(Sound* sound) {
 
 		SF_INFO FileInfos;
 		SNDFILE* File = sf_open(sound->filename, SFM_READ, &FileInfos);
+		sf_seek(File, 0, SEEK_SET);
 		if (!File) {
 			printf("Le son %s ne peut etre ouvert\n", sound->filename);
 			return ;
@@ -185,14 +208,8 @@ void sound_stream(Sound* sound) {
 		if (processed > 0)
 		{
 			ALuint BufferID;
-			SF_INFO FileInfos;
-			SNDFILE* File = sf_open(sound->filename, SFM_READ, &FileInfos);
-			if (!File) {
-				printf("Le son %s ne peut etre ouvert\n", sound->filename);
-				return ;
-			}
 
-			sf_seek(File, sound->samplesread/FileInfos.channels, SEEK_SET);
+			sf_seek(sound->file, sound->samplesread/2, SEEK_SET);
 			// Pseudo code for Streaming with Open AL
 			// while (processed)
 			//          Unqueue a buffer
@@ -219,7 +236,7 @@ void sound_stream(Sound* sound) {
 					sf_count_t count;
 
 					//On lit le son
-					count = sf_read_short(File, Samples, BUFFER_SIZE);
+					count = sf_read_short(sound->file, Samples, BUFFER_SIZE);
 					if(count == 0) {
 						continue;
 					}
@@ -253,9 +270,6 @@ void sound_stream(Sound* sound) {
 					}
 				}
 			}
-
-			//printf("read : %d, total : %d, seek : %d\n", sound->samplesread, sound->samplestotal, sound->nbbuffers);
-			sf_close(File);
 		}
 	}
 }
@@ -267,6 +281,7 @@ list_sound* sound_init_list()
 
 void sound_remove(Sound* sound, list_sound* sounds)
 {
+	sf_close(sound->file);
 	list_sound_delete(sounds, sound, 0);
 }
 

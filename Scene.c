@@ -67,8 +67,12 @@ void scene_destroy_content(Scene* scene) {
 
 	node_sound *iterator2 = scene->sounds->root;
 	while(iterator2 != NULL) {
-		alSourceStop(iterator2->value->source);
+		Sound* temp = iterator2->value;
 		iterator2 = iterator2->next;
+
+		alSourceStop(temp->source);
+		sound_remove(temp, scene->sounds);
+		//sound_destroy(temp);
 	}
 
 	free(scene->sceneObjects);

@@ -21,6 +21,7 @@
 
 typedef struct Sound{
 	char* filename;
+	SNDFILE* file;
 	ALenum format;
 	ALsizei samplerate;
 	ALsizei samplesread;
@@ -41,6 +42,7 @@ Sound* sound_create(char* filename, float pitch);
 void sound_stream(Sound* sound);
 void sound_remove(Sound* sound, list_sound* sounds);
 void sound_setup_listener(vec3 pos, vec3 dir);
+void sound_destroy(Sound* sound);
 list_sound* sound_init_list();
 
 void sounds_play(list_sound* sounds);
