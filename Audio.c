@@ -7,89 +7,84 @@
 
 #include "Audio.h"
 
+ALshort Samples[BUFFER_SIZE];
 
-int initOpenAL()
+void DisplayALError(char* text, ALenum error) {
+	printf("%s%s", text, alGetString(error));
+}
+
+int sound_init()
 {
-    // Ouverture du device
-    ALCdevice* Device = alcOpenDevice(NULL);
-    if (!Device)
-        return 0;
+	// Ouverture du device
+	ALCdevice* Device = alcOpenDevice(NULL);
+	if (!Device)
+		return 0;
 
-    // Création du contexte
-    ALCcontext* Context = alcCreateContext(Device, NULL);
-    if (!Context)
-        return 0;
+	// Création du contexte
+	ALCcontext* Context = alcCreateContext(Device, NULL);
+	if (!Context)
+		return 0;
 
-    // Activation du contexte
-    if (!alcMakeContextCurrent(Context))
-        return 0;
+	// Activation du contexte
+	if (!alcMakeContextCurrent(Context))
+		return 0;
 
-    return 1;
+	return 1;
 }
 
 
-void shutdownOpenAL()
+void sound_quit()
 {
-    // Récupération du contexte et du device
-    ALCcontext* Context = alcGetCurrentContext();
-    ALCdevice*  Device  = alcGetContextsDevice(Context);
+	// Récupération du contexte et du device
+	ALCcontext* Context = alcGetCurrentContext();
+	ALCdevice*  Device  = alcGetContextsDevice(Context);
 
-    // Désactivation du contexte
-    alcMakeContextCurrent(NULL);
+	// Désactivation du contexte
+	alcMakeContextCurrent(NULL);
 
-    // Destruction du contexte
-    alcDestroyContext(Context);
+	// Destruction du contexte
+	alcDestroyContext(Context);
 
-    // Fermeture du device
-    alcCloseDevice(Device);
+	// Fermeture du device
+	alcCloseDevice(Device);
 }
 
-ALuint loadSound(char* filename)
+int sound_load(char* filename, Sound* sound)
 {
-    // Ouverture du fichier audio avec libsndfile
-    SF_INFO FileInfos;
-    SNDFILE* File = sf_open(filename, SFM_READ, &FileInfos);
-    if (!File)
-        return 0;
+	// Ouverture du fichier audio avec libsndfile
+	SF_INFO FileInfos;
+	SNDFILE* File = sf_open(filename, SFM_READ, &FileInfos);
+	if (!File) {
+		printf("Le son %s ne peut etre ouvert\n", filename);
+		return 0;
+	}
 
-    // Lecture du nombre d'échantillons et du taux d'échantillonnage (nombre d'échantillons à lire par seconde)
-    ALsizei NbSamples  = (ALsizei)(FileInfos.channels * FileInfos.frames);
-    ALsizei SampleRate = (ALsizei)(FileInfos.samplerate);
+	sf_close(File);
 
-    // Lecture des échantillons audio au format entier 16 bits signé (le plus commun)
-//    std::vector<ALshort> Samples(NbSamples);
-    ALshort* Samples = (ALshort*) malloc(NbSamples * sizeof(ALshort));
-    if (sf_read_short(File, &Samples[0], NbSamples) < NbSamples)
-         return 0;
+	// Lecture du nombre d'échantillons et du taux d'échantillonnage (nombre d'échantillons à lire par seconde)
+	sound->samplestotal = (ALsizei)(FileInfos.channels * FileInfos.frames);
+	sound->samplerate = (ALsizei)(FileInfos.samplerate);
 
-    sf_close(File);
+	ALenum Format;
+	switch (FileInfos.channels)
+	{
+	case 1 :
+		Format = AL_FORMAT_MONO16;
+		break;
+	case 2 :
+		Format = AL_FORMAT_STEREO16;
+		break;
+	default :
+		return 0;
+	}
+	sound->format = Format;
 
-    ALenum Format;
-    switch (FileInfos.channels)
-    {
-        case 1 :
-        	Format = AL_FORMAT_MONO16;
-        	break;
-        case 2 :
-        	Format = AL_FORMAT_STEREO16;
-        	break;
-        default :
-        	return 0;
-    }
+	sound_stream(sound);
 
-    ALuint Buffer;
-    alGenBuffers(1, &Buffer);
-
-    alBufferData(Buffer, Format, &Samples[0], NbSamples * sizeof(ALushort), SampleRate);
-
-    // Vérification des erreurs
-    if (alGetError() != AL_NO_ERROR)
-        return 0;
-
-    return Buffer;
+	return 1;
 }
 
-void setupListener(vec3 pos, vec3 dir)
+void sound_setup_listener(vec3 pos, vec3 dir)
 {
 	// Définition de la position de l'écouteur (ici l'origine)
 	alListener3f(AL_POSITION, pos[0], pos[1], pos[2]);
@@ -102,38 +97,26 @@ void setupListener(vec3 pos, vec3 dir)
 	alListenerfv(AL_ORIENTATION, Orientation);
 }
 
-Sound* addSound(char* filename, list_sound* sounds, float pitch, float gain)
+Sound* sound_add(char* filename, list_sound* sounds, float pitch, float gain)
 {
-	Sound* sound = malloc(sizeof(Sound));
-	sound->buffer = loadSound(filename);
-
-	sound->status = AL_PLAYING;
-
-	alGenSources(1, &(sound->source));
-
-	alSourcef(sound->source, AL_PITCH, pitch);
-	alSourcef(sound->source, AL_GAIN, gain);
-
-
-	alSourcei(sound->source, AL_BUFFER, sound->buffer);
-//	alSource3f(source, AL_POSITION, 5.f, 0.f, 0.f);
+	Sound* sound = sound_create(filename, pitch);
 
 	alSourcePlay(sound->source);
 	alGetSourcei(sound->source, AL_SOURCE_STATE, &(sound->status));
-
-
 
 	list_sound_put(sounds, sound);
 
 	return sound;
 }
 
-Sound* createSound(char* filename, float pitch)
+Sound* sound_create(char* filename, float pitch)
 {
 	Sound* sound = malloc(sizeof(Sound));
-	sound->buffer = loadSound(filename);
+	sound->filename = filename;
+	sound->samplesread = 0;
+	sound->nbbuffers = 0;
 
-	sound->status = AL_PLAYING;
+	sound->status = AL_STOPPED;
 
 	alGenSources(1, &(sound->source));
 
@@ -141,47 +124,168 @@ Sound* createSound(char* filename, float pitch)
 
 
 
-	alSourcei(sound->source, AL_BUFFER, sound->buffer);
-//	alSource3f(source, AL_POSITION, 5.f, 0.f, 0.f);
+	//	alSource3f(source, AL_POSITION, 5.f, 0.f, 0.f);
 
-	alSourcePlay(sound->source);
-	alGetSourcei(sound->source, AL_SOURCE_STATE, &(sound->status));
+	sound_load(filename, sound);
+	alSourceQueueBuffers(sound->source, sound->nbbuffers, sound->buffers);
 
 	return sound;
 }
 
-list_sound* initSoundList()
+void sound_stream(Sound* sound) {
+	ALenum error;
+	int i;
+
+
+
+	//Si la lecture du son n'a pas commencé
+	if(sound->samplesread == 0) {
+
+		SF_INFO FileInfos;
+		SNDFILE* File = sf_open(sound->filename, SFM_READ, &FileInfos);
+		if (!File) {
+			printf("Le son %s ne peut etre ouvert\n", sound->filename);
+			return ;
+		}
+
+		//Pour chaque buffer
+		for(i=0; i<NB_BUFFERS; i++) {
+			sf_count_t count;
+
+			//On lit le son
+			count = sf_read_short(File, Samples, BUFFER_SIZE);
+			if(count == 0) {
+				break;
+			}
+			else {
+				sound->nbbuffers++;
+				sound->samplesread += count;
+
+				alGenBuffers(1, &(sound->buffers[i]));
+
+				alBufferData(sound->buffers[i], sound->format, Samples, count * sizeof(ALushort), sound->samplerate);
+				if ((error = alGetError()) != AL_NO_ERROR) {
+					DisplayALError("OpenAL : ", error);
+					return ;
+				}
+
+				//Si tout le son a été chargé
+				if(sound->samplesread==sound->samplestotal) break;
+			}
+		}
+		sf_close(File);
+	}
+	//La lecture du son est en cours
+	else {
+		ALint processed;
+		// Get status
+		alGetSourceiv(sound->source, AL_BUFFERS_PROCESSED, &processed);
+		// If some buffers have been played, unqueue them
+		// then load new audio into them, then add them to the queue
+		if (processed > 0)
+		{
+			ALuint BufferID;
+			SF_INFO FileInfos;
+			SNDFILE* File = sf_open(sound->filename, SFM_READ, &FileInfos);
+			if (!File) {
+				printf("Le son %s ne peut etre ouvert\n", sound->filename);
+				return ;
+			}
+
+			sf_seek(File, sound->samplesread/FileInfos.channels, SEEK_SET);
+			// Pseudo code for Streaming with Open AL
+			// while (processed)
+			//          Unqueue a buffer
+			//          Load audio data into buffer
+			//               (returned by UnQueueBuffers)
+			//          if successful
+			//                  Queue buffer
+			//                  processed--
+			//          else
+			//                  buffersinqueue--
+			//                  if buffersinqueue == 0
+			//                          finished playing !
+			while (processed)
+			{
+				alSourceUnqueueBuffers(sound->source, 1, &BufferID);
+				if ((error = alGetError()) != AL_NO_ERROR)
+				{
+					DisplayALError("alSourceUnqueueBuffers 1 : ", error);
+				}
+				//Lecture non finie
+				if (sound->samplesread != sound->samplestotal)
+				{
+
+					sf_count_t count;
+
+					//On lit le son
+					count = sf_read_short(File, Samples, BUFFER_SIZE);
+					if(count == 0) {
+						continue;
+					}
+					else {
+						sound->samplesread += count;
+
+
+						alBufferData(BufferID, sound->format, Samples, count * sizeof(ALushort), sound->samplerate);
+						if ((error = alGetError()) != AL_NO_ERROR) {
+							DisplayALError("OpenAL : ", error);
+							return ;
+						}
+						alSourceQueueBuffers(sound->source, 1, &BufferID);
+						if ((error = alGetError()) != AL_NO_ERROR) {
+							DisplayALError("OpenAL : ", error);
+							return ;
+						}
+					}
+					processed--;
+				}
+				//Lecture non finie
+				else
+				{
+					alDeleteBuffers(1, &BufferID);
+
+					sound->nbbuffers--;
+					processed--;
+					if (sound->nbbuffers == 0)
+					{
+						break;
+					}
+				}
+			}
+
+			//printf("read : %d, total : %d, seek : %d\n", sound->samplesread, sound->samplestotal, sound->nbbuffers);
+			sf_close(File);
+		}
+	}
+}
+
+list_sound* sound_init_list()
 {
 	return list_sound_create();
 }
 
-void removeSound(Sound* sound, list_sound* sounds)
+void sound_remove(Sound* sound, list_sound* sounds)
 {
-	list_sound_delete(sounds, sound, 1);
+	list_sound_delete(sounds, sound, 0);
 }
 
-void playSounds(list_sound* sounds)
+void sounds_play(list_sound* sounds)
 {
 	node_sound *iterator = sounds->root;
 
 	while(iterator != NULL)
 	{
+		alGetSourcei(iterator->value->source, AL_SOURCE_STATE, &(iterator->value->status));
 		//*(iterator->value->status) == AL_PLAYING
 		if(iterator->value->status == AL_PLAYING)
 		{
-			alGetSourcei(iterator->value->source, AL_SOURCE_STATE, &(iterator->value->status));
+			sound_stream(iterator->value);
 		}
 		else
 		{
-			// Destruction du tampon
-			alDeleteBuffers(1, &(iterator->value->buffer));
-
-			// Destruction de la source
-			alSourcei(iterator->value->source, AL_BUFFER, 0);
-			alDeleteSources(1, &(iterator->value->source));
-
 			// On enleve de la liste des sons
-			removeSound(iterator->value, sounds);
+			sound_remove(iterator->value, sounds);
 		}
 		iterator = iterator->next;
 	}

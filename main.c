@@ -51,7 +51,7 @@ int main(void)
     	exit(EXIT_FAILURE);
     }
 
-    initOpenAL();
+    sound_init();
 
     game_init();
 
@@ -95,7 +95,7 @@ int main(void)
         glfwSwapBuffers(window_get());
         glfwPollEvents();
     }
-    shutdownOpenAL();
+    sound_quit();
     glfwDestroyWindow(window_get());
     glfwTerminate();
     return 0;

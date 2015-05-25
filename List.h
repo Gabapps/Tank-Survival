@@ -49,7 +49,10 @@ static inline void list_##name##_put(list_##name* list, type value) { \
 		list->root = node_##name##_create(value); \
 	} \
 	else { \
-		while(iterator->next!=NULL) iterator=iterator->next; \
+		while(iterator->next!=NULL) { \
+			if(iterator->value == value) return; \
+			iterator=iterator->next; \
+		} \
 		iterator->next = node_##name##_create(value); \
 	} \
 	list->count++; \
