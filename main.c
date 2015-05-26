@@ -51,7 +51,7 @@ int main(void)
     	exit(EXIT_FAILURE);
     }
 
-    sound_init();
+    audio_init();
 
     game_init();
 

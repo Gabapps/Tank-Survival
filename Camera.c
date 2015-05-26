@@ -10,7 +10,7 @@
 void camera_init(Camera* cam){
 	cam->fov = 70.f;
 	cam->near = 0.1f;
-	cam->far = 100.f;
+	cam->far = 200.f;
 	mat4x4_perspective(cam->perspective_matrix,
 			cam->fov, window_get_ratio(), cam->near, cam->far);
 }

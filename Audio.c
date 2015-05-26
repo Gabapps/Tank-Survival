@@ -13,7 +13,7 @@ void DisplayALError(char* text, ALenum error) {
 	printf("%s%s", text, alGetString(error));
 }
 
-int sound_init()
+int audio_init()
 {
 	// Ouverture du device
 	ALCdevice* Device = alcOpenDevice(NULL);
@@ -55,7 +55,7 @@ int sound_load(char* filename, Sound* sound)
 	SF_INFO FileInfos;
 	SNDFILE* File = sf_open(filename, SFM_READ, &FileInfos);
 	if (!File) {
-		printf("Le son %s ne peut etre ouvert\n", filename);
+		printf("Cannot open sound %s \n", filename);
 		return 0;
 	}
 
@@ -107,7 +107,7 @@ Sound* sound_add(char* filename, list_sound* sounds, float pitch, float gain)
 
 	sound->file = sf_open(filename, SFM_READ, &FileInfos);
 	if (!sound->file) {
-		printf("Le son %s ne peut etre ouvert\n", filename);
+		printf("Cannot open sound %s \n", filename);
 		return 0;
 	}
 

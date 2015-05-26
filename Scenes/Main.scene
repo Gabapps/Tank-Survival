@@ -1,7 +1,8 @@
-3 14 10
+4 15 11
 Shaders/gui
 Shaders/texture
 Shaders/notexture
+Shaders/skybox
 Models/Tank/Tank.obj
 Models/Tank/Tankdamaged.obj
 Models/Tank/Tankdead.obj
@@ -9,6 +10,7 @@ Models/Wall/Wall.obj
 Models/Wall/Antichar.obj
 Models/Bullet/Bullet.obj
 Models/Ground.obj
+Models/Sky.obj
 Models/Bullet/Explosion.obj
 Models/Items/Speed_m.obj
 Models/Items/Speed_l.obj
@@ -23,6 +25,7 @@ Models/Wall/Wall.bmp
 Models/Wall/Antichar.bmp
 Models/Bullet/Bullet.bmp
 Models/Ground.bmp
+Models/Sky.bmp
 Models/Bullet/Explosion.bmp
 Models/Items/Green.bmp
 Models/Items/Red.bmp

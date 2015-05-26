@@ -179,6 +179,7 @@ void bullet_explosion(Bullet* bullet, SceneObject* so) {
 	script->setup = explosion_setup;
 
 	so_add_script(exp, (Script*)script);
+	so_setup(exp);
 
 	scene_add_so(Game.scene, exp);
 }

@@ -186,7 +186,13 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 	ground->texture = ressources_get_texture(TEXTURE_GROUND);
 	ground->shader = ressources_get_shader(SHADER_TEXTURE);
 
+	SceneObject* sky = so_create("Sky", transform_xyz_no_parent(0,-20,0));
+	sky->mesh = ressources_get_mesh(MESH_SKY);
+	sky->texture = ressources_get_texture(TEXTURE_SKY);
+	sky->shader = ressources_get_shader(SHADER_SKYBOX);
+
 	scene_add_so(Game.scene, ground);
+	scene_add_so(Game.scene, sky);
 
 }
 

@@ -60,3 +60,33 @@ int controls_destroy(char* control_name)
 	fprintf(stderr, "Trying to remove a nonexistent control.\n");
 	return -1;
 }
+
+void controls_save(char* path) {
+	int i;
+	FILE* file = fopen(path, "w");
+	if(!file) {
+		printf("Error : Cannot save controls file %s\n", path);
+		return;
+	}
+	fprintf(file, "%d\n", numberOfControls);
+	for(i=0; i<numberOfControls; i++) {
+		fprintf(file, "%d %s\n", controlsTable[i]->key_number, controlsTable[i]->action_name);
+	}
+	fclose(file);
+}
+
+void controls_load(char* path) {
+	int i, key, nb;
+	char* name;
+	FILE* file = fopen(path, "w");
+	if(!file) {
+		printf("Error : Cannot load controls file %s\n", path);
+		return;
+	}
+	fscanf(file, "%d\n", &nb);
+	for(i=0; i<nb; i++) {
+		fscanf(file, "%d %s\n", &key, name);
+		controls_create(name, key);
+	}
+	fclose(file);
+}

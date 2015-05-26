@@ -16,8 +16,8 @@
 #include "list.h"
 #include "Math.h"
 
-#define NB_BUFFERS 4
-#define BUFFER_SIZE 4096*20
+#define NB_BUFFERS 8
+#define BUFFER_SIZE 4096
 
 typedef struct Sound{
 	char* filename;
@@ -34,7 +34,7 @@ typedef struct Sound{
 
 typelist(sound, Sound*);
 
-int sound_init();
+int audio_init();
 void sound_quit();
 int sound_load(char* filename, Sound* sound);
 Sound* sound_add(char* filename,list_sound* sounds, float pitch, float gain);

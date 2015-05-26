@@ -47,4 +47,8 @@ int controls_create(char* action_name, int key_number);
  */
 int controls_destroy(char* control_name);
 
+void controls_save(char* path);
+
+void controls_load(char* path);
+
 #endif /* CONTROLS_H_ */
