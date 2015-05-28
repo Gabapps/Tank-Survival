@@ -81,6 +81,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 				}
 				else if(strcmp(collision_so->name, "Item") == 0)
 				{
+					sound_add("Audio/bonus.ogg", sounds, 1, 0.4);
 					//Collision avec un item
 					item = (Item*)collision_so->scripts->root->value;
 					if(item->laser) {

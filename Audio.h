@@ -33,12 +33,13 @@ typedef struct Sound{
 } Sound;
 
 typelist(sound, Sound*);
+list_sound* sounds;
 
 int audio_init();
 void sound_quit();
 int sound_load(char* filename, Sound* sound);
 Sound* sound_add(char* filename,list_sound* sounds, float pitch, float gain);
-Sound* sound_create(char* filename, float pitch);
+Sound* sound_create(char* filename, float pitch, float gain);
 void sound_stream(Sound* sound);
 void sound_remove(Sound* sound, list_sound* sounds);
 void sound_setup_listener(vec3 pos, vec3 dir);

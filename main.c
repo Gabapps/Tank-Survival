@@ -52,6 +52,7 @@ int main(void)
     }
 
     audio_init();
+    sounds = sound_init_list();
 
     game_init();
 

@@ -100,7 +100,7 @@ void sound_setup_listener(vec3 pos, vec3 dir)
 Sound* sound_add(char* filename, list_sound* sounds, float pitch, float gain)
 {
 	SF_INFO FileInfos;
-	Sound* sound = sound_create(filename, pitch);
+	Sound* sound = sound_create(filename, pitch, gain);
 
 	alSourcePlay(sound->source);
 	alGetSourcei(sound->source, AL_SOURCE_STATE, &(sound->status));
@@ -116,7 +116,7 @@ Sound* sound_add(char* filename, list_sound* sounds, float pitch, float gain)
 	return sound;
 }
 
-Sound* sound_create(char* filename, float pitch)
+Sound* sound_create(char* filename, float pitch, float gain)
 {
 	Sound* sound = malloc(sizeof(Sound));
 	sound->filename = filename;
@@ -128,7 +128,7 @@ Sound* sound_create(char* filename, float pitch)
 	alGenSources(1, &(sound->source));
 
 	alSourcef(sound->source, AL_PITCH, pitch);
-
+	alSourcef(sound->source, AL_GAIN, gain);
 
 
 	//	alSource3f(source, AL_POSITION, 5.f, 0.f, 0.f);

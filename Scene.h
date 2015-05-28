@@ -24,7 +24,6 @@ typedef struct Scene {
 	Camera camera;				//Camera liée à la scene
 	SunLight light;
 	GUI* GUI;
-	list_sound* sounds;
 } Scene;
 
 Scene* scene_create(char* name);

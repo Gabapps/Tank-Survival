@@ -29,7 +29,6 @@ Scene* scene_create(char* name)
 		new_scene->sceneObjects = list_so_create();
 		new_scene->script = NULL;
 		new_scene->light = sunlight_default();
-		new_scene->sounds = sound_init_list();
 		camera_init(&(new_scene->camera));
 		new_scene->GUI = NULL;
 		sound_setup_listener(new_scene->camera.pos, new_scene->camera.dir);
@@ -49,7 +48,6 @@ void scene_destroy(Scene* scene)
 	scene_destroy_content(scene);
 	free(scene->name);
 	free(scene->script);
-	free(scene->sounds);
 	free(scene);
 }
 
@@ -65,21 +63,18 @@ void scene_destroy_content(Scene* scene) {
 		iterator = iterator->next;
 	}
 
-	node_sound *iterator2 = scene->sounds->root;
+	node_sound *iterator2 = sounds->root;
 	while(iterator2 != NULL) {
 		Sound* temp = iterator2->value;
 		iterator2 = iterator2->next;
 
 		alSourceStop(temp->source);
-		sound_remove(temp, scene->sounds);
+		sound_remove(temp, sounds);
 		//sound_destroy(temp);
 	}
 
 	free(scene->sceneObjects);
 	scene->sceneObjects = list_so_create();
-
-	free(scene->sounds);
-	scene->sounds = sound_init_list();
 }
 
 
@@ -104,7 +99,7 @@ void scene_setup(Scene* scene)
 		iterator = iterator->next;
 	}
 
-	sound_add("Audio/musique.ogg", scene->sounds, 1, 1);
+	sound_add("Audio/musique.ogg", sounds, 1, 0.7);
 	//	addSound("Audio/musique.ogg", scene->sounds, 1, 1);
 }
 
@@ -140,7 +135,7 @@ void scene_run(Scene* scene)
 		so_run(iterator->value);
 		iterator = iterator->next;
 	}
-	sounds_play(scene->sounds);
+	sounds_play(sounds);
 }
 
 void scene_draw(Scene* scene) {

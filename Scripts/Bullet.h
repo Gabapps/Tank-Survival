@@ -70,6 +70,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 				{
 					if(strcmp(collision_so->name, "Tank") == 0)
 					{
+						sound_add("Audio/fire.ogg", sounds, 0.5, 0.5);
 						Tank* tankcol = NULL;
 						if(collision_so->scripts->count) tankcol = (Tank*)collision_so->scripts->root->value;
 						bullet_explosion(bullet, so);
@@ -83,6 +84,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 
 							if(tankcol->life <= 0)
 							{
+								sound_add("Audio/tankdest.ogg", sounds, 1, 1);
 								death_counter++;
 								end =1;
 								if(death_counter==3){
@@ -105,9 +107,12 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 						//le mur est il destructible ?
 						if(((Wall*)collision_so->scripts->root->value)->destrutible == 1)
 						{
+							sound_add("Audio/metalimpact.ogg", sounds, 0.7, 0.7);
 							((Wall*)collision_so->scripts->root->value)->life -= tank->damage;
 
 						}
+						else
+							sound_add("Audio/wallimpact.ogg", sounds, 0.7, 0.5);
 
 						//On remet le bullet immobile à l'origine
 						bullet_goback(bullet, so);
@@ -133,6 +138,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 	}
 
 	if(input_keypressed_index(5*tank->player+4) && !bullet->active){
+		sound_add("Audio/fire.ogg", sounds, 1, 0.5);
 		scene_detach_so(Game.scene, so);
 		//		printf("bullet : %f %f %f\n", so->transform.position[0], so->transform.position[1], so->transform.position[2]);
 		//		printf("tank : %f %f %f\n", bullet->fromtank->transform.position[0],
