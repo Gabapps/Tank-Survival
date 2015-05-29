@@ -87,7 +87,7 @@ void activ_items(float x, float y)
 		item->texture = ressources_get_texture(TEXTURE_GREEN);
 		item->collider = collider_create(0.5, 0.5);
 		item_struct->fire = 0;
-		item_struct->speed = 0.2;
+		item_struct->speed = 1;
 		item_struct->laser = 0;
 		break;
 	case 1 :
@@ -95,14 +95,14 @@ void activ_items(float x, float y)
 		item->texture = ressources_get_texture(TEXTURE_RED);
 		item->collider = collider_create(0.5, 0.5);
 		item_struct->fire = 0;
-		item_struct->speed = -0.2;
+		item_struct->speed = -0.5;
 		item_struct->laser = 0;
 		break;
 	case 2 :
 		item->mesh = ressources_get_mesh(MESH_ITEMS_FIRE_M);
 		item->texture = ressources_get_texture(TEXTURE_GREEN);
 		item->collider = collider_create(0.5, 0.5);
-		item_struct->fire = 10;
+		item_struct->fire = 50;
 		item_struct->speed = 0;
 		item_struct->laser = 0;
 		break;
@@ -110,7 +110,7 @@ void activ_items(float x, float y)
 		item->mesh = ressources_get_mesh(MESH_ITEMS_FIRE_L);
 		item->texture = ressources_get_texture(TEXTURE_RED);
 		item->collider = collider_create(0.5, 0.5);
-		item_struct->fire = -10;
+		item_struct->fire = -50;
 		item_struct->speed = 0;
 		item_struct->laser = 0;
 		break;

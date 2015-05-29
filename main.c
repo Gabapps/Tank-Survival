@@ -53,7 +53,6 @@ int main(void)
 
     audio_init();
     sounds = sound_init_list();
-
     game_init();
 
     MenuSceneScript menuscenescript;
@@ -70,7 +69,7 @@ int main(void)
 
     game_add_scene(fight_scene);
     game_add_scene(menu_scene);
-
+    //sound_setup_listener(fight_scene->camera.pos, fight_scene->camera.pos);
 
     game_load_scene("Menu");
     game_resume();

@@ -112,7 +112,7 @@ void bullet_run(Bullet* bullet, SceneObject* so){
 
 						}
 						else
-							sound_add("Audio/wallimpact.ogg", sounds, 0.7, 0.5);
+							sound_add("Audio/wallimpact.ogg", sounds, 0.7, 0.4);
 
 						//On remet le bullet immobile à l'origine
 						bullet_goback(bullet, so);

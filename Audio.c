@@ -130,9 +130,6 @@ Sound* sound_create(char* filename, float pitch, float gain)
 	alSourcef(sound->source, AL_PITCH, pitch);
 	alSourcef(sound->source, AL_GAIN, gain);
 
-
-	//	alSource3f(source, AL_POSITION, 5.f, 0.f, 0.f);
-
 	sound_load(filename, sound);
 	alSourceQueueBuffers(sound->source, sound->nbbuffers, sound->buffers);
 

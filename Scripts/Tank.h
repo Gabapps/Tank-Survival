@@ -31,7 +31,7 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
 	so->texture = ressources_get_texture(TEXTURE_TANK);
 	so->collider = collider_create(0.27, 0.45); //0.49
-	tank->speed=1;
+	tank->speed=2;
 	tank->damage = 50;
 	tanks[tank->player] = tank;
 	tank->life=totallife;
@@ -48,16 +48,16 @@ void tank_run(Tank* tank, SceneObject* so) {
 
 	//On bouge
 	if(input_keypressed_index(5*tank->player+3)) {
-		transform_rotateY(&(so->transform), -Time.deltaTime);
+		transform_rotateY(&(so->transform), -1.5*Time.deltaTime);
 	}
 	if(input_keypressed_index(5*tank->player+2)) {
-		transform_rotateY(&(so->transform), Time.deltaTime);
+		transform_rotateY(&(so->transform), 1.5*Time.deltaTime);
 	}
 	if(input_keypressed_index(5*tank->player)) {
 		transform_translate(&(so->transform), v);
 	}
 	else if(input_keypressed_index(5*tank->player+1)) {
-		vec3_scale(v,v,-0.7f);
+		vec3_scale(v,v,-1.0f);
 		transform_translate(&(so->transform), v);
 	}
 
@@ -81,7 +81,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 				}
 				else if(strcmp(collision_so->name, "Item") == 0)
 				{
-					sound_add("Audio/bonus.ogg", sounds, 1, 0.4);
+					sound_add("Audio/bonus.ogg", sounds, 0.8, 0.25);
 					//Collision avec un item
 					item = (Item*)collision_so->scripts->root->value;
 					if(item->laser) {

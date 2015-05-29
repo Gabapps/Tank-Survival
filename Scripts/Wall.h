@@ -27,7 +27,6 @@ void wall_setup(Wall* wall, SceneObject* so) {
 
 void wall_run(Wall* wall, SceneObject* so) {
 	if(wall->destrutible && wall->life <= 0) {
-		sound_add("Audio/metaldest.ogg", sounds, 1, 0.7);
 		scene_delete_so(Game.scene, so);
 	}
 }
