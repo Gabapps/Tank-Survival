@@ -293,12 +293,14 @@ void sounds_play(list_sound* sounds)
 		if(iterator->value->status == AL_PLAYING)
 		{
 			sound_stream(iterator->value);
+			iterator = iterator->next;
 		}
 		else
 		{
+			Sound *temp = iterator->value;
+			iterator = iterator->next;
 			// On enleve de la liste des sons
-			sound_remove(iterator->value, sounds);
+			sound_remove(temp, sounds);
 		}
-		iterator = iterator->next;
 	}
 }

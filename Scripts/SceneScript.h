@@ -29,6 +29,8 @@ typedef struct SceneScript {
 	define_script(SceneScript);
 	float spawnpoints[MAX_PLAYER*2]; // 4 spawns with 2 coords each
 	float itempoints[8];
+	float timeitem;
+	int lastvrand;
 } SceneScript;
 
 typedef struct MapConf {
@@ -74,6 +76,9 @@ void sc_setup(SceneScript* scenescript, SceneObject* so) {
 	Game.scene->camera = cam;
 	Game.scene->light = sunlight_create(poslight, dirlight, colorlight, 0.7);
 	//Time.maxfps=-1;
+
+	scenescript->timeitem = 15;
+	scenescript->lastvrand = 6;
 
 }
 
@@ -252,18 +257,18 @@ void sc_loadplayers(SceneScript* scscript) {
 
 void sc_items(SceneScript* scscript)
 {
+	srand((unsigned int)(Time.timeSinceStart*100000));
 	int vrand = rand() % 4;
-	static float time = 15;
-	static int lastvrand = 6;
+	scscript->lastvrand = 6;
 
-	if(vrand==lastvrand) vrand = (vrand+1)%5;
-	time += Time.deltaTime;
-	if(time>13)
+	if(vrand==scscript->lastvrand) vrand = (vrand+1)%4;
+	scscript->timeitem += Time.deltaTime;
+	if(scscript->timeitem>10)
 	{
-		time = 0;
+		scscript->timeitem = 0;
 		activ_items(scscript->itempoints[2*vrand], scscript->itempoints[2*vrand+1]);
 	}
-	lastvrand = vrand;
+	scscript->lastvrand = vrand;
 }
 void sc_end_game(SceneScript* scscript){
 

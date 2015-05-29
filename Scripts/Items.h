@@ -110,7 +110,7 @@ void activ_items(float x, float y)
 		item->mesh = ressources_get_mesh(MESH_ITEMS_FIRE_L);
 		item->texture = ressources_get_texture(TEXTURE_RED);
 		item->collider = collider_create(0.5, 0.5);
-		item_struct->fire = -50;
+		item_struct->fire = -20;
 		item_struct->speed = 0;
 		item_struct->laser = 0;
 		break;

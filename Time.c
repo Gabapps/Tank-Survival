@@ -21,10 +21,14 @@ void time_update() {
 
 	//Limit the framerate to maxfps
 	float sleeptime = (1/(float)Time.maxfps) - Time.deltaTime;
-	if(sleeptime>=0.001) {
+	if(sleeptime>=0.0001) {
 		#ifdef WIN32
 		Sleep((int)(sleeptime*1000));
 		#endif
 	}
 	Time.deltaTime += (float)(glfwGetTime()-Time.timeSinceStart);
+}
+
+void time_correct() {
+	Time.deltaTime = (float)(glfwGetTime()-Time.timeSinceStart);
 }

@@ -21,5 +21,6 @@ Time_s Time;
 
 void time_init();
 void time_update();
+void time_correct();
 
 #endif /* TIME_H_ */

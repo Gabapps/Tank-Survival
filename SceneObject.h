@@ -19,6 +19,7 @@
 #include "Texture.h"
 #include "SunLight.h"
 #include "Physics.h"
+#include "Time.h"
 
 typelist(script, Script*);
 

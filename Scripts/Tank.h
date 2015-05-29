@@ -24,6 +24,11 @@ typedef struct Tank {
 Tank* tanks[MAX_PLAYER];
 
 const int totallife = 150;
+const float maxspeed = 2;
+const float minspeed = 0.75f;
+const int maxdamage = 150;
+const int mindamage = 20;
+
 
 void tank_setup(Tank* tank, SceneObject* so) {
 
@@ -31,7 +36,7 @@ void tank_setup(Tank* tank, SceneObject* so) {
 	so->shader = ressources_get_shader(SHADER_TEXTURE);
 	so->texture = ressources_get_texture(TEXTURE_TANK);
 	so->collider = collider_create(0.27, 0.45); //0.49
-	tank->speed=2;
+	tank->speed=1.5;
 	tank->damage = 50;
 	tanks[tank->player] = tank;
 	tank->life=totallife;
@@ -48,10 +53,10 @@ void tank_run(Tank* tank, SceneObject* so) {
 
 	//On bouge
 	if(input_keypressed_index(5*tank->player+3)) {
-		transform_rotateY(&(so->transform), -1.5*Time.deltaTime);
+		transform_rotateY(&(so->transform), -1.2*Time.deltaTime);
 	}
 	if(input_keypressed_index(5*tank->player+2)) {
-		transform_rotateY(&(so->transform), 1.5*Time.deltaTime);
+		transform_rotateY(&(so->transform), 1.2*Time.deltaTime);
 	}
 	if(input_keypressed_index(5*tank->player)) {
 		transform_translate(&(so->transform), v);
@@ -81,7 +86,7 @@ void tank_run(Tank* tank, SceneObject* so) {
 				}
 				else if(strcmp(collision_so->name, "Item") == 0)
 				{
-					sound_add("Audio/bonus.ogg", sounds, 0.8, 0.25);
+					sound_add("Audio/bonus.ogg", sounds, 0.8, 0.15);
 					//Collision avec un item
 					item = (Item*)collision_so->scripts->root->value;
 					if(item->laser) {
@@ -103,19 +108,23 @@ void tank_run(Tank* tank, SceneObject* so) {
 					else if(item->speed > 0 || item->fire > 0) {
 						tank->speed += item->speed;
 						tank->damage += item->fire;
+
+						tank->speed = (tank->speed > minspeed ? tank->speed : minspeed);
+						tank->speed = (tank->speed < maxspeed ? tank->speed : maxspeed);
+						tank->damage = (tank->damage > mindamage ? tank->damage : mindamage);
+						tank->damage = (tank->damage < maxdamage ? tank->damage : maxdamage);
 					}
 					else {
 						int i;
 						for(i=0; i < MAX_PLAYER; i++) {
 							if(i!=tank->player) {
-								if(tanks[i]->speed >= 0.8)
-								{
 									tanks[i]->speed += item->speed;
-								}
-								if(tanks[i]->damage >= 20)
-								{
 									tanks[i]->damage += item->fire;
-								}
+
+									tanks[i]->speed = (tanks[i]->speed > minspeed ? tanks[i]->speed : minspeed);
+									tanks[i]->speed = (tanks[i]->speed < maxspeed ? tanks[i]->speed : maxspeed);
+									tanks[i]->damage = (tanks[i]->damage > mindamage ? tanks[i]->damage : mindamage);
+									tanks[i]->damage = (tanks[i]->damage < maxdamage ? tanks[i]->damage : maxdamage);
 							}
 						}
 					}
