@@ -116,6 +116,10 @@ void GUI_parse(Widget* root, void* parsing_structure) {
 	GUI_parse_rec(NULL, root, 1, parsing_structure);
 }
 
+void GUI_prepare_parse(void* parsing_structure, size_t size) {
+	memset(parsing_structure, 0, size);
+}
+
 void GUI_add_root(GUI* gui, Widget* root) {
 	list_widget_put(gui->roots, root);
 	if(gui->roots->count == 1) gui->current_root = root;

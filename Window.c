@@ -8,7 +8,7 @@
 
 #include "Window.h"
 
-const int fullscreen = 0;
+const int fullscreen = 1;
 
 int window_open()
 {

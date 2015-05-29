@@ -33,7 +33,7 @@ int audio_init()
 }
 
 
-void sound_quit()
+void audio_quit()
 {
 	// Récupération du contexte et du device
 	ALCcontext* Context = alcGetCurrentContext();
@@ -155,8 +155,6 @@ void sound_stream(Sound* sound) {
 	ALenum error;
 	int i;
 
-
-
 	//Si la lecture du son n'a pas commencé
 	if(sound->samplesread == 0) {
 
@@ -254,7 +252,7 @@ void sound_stream(Sound* sound) {
 					}
 					processed--;
 				}
-				//Lecture non finie
+				//Lecture finie
 				else
 				{
 					alDeleteBuffers(1, &BufferID);
@@ -271,7 +269,7 @@ void sound_stream(Sound* sound) {
 	}
 }
 
-list_sound* sound_init_list()
+list_sound* sound_create_playlist()
 {
 	return list_sound_create();
 }

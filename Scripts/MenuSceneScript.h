@@ -83,13 +83,11 @@ void menu_script_load_views() {
 	enum {TEXTURE_BACKGROUND, TEXTURE_BUTTON_FOCUSED_PLAY, TEXTURE_BUTTON_UNFOCUSED_PLAY,TEXTURE_BUTTON_FOCUSED_SETTINGS,TEXTURE_BUTTON_UNFOCUSED_SETTINGS, TEXTURE_BUTTON_FOCUSED_QUIT,TEXTURE_BUTTON_UNFOCUSED_QUIT};
 	enum {SHADER_GUI};
 
+	GUI_prepare_parse(&menuGUI, sizeof(MenuGUI));
+
 	widget_set_shader_gui(SHADER_GUI);
 
 	parse_config(menuGUI, main_layout, 4);
-	parse_config(menuGUI, background, 0);
-	parse_config(menuGUI, play, 0);
-	parse_config(menuGUI, settings, 0);
-	parse_config(menuGUI, quit, 0);
 
 	menuGUI.main_layout = layout_rel_create();
 	image_use_texture(TEXTURE_BUTTON_UNFOCUSED_PLAY);

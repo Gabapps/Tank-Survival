@@ -19,8 +19,10 @@ typedef struct Time_s {
 
 Time_s Time;
 
+//Initialize the time module
 void time_init();
+
+//Update the time module
 void time_update();
-void time_correct();
 
 #endif /* TIME_H_ */

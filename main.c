@@ -13,46 +13,9 @@
 #include "Scripts/MenuSceneScript.h"
 #include "Scripts/Tank.h"
 
-static void error_callback(int error, const char* description)
-{
-    fputs(description, stderr);
-}
-
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, GL_TRUE);
-}
-
 int main(void)
 {
-	window_open();
-    glfwSetErrorCallback(error_callback);
-    glfwMakeContextCurrent(window_get());
-    glfwSetKeyCallback(window_get(), key_callback);
 
-    glewExperimental=GL_FALSE;
-    GLenum error = glGetError();
-
-    if (error != GL_NO_ERROR)
-    {
-        printf("OpenGL Error: %d\n", error);
-    }
-    GLenum glewinit = glewInit();
-    if (glewinit != GLEW_OK) {
-        printf("Glew's not okay! %s\n", glewGetErrorString(glewinit));
-        exit(EXIT_FAILURE);
-    }
-    if(!GLEW_VERSION_3_3) {
-    	printf("Your graphic card doesn't support OpenGL 3.3 !\nSwitching in OpenGL 2.1 compatibility mode\n");
-    }
-    if (!GLEW_VERSION_2_1) {  // check that the machine supports the 2.1 API.
-    	printf("Your graphic card doesn't support OpenGL 2.1 !\nCheck if your video drivers are up to date.\n");
-    	exit(EXIT_FAILURE);
-    }
-
-    audio_init();
-    sounds = sound_init_list();
     game_init();
 
     MenuSceneScript menuscenescript;
@@ -95,7 +58,7 @@ int main(void)
         glfwSwapBuffers(window_get());
         glfwPollEvents();
     }
-    sound_quit();
+
     glfwDestroyWindow(window_get());
     glfwTerminate();
     return 0;

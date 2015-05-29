@@ -135,7 +135,7 @@ void sc_map(SceneScript* scscript, MapConf *map_conf)
 		{
 			transform_map = transform_origin_no_parent();
 			vec3 vec = {i,0,map_conf->map_size_y-j-1};
-			transform_translate_world(&transform_map, vec);
+			transform_translate(&transform_map, vec);
 			fscanf(map, "%d ", &input);
 			//Mur indestructible
 			if(input == 1)

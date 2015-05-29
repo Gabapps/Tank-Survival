@@ -28,7 +28,3 @@ void time_update() {
 	}
 	Time.deltaTime += (float)(glfwGetTime()-Time.timeSinceStart);
 }
-
-void time_correct() {
-	Time.deltaTime = (float)(glfwGetTime()-Time.timeSinceStart);
-}

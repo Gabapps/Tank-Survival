@@ -64,10 +64,6 @@ void transform_look_at(Transform* t, vec3 eye, vec3 center, vec3 up) {
 	mat4x4_look_at(t->matrix, eye, center, up);
 }
 
-void transform_translate_world(Transform* t, vec3 vec) {
-	vec3_add(t->position, t->position, vec);
-}
-
 void transform_translate(Transform* t, vec3 vec) {
 
 	vec3_rot(vec, -t->rotation);

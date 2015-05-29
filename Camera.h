@@ -37,10 +37,10 @@ void camera_init(Camera* cam);
  */
 void camera_refresh_matrices(Camera* cam);
 
+//Make the camera looking at target from pos
 void camera_look_at(Camera* cam, vec3 pos, vec3 target, vec3 up);
 
+//Return the direction of the camera
 float* camera_direction(Camera* cam);
-
-void camera_elliptic(Camera* cam);
 
 #endif /* CAMERA_H_ */

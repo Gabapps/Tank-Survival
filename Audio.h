@@ -35,17 +35,37 @@ typedef struct Sound{
 typelist(sound, Sound*);
 list_sound* sounds;
 
+//Initialize OpenAL
 int audio_init();
-void sound_quit();
-int sound_load(char* filename, Sound* sound);
-Sound* sound_add(char* filename,list_sound* sounds, float pitch, float gain);
-Sound* sound_create(char* filename, float pitch, float gain);
-void sound_stream(Sound* sound);
-void sound_remove(Sound* sound, list_sound* sounds);
-void sound_setup_listener(vec3 pos, vec3 dir);
-void sound_destroy(Sound* sound);
-list_sound* sound_init_list();
 
+//Exit OpenAL
+void audio_quit();
+
+//Load the configuration and the beginning of a sound
+int sound_load(char* filename, Sound* sound);
+
+//Add a sound to a playlist
+Sound* sound_add(char* filename,list_sound* sounds, float pitch, float gain);
+
+//Allocate and load a sound
+Sound* sound_create(char* filename, float pitch, float gain);
+
+//Update the buffers of a sound
+void sound_stream(Sound* sound);
+
+//Remove a sound from a playlist
+void sound_remove(Sound* sound, list_sound* sounds);
+
+//Configure the 3D coordinates of the listener
+void sound_setup_listener(vec3 pos, vec3 dir);
+
+//Destroy a sound
+void sound_destroy(Sound* sound);
+
+//Return an initialized sound playlist
+list_sound* sound_create_playlist();
+
+//Play a playlist
 void sounds_play(list_sound* sounds);
 
 

@@ -20,10 +20,13 @@ typedef struct Texture {
 	unsigned char* data;
 } Texture;
 
+//Create a texture
 Texture* texture_create(char* path);
 
+//Configure a texture for OpenGL
 void texture_load(Texture* texture);
 
+//Load a texture from a .bmp 24bits file
 void texture_from_BMP(Texture* texture);
 
 #endif /* TEXTURE_H_ */

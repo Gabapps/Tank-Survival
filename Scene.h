@@ -26,16 +26,34 @@ typedef struct Scene {
 	GUI* GUI;
 } Scene;
 
+//Create a scene
 Scene* scene_create(char* name);
+
+//Destroy a scene
 void scene_destroy(Scene* scene);
+
+//Destroy the content of a scene
 void scene_destroy_content(Scene* scene);
+
+//Setup all the scripts
 void scene_setup(Scene* scene);
+
+//Run all the scripts
 void scene_run(Scene* scene);
+
+//Run all the scene objects
 void scene_draw(Scene* scene);
+
+//Add a scene objects as a root to a scene
 void scene_add_so(Scene* scene, SceneObject* so);
+
+//Remove and destroy a scene objects from a scene
 void scene_delete_so(Scene* scene, SceneObject* so);
-int scene_find_so(Scene* scene, SceneObject* so);
+
+//Attach a root scene object to another scene object
 void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent);
+
+//Detach a scene object from his parents and change it as a root
 void scene_detach_so(Scene* scene, SceneObject* so);
 
 #endif /* SCENE_H_ */

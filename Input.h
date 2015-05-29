@@ -78,9 +78,4 @@ int input_keypressed(char* nom_control);
 int input_keypressed_index(int key);
 
 
-
-/*
-int input_keypressed_index(int, int);
- */
-
 #endif /* INPUT_H_ */

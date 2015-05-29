@@ -8,6 +8,12 @@
 #ifndef SCRIPT_H_
 #define SCRIPT_H_
 
+/* A script is a gameplay code assigned to a scene object or a scene.
+ * To use of script, you need to assigned two functions :
+ * - setup : This function is executed when initializing a scene or a scene object.
+ * - run : This function is executed each frame.
+ */
+
 #define define_script(type)\
 	char* name;\
 	void (*setup) (struct type*, SceneObject*);\
@@ -22,23 +28,5 @@ typedef void (*fct_script) (Script*, SceneObject*);
 struct Script {
 	define_script(Script);
 };
-
-/**
- * \fn Script* script_create(char* name, fct_script setup_fct, fct_script run_fct)
- * \brief Instanciate a new script.
- *
- * \param name Name of the new script.
- * \param setup_fct The setup function of the script.
- * \param run_fct The run function of the script.
- * \return The new instantiated script.
- */
-Script* script_create(char* name, setup_script(Script), run_script(Script));
-
-/* \fn void script_destroy(Script* script)
- * \brief Destroy a script.
- *
- * \param script Script to destroy.
- */
-void script_destroy(Script* script);
 
 #endif /* SCRIPT_H_ */

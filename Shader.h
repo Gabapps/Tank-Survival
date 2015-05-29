@@ -35,12 +35,16 @@ typedef struct
     GLuint fragment;
 } Shader;
 
+//Create a shader
 Shader* shader_create(char* vertex, char* fragment);
 
+//Destroy a shader
 void shader_free(Shader* shader);
 
+//Load and compile a shader
 int shader_load(Shader* shader);
 
+//Compile a shader
 int shader_compile(GLuint* shader, GLenum type, char* filename);
 
 #endif // SHADER_H_INCLUDED

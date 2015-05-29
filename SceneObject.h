@@ -92,15 +92,17 @@ void so_draw(SceneObject* so, Camera* cam, SunLight* light);
 /**
  * \fn SceneObject* so_from_transform(Transform*)
  *
- * \brief get a sceneObject associated to a transform.
+ * \brief get the sceneObject associated to a transform.
  * \param t The transform of a sceneObject.
  * \return The sceneObject associated.
  *
  */
 SceneObject* so_from_transform(Transform* t);
 
+//Add a script to a scene object
 void so_add_script(SceneObject* so, Script* script);
 
+//Remove a script from a scene object
 void so_rm_script(SceneObject* so, Script* script);
 
 /**
@@ -127,8 +129,10 @@ int so_collision_detection(SceneObject* so1, SceneObject* so2);
  */
 SceneObject* so_collision(SceneObject* so1, SceneObject* so2);
 
+//Add a child to a scene object using his transform
 void so_add_child(SceneObject* parent, SceneObject* child);
 
+//Remove a child from a scene object
 void so_rm_child(SceneObject* parent, SceneObject* child);
 
 #endif /* SCENEOBJECT_H_ */
