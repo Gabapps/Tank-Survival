@@ -20,6 +20,10 @@
 
 typelist(scene, Scene*);
 
+/*!
+ * \struct Controls
+ * Structure to define the scene to use
+ */
 typedef struct Game_s{
 	char* name;
 	Scene* scene;
@@ -30,28 +34,58 @@ typedef struct Game_s{
 
 Game_s Game;
 
-//Launch the game
+/**
+ * \fn void game_init()
+ * \brief Launch the game
+ */
 void game_init();
 
-//Load a scene by name
+/**
+ * \fn void game_load_scene(char* name)
+ * \brief Load a scene by name
+ *
+ * \param name The name of the scene to be load
+ *
+ */
 void game_load_scene(char* name);
 
-//Reload the current scene
+/**
+ * \fn void game_reload_current_scene()
+ * \brief Reload the current scene
+ */
 void game_reload_current_scene();
 
-//Add a scene to the game
+/**
+ * \fn void game_add_scene(Scene *scene)
+ * \brief Add a scene to the game
+ *
+ * \param scene The scene to add
+ *
+ */
 void game_add_scene(Scene *scene);
 
-//Pause the game
+/**
+ * \fn void game_pause()
+ * \brief Pause the game
+ */
 void game_pause();
 
-//Resume the game
+/**
+ * \fn void game_resume()
+ * \brief Resume the game
+ */
 void game_resume();
 
-//Update the game
+/**
+ * \fn void game_update()
+ * \brief Update the game
+ */
 void game_update();
 
-//Exit the game
+/**
+ * \fn void game_exit()
+ * \brief Exit the game
+ */
 void game_exit();
 
 #endif /* GAME_H_ */

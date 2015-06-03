@@ -13,6 +13,12 @@
 #include "Scripts/MenuSceneScript.h"
 #include "Scripts/Tank.h"
 
+/**
+* \fn int main(void)
+* \brief Entrée du programme
+*
+* \return 0 - Arrêt normal du programme
+*/
 int main(void)
 {
 

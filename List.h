@@ -10,6 +10,10 @@
 
 #include <stdlib.h>
 
+/**
+ * \fn typelist(name, type)
+ * \brief Define a generic list
+ */
 #define typelist(name, type) \
 typedef struct node_##name { \
 	type value; \

@@ -18,14 +18,6 @@
 #include "Window.h"
 #include "Controls.h"
 
-/*
-typedef struct Input_s{
-Controls_s* controls;
-int count_countrols;
-}Input_s;
- */
-
-
 /**
  * \fn void input_update();
  * \brief Check if the useful keys are pressed or not and update the Controls structure
@@ -40,7 +32,7 @@ void input_update();
  *
  * \param nom_control The name of the key
  *
- * return The status of the key
+ * \return The status of the key
  */
 Controls* input_get_controls(char* nom_control);
 
@@ -51,7 +43,7 @@ Controls* input_get_controls(char* nom_control);
  *
  * \param key_number The index number of the key
  *
- * return The status of the key
+ * \return The status of the key
  */
 Controls* input_get_controls_index(int key_number);
 
@@ -62,7 +54,7 @@ Controls* input_get_controls_index(int key_number);
  *
  * \param nom_control The name of the key
  *
- * return true if the key is pressed
+ * \return true if the key is pressed
  */
 int input_keypressed(char* nom_control);
 
@@ -73,7 +65,7 @@ int input_keypressed(char* nom_control);
  *
  * \param key The index number of the key
  *
- * return true if the key is pressed
+ * \return true if the key is pressed
  */
 int input_keypressed_index(int key);
 

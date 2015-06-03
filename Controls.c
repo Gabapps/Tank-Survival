@@ -77,7 +77,7 @@ void controls_save(char* path) {
 
 void controls_load(char* path) {
 	int i, key, nb;
-	char* name;
+	char* name = NULL;
 	FILE* file = fopen(path, "w");
 	if(!file) {
 		printf("Error : Cannot load controls file %s\n", path);

@@ -18,7 +18,10 @@
 
 //Bounding box rectangle à créer
 
-
+/*!
+ * \struct BoxCollider
+ * BoxCollider structure
+ */
 typedef struct BoxCollider{
 	float largeur;
 	float longueur;
