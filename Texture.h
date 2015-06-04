@@ -1,8 +1,8 @@
-/*
- * Texture.h
- *
- *  Created on: 28 mars 2015
- *      Author: Gabriel
+/**
+ * @file Texture.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief Contain a structure and some functions in order to apply textures to models
  */
 
 #ifndef TEXTURE_H_

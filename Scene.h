@@ -1,8 +1,8 @@
-/*
- * Scene.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
+/**
+ * @file Scene.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 March 2015
+ * @brief A scene contain sceneObjects, a camera, lights etc.
  */
 
 #ifndef SCENE_H_

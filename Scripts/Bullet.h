@@ -1,8 +1,8 @@
-/*
- * Bullet.h
- *
- *  Created on: 4 avr. 2015
- *      Author: ethel
+/**
+ * @file Bullet.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The structure managing bullets fired by the tanks
  */
 
 #ifndef SCRIPTS_BULLET_H_

@@ -1,8 +1,8 @@
-/*
- * Wall.h
- *
- *  Created on: 22 avr. 2015
- *      Author: max
+/**
+ * @file Wall.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The structure that manage walls
  */
 
 #ifndef SCRIPTS_WALL_H_

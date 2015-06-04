@@ -1,8 +1,8 @@
-/*
- * Explosion.h
- *
- *  Created on: 21 mai 2015
- *      Author: Gabriel
+/**
+ * @file Explosion.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The strucutre managing explosions
  */
 
 #ifndef SCRIPTS_EXPLOSION_H_

@@ -1,16 +1,10 @@
-/*
- * Transform.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
- */
 /**
  * @file Transform.h
  * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
  * @date 1 March 2015
  * @brief A transform represents the positioning of a scene object or of a camera
  */
-/*
+
 
 #ifndef TRANSFORM_H_
 #define TRANSFORM_H_

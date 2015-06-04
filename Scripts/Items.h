@@ -1,8 +1,8 @@
-/*
- * Items.h
- *
- *  Created on: 17 mai 2015
- *      Author: Nicolas
+/**
+ * @file Items.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The structure managing items that spawn randomly at some spots of the map
  */
 
 #ifndef SCRIPTS_ITEMS_H_

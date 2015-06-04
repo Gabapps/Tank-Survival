@@ -1,8 +1,8 @@
-/*
- * SceneScript.h
- *
- *  Created on: 19 mars 2015
- *      Author: Gabriel
+/**
+ * @file SceneScript.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The SceneScript structure contain variables and functions to set and run the game scene
  */
 
 #ifndef SCRIPTS_SCENESCRIPT_H_

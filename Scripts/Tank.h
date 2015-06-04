@@ -1,8 +1,8 @@
-/*
- * Tank.h
- *
- *  Created on: 17 mars 2015
- *      Author: Gabriel
+/**
+ * @file Tank.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The structure that manage tanks
  */
 
 #ifndef SCRIPTS_TANK_H_

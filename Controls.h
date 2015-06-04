@@ -1,8 +1,8 @@
-/*
- * Controls.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
+/**
+ * @file Controls.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 March 2015
+ * @brief The Controls structure stock the states of some keys
  */
 
 #ifndef CONTROLS_H_

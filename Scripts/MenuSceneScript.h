@@ -1,8 +1,8 @@
-/*
- * MenuSceneScript.h
- *
- *  Created on: 3 mai 2015
- *      Author: Gabriel
+/**
+ * @file MenuSceneScript.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The MenuSceneScript structure contain variables and functions to set and run the menu scene
  */
 
 #ifndef SCRIPTS_MENUSCENESCRIPT_H_

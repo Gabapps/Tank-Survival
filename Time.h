@@ -1,8 +1,8 @@
-/*
- * Time.h
- *
- *  Created on: 17 mars 2015
- *      Author: Gabriel
+/**
+ * @file Time.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief An useful structure for scaling the game speed with the time
  */
 
 #ifndef TIME_H_

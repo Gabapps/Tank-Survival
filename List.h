@@ -1,8 +1,8 @@
-/*
- * List.h
- *
- *  Created on: 18 mars 2015
- *      Author: Gabriel
+/**
+ * @file List.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief Some functions to use chained lists
  */
 
 #ifndef LIST_H_

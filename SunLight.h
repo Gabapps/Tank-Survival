@@ -1,8 +1,8 @@
-/*
- * SunLight.h
- *
- *  Created on: 2 avr. 2015
- *      Author: Gabriel
+/**
+ * @file SunLight.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief Provide informations to light a scene
  */
 
 #ifndef SUNLIGHT_H_
