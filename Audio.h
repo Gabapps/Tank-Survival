@@ -1,8 +1,8 @@
-/*
- * Audio.h
- *
- *  Created on: 1 mai 2015
- *      Author: max
+/**
+ * @file Audio.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 May 2015
+ * @brief The global module Audio provides functions to read sound files.
  */
 
 #ifndef AUDIO_H_

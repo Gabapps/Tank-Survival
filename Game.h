@@ -1,8 +1,8 @@
-/*
- * Game.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
+/**
+ * @file Game.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 Mar 2015
+ * @brief The global Game structure centralizes the scenes and provides functions to switch between them.
  */
 
 #ifndef GAME_H_
@@ -22,7 +22,7 @@ typelist(scene, Scene*);
 
 /*!
  * \struct Controls
- * Structure to define the scene to use
+ * Structure that contains all the scenes of the game
  */
 typedef struct Game_s{
 	char* name;

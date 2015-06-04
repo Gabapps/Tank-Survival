@@ -1,9 +1,9 @@
-/*
-* Input.h
-*
-* Created on: 1 mars 2015
-* Author: Gabriel
-*/
+/**
+ * @file Input.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 Mar 2015
+ * @brief The global module Input provides functions about keyboard inputs.
+ */
 
 #ifndef INPUT_H_
 #define INPUT_H_

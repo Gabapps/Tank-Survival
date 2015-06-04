@@ -1,8 +1,8 @@
-/*
- * ressources.h
- *
- *  Created on: 30 mars 2015
- *      Author: ethel
+/**
+ * @file Ressources.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 30 Mar 2015
+ * @brief The global Ressource structure centralizes the meshes, textures and shaders in chained lists.
  */
 
 #ifndef RESSOURCES_H_

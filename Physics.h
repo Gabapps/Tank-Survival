@@ -1,8 +1,8 @@
-/*
- * Physics.h
- *
- *  Created on: 6 avr. 2015
- *      Author: Nicolas
+/**
+ * @file Physics.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 6 Apr 2015
+ * @brief The Physics module contains functions and structures for collision purpose.
  */
 
 #ifndef PHYSICS_H_

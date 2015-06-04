@@ -1,8 +1,8 @@
-/*
- * Camera.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
+/**
+ * @file Camera.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 Mar 2015
+ * @brief A camera is the mathematical positioning and perspective representation of the 3D world camera.
  */
 
 #ifndef CAMERA_H_

@@ -1,8 +1,8 @@
-/*
- * Mesh.h
- *
- *  Created on: 5 févr. 2015
- *      Author: Gabriel
+/**
+ * @file Mesh.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 5 Feb 2015
+ * @brief A Mesh contains the data of a 3D model.
  */
 
 #ifndef MESH_H_
