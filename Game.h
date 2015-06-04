@@ -21,7 +21,7 @@
 typelist(scene, Scene*);
 
 /*!
- * \struct Controls
+ * \struct Game_s
  * Structure that contains all the scenes of the game
  */
 typedef struct Game_s{

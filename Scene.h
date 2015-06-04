@@ -17,6 +17,11 @@
 
 typelist(so, SceneObject*);
 
+/**
+ * \struct Scene
+ * 3D world that contains the 3D objects
+ */
+
 typedef struct Scene {
 	char* name;					//Nom de la scene
 	list_so* sceneObjects;	//Tableau contenant les différents objets de la scene
@@ -26,34 +31,92 @@ typedef struct Scene {
 	GUI* GUI;
 } Scene;
 
-//Create a scene
+
+/**
+ * \fn Scene* scene_create(char* name)
+ * \brief Create a scene
+ *
+ * \param name The name of the scene
+ * \return An initialized scene
+ */
 Scene* scene_create(char* name);
 
-//Destroy a scene
+/**
+ * \fn void scene_destroy(Scene* scene)
+ * \brief Destroy a scene
+ *
+ * \param scene The scene to destroy
+ */
 void scene_destroy(Scene* scene);
 
-//Destroy the content of a scene
+/**
+ * \fn void scene_destroy_content(Scene* scene)
+ * \brief Destroy the content of a scene
+ *
+ * \param scene The scene to empty
+ */
 void scene_destroy_content(Scene* scene);
 
-//Setup all the scripts
+/**
+ * \fn void scene_setup(Scene* scene)
+ * \brief Setup all the scripts
+ *
+ * \param scene The scene to setup
+ */
 void scene_setup(Scene* scene);
 
-//Run all the scripts
+/**
+ * \fn void scene_run(Scene* scene)
+ * \brief Run all the scripts
+ *
+ * \param scene The scene to run
+ */
 void scene_run(Scene* scene);
 
-//Run all the scene objects
+/**
+ * \fn void scene_draw(Scene* scene)
+ * \brief Draw all the sceneobjects
+ *
+ * \param scene The scene to draw
+ */
 void scene_draw(Scene* scene);
 
-//Add a scene objects as a root to a scene
+
+/**
+ * \fn void scene_add_so(Scene* scene, SceneObject* so)
+ * \brief Add a scene objects as a root to a scene
+ *
+ * \param scene The scene
+ * \param so The sceneObject to add in the scene
+ */
 void scene_add_so(Scene* scene, SceneObject* so);
 
-//Remove and destroy a scene objects from a scene
+/**
+ * \fn void scene_delete_so(Scene* scene, SceneObject* so)
+ * \brief Remove and destroy a scene objects from a scene
+ *
+ * \param scene The scene
+ * \param so The sceneObject to delete of the scene
+ */
 void scene_delete_so(Scene* scene, SceneObject* so);
 
-//Attach a root scene object to another scene object
+/**
+ * \fn void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent)
+ * \brief Attach a root scene object to another scene object
+ *
+ * \param scene The scene
+ * \param child The sceneObject to be attach to the parent
+ * \param parent The parent sceneObject
+ */
 void scene_attach_so(Scene* scene, SceneObject* child, SceneObject* parent);
 
-//Detach a scene object from his parents and change it as a root
+/**
+ * \fn void scene_detach_so(Scene* scene, SceneObject* so)
+ * \brief Detach a scene object from his parents and change it as a root
+ *
+ * \param scene The scene
+ * \param so The sceneObject to detach to his parent
+ */
 void scene_detach_so(Scene* scene, SceneObject* so);
 
 #endif /* SCENE_H_ */

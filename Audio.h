@@ -20,7 +20,7 @@
 #define BUFFER_SIZE 4096
 
 /*!
- * \struct Audio
+ * \struct Sound
  * Audio structure
  */
 typedef struct Sound{
@@ -115,8 +115,8 @@ void sound_remove(Sound* sound, list_sound* sounds);
 
 
 /**
- * \fn void sound_remove(Sound* sound, list_sound* sounds)
- * \brief void sound_setup_listener(vec3 pos, vec3 dir)
+ * \fn void sound_setup_listener(vec3 pos, vec3 dir)
+ * \brief Setup the position and the direction of the player's "hears"
  *
  * \param[in] pos The position of the listener
  * \param[in] dir The direction of the listener

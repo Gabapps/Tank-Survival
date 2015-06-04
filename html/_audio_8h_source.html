@@ -94,8 +94,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;alc.h&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;list.h&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;Math.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_list_8h.html">list.h</a>&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_math_8h.html">Math.h</a>&quot;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#define NB_BUFFERS 8</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define BUFFER_SIZE 4096</span></div>
@@ -115,7 +115,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;typelist(sound, <a class="code" href="struct_sound.html">Sound</a>*);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<a class="code" href="_list_8h.html#aa76344711f2bc3017ba825e2824fc1df">typelist</a>(sound, <a class="code" href="struct_sound.html">Sound</a>*);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;list_sound* sounds;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">int</span> <a class="code" href="_audio_8h.html#a2233dc543f74f3fed163380e5db452c4">audio_init</a>();</div>
@@ -139,7 +139,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_audio_8h.html#a4654283cad6fc82ab01dfae455d9b8fb">sound_remove</a>(<a class="code" href="struct_sound.html">Sound</a>* sound, list_sound* sounds);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">void</span> sound_setup_listener(vec3 pos, vec3 dir);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_audio_8h.html#a41f1604e6b8dc11642581ba9c629ee00">sound_setup_listener</a>(vec3 pos, vec3 dir);</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_audio_8h.html#abe45427531e407a475741fa03c0aee5d">sound_destroy</a>(<a class="code" href="struct_sound.html">Sound</a>* sound);</div>
@@ -159,14 +159,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="_audio_8h_html_a290e5fedddaf301eee0fcd1948857049"><div class="ttname"><a href="_audio_8h.html#a290e5fedddaf301eee0fcd1948857049">sound_create_playlist</a></div><div class="ttdeci">list_sound * sound_create_playlist()</div><div class="ttdoc">Return an initialized a list of sounds. </div><div class="ttdef"><b>Definition:</b> Audio.c:272</div></div>
 <div class="ttc" id="_audio_8h_html_a4654283cad6fc82ab01dfae455d9b8fb"><div class="ttname"><a href="_audio_8h.html#a4654283cad6fc82ab01dfae455d9b8fb">sound_remove</a></div><div class="ttdeci">void sound_remove(Sound *sound, list_sound *sounds)</div><div class="ttdoc">Remove a sound from a sound list. </div><div class="ttdef"><b>Definition:</b> Audio.c:277</div></div>
 <div class="ttc" id="_audio_8h_html_ac1a8667999d67e9796564a1a9e3e20b1"><div class="ttname"><a href="_audio_8h.html#ac1a8667999d67e9796564a1a9e3e20b1">sounds_play</a></div><div class="ttdeci">void sounds_play(list_sound *sounds)</div><div class="ttdoc">Play a list of sounds. </div><div class="ttdef"><b>Definition:</b> Audio.c:283</div></div>
+<div class="ttc" id="_math_8h_html"><div class="ttname"><a href="_math_8h.html">Math.h</a></div><div class="ttdoc">Some functions to manipulate vectors and matrices. </div></div>
+<div class="ttc" id="_audio_8h_html_a41f1604e6b8dc11642581ba9c629ee00"><div class="ttname"><a href="_audio_8h.html#a41f1604e6b8dc11642581ba9c629ee00">sound_setup_listener</a></div><div class="ttdeci">void sound_setup_listener(vec3 pos, vec3 dir)</div><div class="ttdoc">Setup the position and the direction of the player&#39;s "hears". </div><div class="ttdef"><b>Definition:</b> Audio.c:87</div></div>
 <div class="ttc" id="_audio_8h_html_abe45427531e407a475741fa03c0aee5d"><div class="ttname"><a href="_audio_8h.html#abe45427531e407a475741fa03c0aee5d">sound_destroy</a></div><div class="ttdeci">void sound_destroy(Sound *sound)</div><div class="ttdoc">Destroy a sound. </div><div class="ttdef"><b>Definition:</b> Audio.c:139</div></div>
+<div class="ttc" id="_list_8h_html_aa76344711f2bc3017ba825e2824fc1df"><div class="ttname"><a href="_list_8h.html#aa76344711f2bc3017ba825e2824fc1df">typelist</a></div><div class="ttdeci">#define typelist(name, type)</div><div class="ttdoc">Define a generic list. </div><div class="ttdef"><b>Definition:</b> List.h:17</div></div>
 <div class="ttc" id="_audio_8h_html_aa9da8e404023599461184b556239225f"><div class="ttname"><a href="_audio_8h.html#aa9da8e404023599461184b556239225f">audio_quit</a></div><div class="ttdeci">void audio_quit()</div><div class="ttdoc">Exit OpenAL. </div><div class="ttdef"><b>Definition:</b> Audio.c:36</div></div>
 <div class="ttc" id="_audio_8h_html_a2233dc543f74f3fed163380e5db452c4"><div class="ttname"><a href="_audio_8h.html#a2233dc543f74f3fed163380e5db452c4">audio_init</a></div><div class="ttdeci">int audio_init()</div><div class="ttdoc">Initialize OpenAL. </div><div class="ttdef"><b>Definition:</b> Audio.c:16</div></div>
 <div class="ttc" id="_audio_8h_html_ab38c2c3bbae43505bc2d69a64bfdc9df"><div class="ttname"><a href="_audio_8h.html#ab38c2c3bbae43505bc2d69a64bfdc9df">sound_create</a></div><div class="ttdeci">Sound * sound_create(char *filename, float pitch, float gain)</div><div class="ttdoc">Allocate and load a sound. </div><div class="ttdef"><b>Definition:</b> Audio.c:119</div></div>
+<div class="ttc" id="_list_8h_html"><div class="ttname"><a href="_list_8h.html">List.h</a></div><div class="ttdoc">Some functions to use chained lists. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 4 2015 15:55:45 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 4 2015 22:27:44 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

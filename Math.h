@@ -31,7 +31,7 @@ typedef float vec3[3];
 typedef float vec4[4];
 
 /**
- * \fn static inline void vec2_zero(vec2 r)
+ * void vec2_zero(vec2 r)
  * \brief Create a 2D point initialized to 0
  *
  * \param r The point to be created
@@ -43,7 +43,7 @@ static inline void vec2_zero(vec2 r) {
 }
 
 /**
- * \fn static inline void vec2_add(vec2 r, vec2 const a, vec2 const b)
+ * void vec2_add(vec2 r, vec2 const a, vec2 const b)
  * \brief Add two 2D point and save the result in a third 2D point
  *
  * \param r The result
@@ -58,7 +58,7 @@ static inline void vec2_add(vec2 r, vec2 const a, vec2 const b)
 }
 
 /**
- * \fn static inline void vec2_sub(vec2 r, vec2 const a, vec2 const b)
+ * void vec2_sub(vec2 r, vec2 const a, vec2 const b)
  * \brief Subtract two 2D point and save the result in a third 2D point
  *
  * \param r The result
@@ -73,7 +73,7 @@ static inline void vec2_sub(vec2 r, vec2 const a, vec2 const b)
 }
 
 /**
- * \fn static inline void vec2_scale(vec2 r, vec2 const v, float const s)
+ * void vec2_scale(vec2 r, vec2 const v, float const s)
  * \brief Scale a 2D point and save the result in a second 2D point
  *
  * \param r The result
@@ -88,7 +88,7 @@ static inline void vec2_scale(vec2 r, vec2 const v, float const s)
 }
 
 /**
- * \fn static inline void vec2_create(vec2 r, float x, float y)
+ * void vec2_create(vec2 r, float x, float y)
  * \brief Create a 2D point with its two coordinates
  *
  * \param r The result
@@ -101,7 +101,7 @@ static inline void vec2_create(vec2 r, float x, float y) {
 }
 
 /**
- * \fn static inline void vec2_cpy(vec2 r, const vec2 a)
+ * void vec2_cpy(vec2 r, const vec2 a)
  * \brief Copy a 2D point
  *
  * \param r The result
@@ -113,7 +113,7 @@ static inline void vec2_cpy(vec2 r, const vec2 a) {
 }
 
 /**
- * \fn static inline float vec2_mul_inner(vec2 const a, vec2 const b)
+ * float vec2_mul_inner(vec2 const a, vec2 const b)
  * \brief Multiply the coordinates of two points
  *
  * \param a The first point
@@ -137,7 +137,7 @@ static inline float vec2_len(vec2 const v)
 }
 
 /**
- * \fn static inline void vec2_norm(vec2 r, vec2 const v)
+ * void vec2_norm(vec2 r, vec2 const v)
  * \brief Normalize a 2D point and save the result in a second 2D point
  *
  * \param r The result
@@ -150,7 +150,7 @@ static inline void vec2_norm(vec2 r, vec2 const v)
 }
 
 /**
- * \fn static inline void vec3_zero(vec3 r)
+ * void vec3_zero(vec3 r)
  * \brief Create a 3D point initialized to 0
  *
  * \param r The point to be created
@@ -162,7 +162,7 @@ static inline void vec3_zero(vec3 r) {
 }
 
 /**
- * \fn static inline void vec3_cpy(vec3 r, const vec3 a)
+ * void vec3_cpy(vec3 r, const vec3 a)
  * \brief Copy a 3D point
  *
  * \param r The result
@@ -175,7 +175,7 @@ static inline void vec3_cpy(vec3 r, const vec3 a) {
 }
 
 /**
- * \fn static inline void vec3_create(vec3 r, float x, float y, float z)
+ * void vec3_create(vec3 r, float x, float y, float z)
  * \brief Create a 3D point with its three coordinates
  *
  * \param r The result
@@ -190,7 +190,7 @@ static inline void vec3_create(vec3 r, float x, float y, float z) {
 }
 
 /**
- * \fn static inline void vec3_add(vec3 r, vec3 const a, vec3 const b)
+ * void vec3_add(vec3 r, vec3 const a, vec3 const b)
  * \brief Add two 3D point and save the result in a third 3D point
  *
  * \param r The result
@@ -205,7 +205,7 @@ static inline void vec3_add(vec3 r, vec3 const a, vec3 const b)
 }
 
 /**
- * \fn static inline void vec3_add(vec3 r, vec3 const a, vec3 const b)
+ * void vec3_add(vec3 r, vec3 const a, vec3 const b)
  * \brief Subtratc two 3D point and save the result in a third 3D point
  *
  * \param r The result
@@ -220,7 +220,7 @@ static inline void vec3_sub(vec3 r, vec3 const a, vec3 const b)
 }
 
 /**
- * \fn static inline void vec3_scale(vec3 r, vec3 const v, float const s)
+ * void vec3_scale(vec3 r, vec3 const v, float const s)
  * \brief Scale a 3D point and save the result in a second 3D point
  *
  * \param r The result
@@ -235,7 +235,7 @@ static inline void vec3_scale(vec3 r, vec3 const v, float const s)
 }
 
 /**
- * \fn static inline float vec3_mul_inner(vec3 const a, vec3 const b)
+ * float vec3_mul_inner(vec3 const a, vec3 const b)
  * \brief Multiply the coordinates of two points
  *
  * \param a The first point
@@ -260,7 +260,7 @@ static inline float vec3_len(vec3 const v)
 }
 
 /**
- * \fn static inline float vec3_angleY(vec3 const v)
+ * float vec3_angleY(vec3 const v)
  * \brief Return the angle of a 3D point
  *
  * \param v The point
@@ -276,7 +276,7 @@ static inline float vec3_angleY(vec3 const v)
 }
 
 /**
- * \fn static inline void vec3_norm(vec3 r, vec3 const v)
+ * void vec3_norm(vec3 r, vec3 const v)
  * \brief Normalize a 3D point and save the result in a second 3D point
  *
  * \param r The result
@@ -289,7 +289,7 @@ static inline void vec3_norm(vec3 r, vec3 const v)
 }
 
 /**
- * \fn static inline void vec3_rot(vec3 r, float s)
+ * void vec3_rot(vec3 r, float s)
  * \brief Rotate a 3D point by an angle
  *
  * \param r The result
@@ -302,7 +302,7 @@ static inline void vec3_rot(vec3 r, float s){
 }
 
 /**
- * \fn static inline void vec4_zero(vec4 r) {
+ * void vec4_zero(vec4 r) {
  * \brief Create a 4D point initialized to 0
  *
  * \param r The point to be created
@@ -314,7 +314,7 @@ static inline void vec4_zero(vec4 r) {
 }
 
 /**
- * \fn static inline void vec4_add(vec4 r, vec4 const a, vec4 const b)
+ * void vec4_add(vec4 r, vec4 const a, vec4 const b)
  * \brief Add two 4D point and save the result in a third 4D point
  *
  * \param r The result
@@ -329,7 +329,7 @@ static inline void vec4_add(vec4 r, vec4 const a, vec4 const b)
 }
 
 /**
- * \fn static inline void vec4_sub(vec4 r, vec4 const a, vec4 const b)
+ * void vec4_sub(vec4 r, vec4 const a, vec4 const b)
  * \brief Subtract two 4D point and save the result in a third 4D point
  *
  * \param r The result
@@ -344,7 +344,7 @@ static inline void vec4_sub(vec4 r, vec4 const a, vec4 const b)
 }
 
 /**
- * \fn static inline void vec4_scale(vec4 r, vec4 const v, float const s)
+ * void vec4_scale(vec4 r, vec4 const v, float const s)
  * \brief Scale a 4D point and save the result in a second 4D point
  *
  * \param r The result
@@ -359,7 +359,7 @@ static inline void vec4_scale(vec4 r, vec4 const v, float const s)
 }
 
 /**
- * \fn static inline float vec4_mul_inner(vec4 const a, vec4 const b)
+ * float vec4_mul_inner(vec4 const a, vec4 const b)
  * \brief Multiply the coordinates of two points
  *
  * \param a The first point
@@ -379,7 +379,7 @@ static inline float vec4_mul_inner(vec4 const a, vec4 const b)
 }
 
 /**
- * \fn static inline void vec4_mul(vec4 r, vec4 const a, vec4 const b, vec4 const c)
+ * void vec4_mul(vec4 r, vec4 const a, vec4 const b, vec4 const c)
  * \brief Multiply three points and save the result in an other point
  *
  * \param r The result
@@ -414,7 +414,7 @@ static inline float vec4_len(vec4 const v)
 }
 
 /**
- * \fn static inline void vec4_norm(vec4 r, vec4 const v)
+ * void vec4_norm(vec4 r, vec4 const v)
  * \brief Normalize a 4D point and save the result in a second 4D point
  *
  * \param r The result
@@ -427,7 +427,7 @@ static inline void vec4_norm(vec4 r, vec4 const v)
 }
 
 /**
- * \fn static inline void vec3_mul_cross(vec3 r, vec3 const a, vec3 const b)
+ * void vec3_mul_cross(vec3 r, vec3 const a, vec3 const b)
  * \brief Do the cross multiplication of two points and save the result in an other point
  *
  * \param r The result
@@ -451,7 +451,7 @@ static inline void vec3_reflect(vec3 r, vec3 const v, vec3 const n)
 }
 
 /**
- * \fn static inline void vec4_mul_cross(vec4 r, vec4 a, vec4 b)
+ * void vec4_mul_cross(vec4 r, vec4 a, vec4 b)
  * \brief Do the cross multiplication of two points and save the result in an other point
  *
  * \param r The result
@@ -483,7 +483,7 @@ static inline float* mat4x4_ptr(mat4x4 M) {
 }
 
 /**
- * \fn static inline void mat4x4_identity(mat4x4 M)
+ * void mat4x4_identity(mat4x4 M)
  * \brief Create an identity matrix
  *
  * \param M The matrix
@@ -498,7 +498,7 @@ static inline void mat4x4_identity(mat4x4 M)
 }
 
 /**
- * \fn static inline void mat4x4_dup(mat4x4 M, mat4x4 N)
+ * void mat4x4_dup(mat4x4 M, mat4x4 N)
  * \brief Duplicate a matrix
  *
  * \param M The duplicated matrix
@@ -514,7 +514,7 @@ static inline void mat4x4_dup(mat4x4 M, mat4x4 N)
 }
 
 /**
- * \fn static inline void mat4x4_row(vec4 r, mat4x4 M, int i)
+ * void mat4x4_row(vec4 r, mat4x4 M, int i)
  * \brief Change the row i of a matrix
  *
  * \param r The 4D point to insert instead of the row
@@ -530,7 +530,7 @@ static inline void mat4x4_row(vec4 r, mat4x4 M, int i)
 }
 
 /**
- * \fn static inline void mat4x4_col(vec4 r, mat4x4 M, int i)
+ * void mat4x4_col(vec4 r, mat4x4 M, int i)
  * \brief Change the column i of a matrix
  *
  * \param r The 4D point to insert instead of the column
@@ -546,7 +546,7 @@ static inline void mat4x4_col(vec4 r, mat4x4 M, int i)
 }
 
 /**
- * \fn static inline void mat4x4_transpose(mat4x4 M, mat4x4 N)
+ * void mat4x4_transpose(mat4x4 M, mat4x4 N)
  * \brief Transpose txo matrix
  *
  * \param M The first matrix
@@ -562,7 +562,7 @@ static inline void mat4x4_transpose(mat4x4 M, mat4x4 N)
 }
 
 /**
- * \fn static inline void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b)
+ * void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b)
  * \brief Add two matrices and save the result in a third matrix
  *
  * \param M The result
@@ -577,7 +577,7 @@ static inline void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b)
 }
 
 /**
- * \fn static inline void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b)
+ * void mat4x4_add(mat4x4 M, mat4x4 a, mat4x4 b)
  * \brief Subtract two matrices and save the result in a third matrix
  *
  * \param M The result
@@ -592,7 +592,7 @@ static inline void mat4x4_sub(mat4x4 M, mat4x4 a, mat4x4 b)
 }
 
 /**
- * \fn static inline void mat4x4_scale(mat4x4 M, mat4x4 a, float k)
+ * void mat4x4_scale(mat4x4 M, mat4x4 a, float k)
  * \brief Scale a matrix and save the result in a second matrix
  *
  * \param M The result
@@ -619,7 +619,7 @@ static inline void mat4x4_scale_aniso(mat4x4 M, mat4x4 a, float x, float y, floa
 }
 
 /**
- * \fn static inline void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b)
+ * void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b)
  * \brief Multiply two matrices and save the result in a third matrix
  *
  * \param M The result
@@ -639,7 +639,7 @@ static inline void mat4x4_mul(mat4x4 M, mat4x4 a, mat4x4 b)
 }
 
 /**
- * \fn static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, const vec4 v)
+ * void mat4x4_mul_vec4(vec4 r, mat4x4 M, const vec4 v)
  * \brief Multiply a matrix by a 4D point and save the result in a second matrix
  *
  * \param r The result
@@ -657,7 +657,7 @@ static inline void mat4x4_mul_vec4(vec4 r, mat4x4 M, const vec4 v)
 }
 
 /**
- * \fn static inline void mat4x4_mul_vec3(vec3 r, mat4x4 M, const vec3 v)
+ * void mat4x4_mul_vec3(vec3 r, mat4x4 M, const vec3 v)
  * \brief Multiply a matrix by a 3D point and save the result in a second matrix
  *
  * \param r The result
@@ -675,7 +675,7 @@ static inline void mat4x4_mul_vec3(vec3 r, mat4x4 M, const vec3 v)
 }
 
 /**
- * \fn static inline void mat4x4_translate(mat4x4 T, float x, float y, float z)
+ * void mat4x4_translate(mat4x4 T, float x, float y, float z)
  * \brief Translate a matrix
  *
  * \param M The Matrix
@@ -712,7 +712,7 @@ static inline void mat4x4_from_vec3_mul_outer(mat4x4 M, vec3 a, vec3 b)
 
 
 /**
- * \fn static inline void mat4x4_rotate(mat4x4 R, mat4x4 M, float x, float y, float z, float angle)
+ * void mat4x4_rotate(mat4x4 R, mat4x4 M, float x, float y, float z, float angle)
  * \brief Rotate a matrix
  *
  * \param R The result
@@ -758,7 +758,7 @@ static inline void mat4x4_rotate(mat4x4 R, mat4x4 M, float x, float y, float z, 
 }
 
 /**
- * \fn static inline void mat4x4_rotate_X(mat4x4 Q, mat4x4 M, float angle)
+ * void mat4x4_rotate_X(mat4x4 Q, mat4x4 M, float angle)
  * \brief Rotate a matrix on the X
  *
  * \param Q The result
@@ -781,7 +781,7 @@ static inline void mat4x4_rotate_X(mat4x4 Q, mat4x4 M, float angle)
 }
 
 /**
- * \fn static inline void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle)
+ * void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle)
  * \brief Rotate a matrix on the Y
  *
  * \param Q The result
@@ -804,7 +804,7 @@ static inline void mat4x4_rotate_Y(mat4x4 Q, mat4x4 M, float angle)
 }
 
 /**
- * \fn static inline void mat4x4_rotate_Z(mat4x4 Q, mat4x4 M, float angle)
+ * void mat4x4_rotate_Z(mat4x4 Q, mat4x4 M, float angle)
  * \brief Rotate a matrix on the Z
  *
  * \param Q The result
@@ -827,7 +827,7 @@ static inline void mat4x4_rotate_Z(mat4x4 Q, mat4x4 M, float angle)
 }
 
 /**
- * \fn static inline void mat4x4_invert(mat4x4 T, mat4x4 M)
+ * void mat4x4_invert(mat4x4 T, mat4x4 M)
  * \brief Invert a matrix
  *
  * \param T The result
@@ -878,7 +878,7 @@ static inline void mat4x4_invert(mat4x4 T, mat4x4 M)
 }
 
 /**
- * \fn static inline void mat4x4_orthonormalize(mat4x4 R, mat4x4 M)
+ * void mat4x4_orthonormalize(mat4x4 R, mat4x4 M)
  * \brief Orthonormalize a matrix
  *
  * \param R The result
@@ -944,7 +944,7 @@ static inline void mat4x4_ortho(mat4x4 M, float l, float r, float b, float t, fl
 }
 
 /**
- * \fn static inline void mat4x4_perspective(mat4x4 m, float y_fov, float aspect, float n, float f)
+ * void mat4x4_perspective(mat4x4 m, float y_fov, float aspect, float n, float f)
  * \brief Transform a matrix to create the perspective
  *
  * \param m The Matrix
@@ -981,7 +981,7 @@ static inline void mat4x4_perspective(mat4x4 m, float y_fov, float aspect, float
 }
 
 /**
- * \fn static inline void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 )
+ * void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 )
  * \brief Transform a matrix to create the perspective
  *
  * \param m The Matrix
@@ -1036,7 +1036,7 @@ typedef float quat[4];
 #define quat_norm vec4_norm
 
 /**
- * \fn static inline void quat_scale(quat r, quat v, float s)
+ * void quat_scale(quat r, quat v, float s)
  * \brief Scale a quaternion and save the result in a second quaternion
  *
  * \param r The result
@@ -1051,7 +1051,7 @@ static inline void quat_scale(quat r, quat v, float s)
 }
 
 /**
- * \fn static inline void quat_create(quat q, vec3 vec, float angle)
+ * void quat_create(quat q, vec3 vec, float angle)
  * \brief Create a quaternion
  *
  * \param q The quaternion to be created
@@ -1074,7 +1074,7 @@ static inline void quat_create(quat q, vec3 vec, float angle)
 }
 
 /**
- * \fn static inline void mat4x4_identity(mat4x4 M)
+ * void mat4x4_identity(mat4x4 M)
  * \brief Create an identity quaternion
  *
  * \param q The quaternion
@@ -1087,7 +1087,7 @@ static inline void quat_identity(quat q)
 }
 
 /**
- * \fn static inline void quat_add(quat r, quat a, quat b)
+ * void quat_add(quat r, quat a, quat b)
  * \brief Add two quaternions and save the result in a third quaternion
  *
  * \param r The result
@@ -1102,7 +1102,7 @@ static inline void quat_add(quat r, quat a, quat b)
 }
 
 /**
- * \fn static inline void quat_add(quat r, quat a, quat b)
+ * void quat_add(quat r, quat a, quat b)
  * \brief Subtract two quaternions and save the result in a third quaternion
  *
  * \param r The result
@@ -1117,7 +1117,7 @@ static inline void quat_sub(quat r, quat a, quat b)
 }
 
 /**
- * \fn static inline void quat_add(quat r, quat a, quat b)
+ * void quat_add(quat r, quat a, quat b)
  * \brief Multiply two quaternions and save the result in a third quaternion
  *
  * \param r The result
@@ -1144,7 +1144,7 @@ static inline void quat_mul(quat r, quat p, quat q)
 }
 
 /**
- * \fn static inline float quat_inner_product(quat a, quat b)
+ * float quat_inner_product(quat a, quat b)
  * \brief Multiply the coordinates of two quaternions
  *
  * \param a The first quaternions
@@ -1173,7 +1173,7 @@ static inline void quat_conj(quat r, quat q)
 }
 
 /**
- * \fn static inline void quat_mul_vec3(vec3 r, quat q, vec3 v)
+ * void quat_mul_vec3(vec3 r, quat q, vec3 v)
  * \brief Multiply a quaternion by a 3D point and save the result in a second quaternion
  *
  * \param r The result
@@ -1191,7 +1191,7 @@ static inline void quat_mul_vec3(vec3 r, quat q, vec3 v)
 }
 
 /**
- * \fn static inline void mat4x4_from_quat(mat4x4 M, quat q)
+ * void mat4x4_from_quat(mat4x4 M, quat q)
  * \brief Create a matrix from a quaternion
  *
  * \param M The Matrix
@@ -1229,7 +1229,7 @@ static inline void mat4x4_from_quat(mat4x4 M, quat q)
 }
 
 /**
- * \fn static inline void mat4x4o_mul_quat(mat4x4 R, mat4x4 M, quat q)
+ * void mat4x4o_mul_quat(mat4x4 R, mat4x4 M, quat q)
  * \brief Multiply a matrix by a quaternion and save the result in a second matrix
  *
  * \param r The result
@@ -1250,7 +1250,7 @@ static inline void mat4x4o_mul_quat(mat4x4 R, mat4x4 M, quat q)
 
 
 /**
- * \fn static inline void quat_from_mat4x4(quat q, mat4x4 M)
+ * void quat_from_mat4x4(quat q, mat4x4 M)
  * \brief Create a quaternion from a matrix
  *
  * \param q The quaternion

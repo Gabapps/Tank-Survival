@@ -60,7 +60,7 @@ int input_keypressed(char* nom_control);
 
 
 /**
- * \fn int input_keypressed(char*)
+ * \fn int input_keypressed_index(int key)
  * \brief Return true if the key is pressed (depend of the previous input_update)
  *
  * \param key[in] The index number of the key

@@ -90,9 +90,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define RESSOURCES_H_</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_game_8h.html">Game.h</a>&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;typelist(mesh, <a class="code" href="struct_mesh.html">Mesh</a>*);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;typelist(shader, <a class="code" href="struct_shader.html">Shader</a>*);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;typelist(texture, <a class="code" href="struct_texture.html">Texture</a>*);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<a class="code" href="_list_8h.html#aa76344711f2bc3017ba825e2824fc1df">typelist</a>(mesh, <a class="code" href="struct_mesh.html">Mesh</a>*);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="_list_8h.html#aa76344711f2bc3017ba825e2824fc1df">typelist</a>(shader, <a class="code" href="struct_shader.html">Shader</a>*);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<a class="code" href="_list_8h.html#aa76344711f2bc3017ba825e2824fc1df">typelist</a>(texture, <a class="code" href="struct_texture.html">Texture</a>*);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {MESH_TANK, MESH_TANK_DAMAGED, MESH_TANK_DEAD, MESH_WALL, MESH_ANTICHAR, MESH_MISSILE, MESH_GROUND, MESH_SKY, MESH_EXPLOSION, MESH_ITEMS_SPEED_M, MESH_ITEMS_SPEED_L, MESH_ITEMS_FIRE_M, MESH_ITEMS_FIRE_L, MESH_ITEMS_LASER_M, MESH_ITEMS_LASER} Mesh_ID;</div>
@@ -110,31 +110,32 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<a class="code" href="struct_ressources.html">Ressources</a> Ressource;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//Initialize ressources lists</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">void</span> ressources_init();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//Load all meshes, textures and shaders from the &quot;Scenes/{Name of the current scene).scene&quot; file</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> ressources_load();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//Get a shader from ID</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="struct_shader.html">Shader</a>* ressources_get_shader(Shader_ID a);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//Get a mesh from ID</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<a class="code" href="struct_mesh.html">Mesh</a>* ressources_get_mesh(Mesh_ID a);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//Get a texture from ID</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<a class="code" href="struct_texture.html">Texture</a>* ressources_get_texture(Texture_ID a);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* RESSOURCES_H_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_ressources_8h.html#ac5c8859e992ae87511543190c3005e3e">ressources_init</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_ressources_8h.html#ad1fc65462cb33c412afeff43c4b31ff0">ressources_load</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<a class="code" href="struct_shader.html">Shader</a>* <a class="code" href="_ressources_8h.html#a217306bf82a67cde72a5b286be2ba3bf">ressources_get_shader</a>(Shader_ID a);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="struct_mesh.html">Mesh</a>* <a class="code" href="_ressources_8h.html#a91501a5c265fa019bfa7447619bf90de">ressources_get_mesh</a>(Mesh_ID a);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<a class="code" href="struct_texture.html">Texture</a>* <a class="code" href="_ressources_8h.html#aa0617f71962af7f284dbf209a4f78d5c">ressources_get_texture</a>(Texture_ID a);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* RESSOURCES_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="_ressources_8h_html_a91501a5c265fa019bfa7447619bf90de"><div class="ttname"><a href="_ressources_8h.html#a91501a5c265fa019bfa7447619bf90de">ressources_get_mesh</a></div><div class="ttdeci">Mesh * ressources_get_mesh(Mesh_ID a)</div><div class="ttdoc">Get a mesh from ID. </div><div class="ttdef"><b>Definition:</b> Ressources.c:86</div></div>
 <div class="ttc" id="struct_ressources_html"><div class="ttname"><a href="struct_ressources.html">Ressources</a></div><div class="ttdef"><b>Definition:</b> Ressources.h:23</div></div>
+<div class="ttc" id="_ressources_8h_html_aa0617f71962af7f284dbf209a4f78d5c"><div class="ttname"><a href="_ressources_8h.html#aa0617f71962af7f284dbf209a4f78d5c">ressources_get_texture</a></div><div class="ttdeci">Texture * ressources_get_texture(Texture_ID a)</div><div class="ttdoc">Get a texture from ID. </div><div class="ttdef"><b>Definition:</b> Ressources.c:98</div></div>
 <div class="ttc" id="struct_shader_html"><div class="ttname"><a href="struct_shader.html">Shader</a></div><div class="ttdef"><b>Definition:</b> Shader.h:29</div></div>
+<div class="ttc" id="_ressources_8h_html_ac5c8859e992ae87511543190c3005e3e"><div class="ttname"><a href="_ressources_8h.html#ac5c8859e992ae87511543190c3005e3e">ressources_init</a></div><div class="ttdeci">void ressources_init()</div><div class="ttdoc">Initialize ressources lists. </div><div class="ttdef"><b>Definition:</b> Ressources.c:10</div></div>
+<div class="ttc" id="_ressources_8h_html_a217306bf82a67cde72a5b286be2ba3bf"><div class="ttname"><a href="_ressources_8h.html#a217306bf82a67cde72a5b286be2ba3bf">ressources_get_shader</a></div><div class="ttdeci">Shader * ressources_get_shader(Shader_ID a)</div><div class="ttdoc">Get a shader from ID. </div><div class="ttdef"><b>Definition:</b> Ressources.c:74</div></div>
 <div class="ttc" id="struct_texture_html"><div class="ttname"><a href="struct_texture.html">Texture</a></div><div class="ttdef"><b>Definition:</b> Texture.h:16</div></div>
+<div class="ttc" id="_ressources_8h_html_ad1fc65462cb33c412afeff43c4b31ff0"><div class="ttname"><a href="_ressources_8h.html#ad1fc65462cb33c412afeff43c4b31ff0">ressources_load</a></div><div class="ttdeci">void ressources_load()</div><div class="ttdoc">Load all meshes, textures and shaders from the "Scenes/{Name of the current scene).scene" file. </div><div class="ttdef"><b>Definition:</b> Ressources.c:17</div></div>
 <div class="ttc" id="struct_mesh_html"><div class="ttname"><a href="struct_mesh.html">Mesh</a></div><div class="ttdef"><b>Definition:</b> Mesh.h:21</div></div>
+<div class="ttc" id="_list_8h_html_aa76344711f2bc3017ba825e2824fc1df"><div class="ttname"><a href="_list_8h.html#aa76344711f2bc3017ba825e2824fc1df">typelist</a></div><div class="ttdeci">#define typelist(name, type)</div><div class="ttdoc">Define a generic list. </div><div class="ttdef"><b>Definition:</b> List.h:17</div></div>
 <div class="ttc" id="_game_8h_html"><div class="ttname"><a href="_game_8h.html">Game.h</a></div><div class="ttdoc">The global Game structure centralizes the scenes and provides functions to switch between them...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 4 2015 15:55:45 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 4 2015 22:27:44 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

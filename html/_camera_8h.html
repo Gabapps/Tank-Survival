@@ -90,11 +90,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 
-<p>A camera is the mathematical positioning and perspective representation of the 3D world camera.  
+<p>A <a class="el" href="struct_camera.html">Camera</a> is the mathematical positioning and perspective representation of the 3D world camera.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;Transform.h&quot;</code><br />
-<code>#include &quot;Window.h&quot;</code><br />
-<code>#include &quot;Math.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_transform_8h_source.html">Transform.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_window_8h_source.html">Window.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_math_8h_source.html">Math.h</a>&quot;</code><br />
 </div>
 <p><a href="_camera_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -111,24 +111,121 @@ typedef struct <a class="el" href="struct_camera.html">Camera</a>&#160;</td><td 
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:abec2d947bb3cc460adecbde05ab8ef4a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="abec2d947bb3cc460adecbde05ab8ef4a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>camera_init</b> (<a class="el" href="struct_camera.html">Camera</a> *cam)</td></tr>
+<tr class="memitem:abec2d947bb3cc460adecbde05ab8ef4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_camera_8h.html#abec2d947bb3cc460adecbde05ab8ef4a">camera_init</a> (<a class="el" href="struct_camera.html">Camera</a> *cam)</td></tr>
+<tr class="memdesc:abec2d947bb3cc460adecbde05ab8ef4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialize the perspective and the view at the origin of the world  <a href="#abec2d947bb3cc460adecbde05ab8ef4a">More...</a><br /></td></tr>
 <tr class="separator:abec2d947bb3cc460adecbde05ab8ef4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dc7d7d6b3bd2d7ad6acdb17fc5415ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_camera_8h.html#a7dc7d7d6b3bd2d7ad6acdb17fc5415ce">camera_refresh_matrices</a> (<a class="el" href="struct_camera.html">Camera</a> *cam)</td></tr>
 <tr class="memdesc:a7dc7d7d6b3bd2d7ad6acdb17fc5415ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refresh the perspective and the view (in the transform) matrices.  <a href="#a7dc7d7d6b3bd2d7ad6acdb17fc5415ce">More...</a><br /></td></tr>
 <tr class="separator:a7dc7d7d6b3bd2d7ad6acdb17fc5415ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acffad0d480b92a7b184b42d10baa5909"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acffad0d480b92a7b184b42d10baa5909"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>camera_look_at</b> (<a class="el" href="struct_camera.html">Camera</a> *cam, vec3 pos, vec3 target, vec3 up)</td></tr>
+<tr class="memitem:acffad0d480b92a7b184b42d10baa5909"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_camera_8h.html#acffad0d480b92a7b184b42d10baa5909">camera_look_at</a> (<a class="el" href="struct_camera.html">Camera</a> *cam, vec3 pos, vec3 target, vec3 up)</td></tr>
+<tr class="memdesc:acffad0d480b92a7b184b42d10baa5909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the camera looking at target from pos.  <a href="#acffad0d480b92a7b184b42d10baa5909">More...</a><br /></td></tr>
 <tr class="separator:acffad0d480b92a7b184b42d10baa5909"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42bed90c6cbdb31684ec038b125526bd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a42bed90c6cbdb31684ec038b125526bd"></a>
-float *&#160;</td><td class="memItemRight" valign="bottom"><b>camera_direction</b> (<a class="el" href="struct_camera.html">Camera</a> *cam)</td></tr>
+<tr class="memitem:a42bed90c6cbdb31684ec038b125526bd"><td class="memItemLeft" align="right" valign="top">float *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_camera_8h.html#a42bed90c6cbdb31684ec038b125526bd">camera_direction</a> (<a class="el" href="struct_camera.html">Camera</a> *cam)</td></tr>
+<tr class="memdesc:a42bed90c6cbdb31684ec038b125526bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the direction of the camera.  <a href="#a42bed90c6cbdb31684ec038b125526bd">More...</a><br /></td></tr>
 <tr class="separator:a42bed90c6cbdb31684ec038b125526bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A camera is the mathematical positioning and perspective representation of the 3D world camera. </p>
+<div class="textblock"><p>A <a class="el" href="struct_camera.html">Camera</a> is the mathematical positioning and perspective representation of the 3D world camera. </p>
 <dl class="section author"><dt>Author</dt><dd>Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>1 Mar 2015 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a42bed90c6cbdb31684ec038b125526bd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float* camera_direction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_camera.html">Camera</a> *&#160;</td>
+          <td class="paramname"><em>cam</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the direction of the camera. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cam</td><td><a class="el" href="struct_camera.html">Camera</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="abec2d947bb3cc460adecbde05ab8ef4a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void camera_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_camera.html">Camera</a> *&#160;</td>
+          <td class="paramname"><em>cam</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>initialize the perspective and the view at the origin of the world </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cam</td><td><a class="el" href="struct_camera.html">Camera</a> to initialize </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="acffad0d480b92a7b184b42d10baa5909"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void camera_look_at </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_camera.html">Camera</a> *&#160;</td>
+          <td class="paramname"><em>cam</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec3&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec3&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">vec3&#160;</td>
+          <td class="paramname"><em>up</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make the camera looking at target from pos. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cam</td><td><a class="el" href="struct_camera.html">Camera</a> to move </td></tr>
+    <tr><td class="paramname">pos</td><td>Position of the camera </td></tr>
+    <tr><td class="paramname">target</td><td>Target of the camera </td></tr>
+    <tr><td class="paramname">up</td><td>Up orientation of the camera </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a7dc7d7d6b3bd2d7ad6acdb17fc5415ce"></a>
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +253,7 @@ float *&#160;</td><td class="memItemRight" valign="bottom"><b>camera_direction</
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 4 2015 15:55:45 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 4 2015 22:27:44 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

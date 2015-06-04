@@ -96,8 +96,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;GL/glew.h&gt;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;Window.h&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;Controls.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_window_8h.html">Window.h</a>&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_controls_8h.html">Controls.h</a>&quot;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">void</span> <a class="code" href="_input_8h.html#aaade2c6304546a4520ea8c4b0ddcee98">input_update</a>();</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
@@ -112,19 +112,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">int</span> <a class="code" href="_input_8h.html#a3bf20530299b1bf4cf09907aa045c231">input_keypressed</a>(<span class="keywordtype">char</span>* nom_control);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">int</span> input_keypressed_index(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">int</span> <a class="code" href="_input_8h.html#a817870c0f415b923e0eecbe392c7e011">input_keypressed_index</a>(<span class="keywordtype">int</span> key);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* INPUT_H_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="_input_8h_html_a3bf20530299b1bf4cf09907aa045c231"><div class="ttname"><a href="_input_8h.html#a3bf20530299b1bf4cf09907aa045c231">input_keypressed</a></div><div class="ttdeci">int input_keypressed(char *nom_control)</div><div class="ttdoc">Return true if the key is pressed (depend of the previous input_update) </div><div class="ttdef"><b>Definition:</b> Input.c:51</div></div>
 <div class="ttc" id="_input_8h_html_a9db2d68163c34a8dfd79413dbcd037d3"><div class="ttname"><a href="_input_8h.html#a9db2d68163c34a8dfd79413dbcd037d3">input_get_controls_index</a></div><div class="ttdeci">Controls * input_get_controls_index(int key_number)</div><div class="ttdoc">Check the status of the key from its index number in the Controls structure. </div><div class="ttdef"><b>Definition:</b> Input.c:46</div></div>
 <div class="ttc" id="_input_8h_html_aaade2c6304546a4520ea8c4b0ddcee98"><div class="ttname"><a href="_input_8h.html#aaade2c6304546a4520ea8c4b0ddcee98">input_update</a></div><div class="ttdeci">void input_update()</div><div class="ttdoc">Check if the useful keys are pressed or not and update the Controls structure. </div><div class="ttdef"><b>Definition:</b> Input.c:12</div></div>
+<div class="ttc" id="_window_8h_html"><div class="ttname"><a href="_window_8h.html">Window.h</a></div><div class="ttdoc">The global Window module contains some functions to manipulate windows. </div></div>
 <div class="ttc" id="struct_controls_html"><div class="ttname"><a href="struct_controls.html">Controls</a></div><div class="ttdef"><b>Definition:</b> Controls.h:21</div></div>
+<div class="ttc" id="_input_8h_html_a817870c0f415b923e0eecbe392c7e011"><div class="ttname"><a href="_input_8h.html#a817870c0f415b923e0eecbe392c7e011">input_keypressed_index</a></div><div class="ttdeci">int input_keypressed_index(int key)</div><div class="ttdoc">Return true if the key is pressed (depend of the previous input_update) </div><div class="ttdef"><b>Definition:</b> Input.c:56</div></div>
 <div class="ttc" id="_input_8h_html_a007b5ef84e407b3e1c12d489288fa48a"><div class="ttname"><a href="_input_8h.html#a007b5ef84e407b3e1c12d489288fa48a">input_get_controls</a></div><div class="ttdeci">Controls * input_get_controls(char *nom_control)</div><div class="ttdoc">Check the status of the key from its name in the Controls structure. </div><div class="ttdef"><b>Definition:</b> Input.c:32</div></div>
+<div class="ttc" id="_controls_8h_html"><div class="ttname"><a href="_controls_8h.html">Controls.h</a></div><div class="ttdoc">The Controls structure stock the states of some keys. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jun 4 2015 15:55:45 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jun 4 2015 22:27:44 for Tank Survival by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
