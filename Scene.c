@@ -9,12 +9,7 @@
 
 list_so* so_to_destroy;
 
-/**
- * \fn Scene* scene_create()
- * \brief Create Scene
- *
- * \param name The name of the scene
- */
+
 Scene* scene_create(char* name)
 {
 	Scene* new_scene = (Scene*)malloc(sizeof(Scene));
@@ -37,12 +32,7 @@ Scene* scene_create(char* name)
 }
 
 
-/**
- * \fn void scene_destroy(Scene* scene)
- * \brief Destroy the scene
- *
- * \param scene The scene to destroy
- */
+
 void scene_destroy(Scene* scene)
 {
 	scene_destroy_content(scene);
@@ -78,13 +68,6 @@ void scene_destroy_content(Scene* scene) {
 }
 
 
-/**
- * \fn void scene_setup(Scene* scene)
- * \brief Setup the scene
- *
- * \param scene The scene to setup
- */
-
 void scene_setup(Scene* scene)
 {
 	if(so_to_destroy) list_so_free(so_to_destroy);
@@ -104,13 +87,6 @@ void scene_setup(Scene* scene)
 }
 
 
-
-/**
- * \fn void scene_run(Scene* scene)
- * \brief Run the scene
- *
- * \param scene The scene to run
- */
 
 void scene_run(Scene* scene)
 {
@@ -158,13 +134,6 @@ void scene_draw(Scene* scene) {
 }
 
 
-/**
- * \fn void scene_add_so(Scene* scene, SceneObject* so)
- * \brief Add a sceneObject to the scene
- *
- * \param scene The scene
- * \param so The sceneObject to add in the scene
- */
 void scene_add_so(Scene* scene, SceneObject* so)
 {
 	//Ajoute so dans le tableau sceneObject de la structure scene
@@ -174,15 +143,7 @@ void scene_add_so(Scene* scene, SceneObject* so)
 }
 
 
-/**
- * \fn int scene_delete_so(Scene* scene, SceneObject* so)
- * \brief Delete a sceneObject from the scene
- *
- * \param scene The scene
- * \param so The sceneObject to delete of the scene
- *
- * return The deleted sceneObject
- */
+
 void scene_delete_so(Scene* scene, SceneObject* so)
 {
 	list_so_put(so_to_destroy, so);

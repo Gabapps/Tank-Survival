@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['camera',['Camera',['../struct_camera.html',1,'']]],
-  ['controls',['Controls',['../struct_controls.html',1,'']]]
+  ['game_5fs',['Game_s',['../struct_game__s.html',1,'']]]
 ];
