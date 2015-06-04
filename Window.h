@@ -1,8 +1,8 @@
-/*
- * Window.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
+/**
+ * @file Window.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 March 2015
+ * @brief The global Window module contains some functions to manipulate windows
  */
 
 #ifndef WINDOW_H_
@@ -23,9 +23,34 @@ typedef struct Window_s{
 
 Window_s Window;
 
+/**
+ * \fn int window_open()
+ * \brief Initialize and open the window
+ *
+ * \return -1 if something went wrong, 0 otherwise
+ */
 int window_open();
+
+/**
+ * \fn int window_close()
+ * \brief Close a window
+ */
 void window_close();
+
+/**
+ * \fn float window_get_ratio()
+ * \brief Return the window's width/height ratio
+ *
+ * \return The window's width/height ratio
+ */
 float window_get_ratio();
+
+/**
+ * \fn float GLFWwindow* window_get()
+ * \brief Return a pointer to the window
+ *
+ * \return A pointer to the window
+ */
 GLFWwindow* window_get();
 
 #endif /* WINDOW_H_ */

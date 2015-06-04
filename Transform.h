@@ -4,12 +4,13 @@
  *  Created on: 1 mars 2015
  *      Author: Gabriel
  */
-
-/* A transform represents the positioning of a scene object or of a camera
- * The positioning is relative to the parent space if there are one or to the
- * world space if the parent is NULL.
- * A transform can also have several children.
+/**
+ * @file Transform.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 March 2015
+ * @brief A transform represents the positioning of a scene object or of a camera
  */
+/*
 
 #ifndef TRANSFORM_H_
 #define TRANSFORM_H_

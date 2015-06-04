@@ -1,8 +1,8 @@
-/*
- * SceneObject.h
- *
- *  Created on: 1 mars 2015
- *      Author: Gabriel
+/**
+ * @file SceneObject.h
+ * @author Ethel Marquer, Gabriel Lucas, Nicolas Kaczmarek, Maxime Peralta
+ * @date 1 March 2015
+ * @brief A SceneObject is a physical object which can be added to a scene
  */
 
 #ifndef SCENEOBJECT_H_

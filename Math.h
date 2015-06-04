@@ -14,6 +14,13 @@
  *
  *	0. You just DO WHAT THE FUCK YOU WANT TO.*/
 
+/**
+ * @file Math.h
+ * @author Wolfgang 'datenwolf' Draxinger
+ * @date 1 December 2004
+ * @brief Some functions to manipulate vectors and matrices
+ */
+
 #ifndef LINMATH_H
 #define LINMATH_H
 #include <stdio.h>
