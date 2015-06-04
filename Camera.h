@@ -32,15 +32,22 @@ void camera_init(Camera* cam);
 /**
  * \fn void camera_refresh_matrices(Camera* cam)
  * \brief Refresh the perspective and the view (in the transform) matrices.
- *
  * \param cam Camera to refresh.
  */
 void camera_refresh_matrices(Camera* cam);
 
-//Make the camera looking at target from pos
+/**
+ * \fn void camera_look_at(Camera* cam)
+ * \brief Make the camera looking at target from pos
+ * \param cam Camera
+ */
 void camera_look_at(Camera* cam, vec3 pos, vec3 target, vec3 up);
 
-//Return the direction of the camera
+/**
+ * \fn float* camera_direction(Camera* cam)
+ * \brief Return the direction of the camera
+ * \param cam Camera
+ */
 float* camera_direction(Camera* cam);
 
 #endif /* CAMERA_H_ */

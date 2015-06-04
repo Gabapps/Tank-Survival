@@ -29,19 +29,36 @@ typedef struct Ressources{
 
 Ressources Ressource;
 
-//Initialize ressources lists
+/**
+ * \fn void ressources_init()
+ * \brief Initialize ressources lists
+ */
+
 void ressources_init();
 
-//Load all meshes, textures and shaders from the "Scenes/{Name of the current scene).scene" file
+/**
+ * \fn void ressources_load()
+ * \brief Load all meshes, textures and shaders from the "Scenes/{Name of the current scene).scene" file
+ */
+
 void ressources_load();
 
-//Get a shader from ID
+/**
+ * \fn Shader* ressources_get_shader(Shader_ID a)
+ * \brief Get a shader from ID
+ */
 Shader* ressources_get_shader(Shader_ID a);
 
-//Get a mesh from ID
+/**
+ * \fn Mesh* ressources_get_mesh(Mesh_ID a)
+ * \brief Get a mesh from ID
+ */
 Mesh* ressources_get_mesh(Mesh_ID a);
 
-//Get a texture from ID
+/**
+ * \fn Texture* ressources_get_texture(Texture_ID a)
+ * \brief Get a texture from ID
+ */
 Texture* ressources_get_texture(Texture_ID a);
 
 #endif /* RESSOURCES_H_ */
